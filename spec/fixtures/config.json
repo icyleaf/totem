@@ -1,0 +1,22 @@
+{
+  "id": "0001",
+  "type": "donut",
+  "name": "Cake",
+  "ppu": 0.55,
+  "batters": {
+    "batter": [
+      {
+        "type": "Regular"
+      },
+      {
+        "type": "Chocolate"
+      },
+      {
+        "type": "Blueberry"
+      },
+      {
+        "type": "Devil's Food"
+      }
+    ]
+  }
+}

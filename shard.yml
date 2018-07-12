@@ -1,0 +1,9 @@
+name: totem
+version: 0.1.0
+
+authors:
+  - icyleaf <icyleaf.cn@gmail.com>
+
+crystal: 0.25.1
+
+license: MIT
