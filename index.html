@@ -232,14 +232,14 @@ r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pa
 
 <p>Load yaml file from file with path</p>
 
-<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_yaml <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
 r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
 r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
 r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
 
 <p>Load json file from file with multi-paths</p>
 
-<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_yaml <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>m <span class="s">&quot;./spec/fixtures&quot;</span>]
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>m <span class="s">&quot;./spec/fixtures&quot;</span>]
 r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
 r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
 r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
