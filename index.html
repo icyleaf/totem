@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.25.0">
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "";
+</script>
+
+  <meta id="repository-name" content="github.com/icyleaf/totem">
+  <title>README - github.com/icyleaf/totem</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false">
+    </div>
+
+    <div class="repository-links">
+      <a href="index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Char" data-name="char">
+      <a href="Char.html">Char</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Slice" data-name="slice(t)">
+      <a href="Slice.html">Slice</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem" data-name="totem">
+      <a href="Totem.html">Totem</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Any" data-name="totem::any">
+      <a href="Totem/Any.html">Any</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Any/Type" data-name="totem::any::type">
+      <a href="Totem/Any/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Exception" data-name="totem::exception">
+      <a href="Totem/Exception.html">Exception</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/NotFoundConfigFileError" data-name="totem::exception::notfoundconfigfileerror">
+      <a href="Totem/Exception/NotFoundConfigFileError.html">NotFoundConfigFileError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/NotFoundConfigKeyError" data-name="totem::exception::notfoundconfigkeyerror">
+      <a href="Totem/Exception/NotFoundConfigKeyError.html">NotFoundConfigKeyError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/UnsupportedConfigError" data-name="totem::exception::unsupportedconfigerror">
+      <a href="Totem/Exception/UnsupportedConfigError.html">UnsupportedConfigError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Reader" data-name="totem::reader">
+      <a href="Totem/Reader.html">Reader</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Utils" data-name="totem::utils">
+      <a href="Totem/Utils.html">Utils</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/BoolHelper" data-name="totem::utils::boolhelper">
+      <a href="Totem/Utils/BoolHelper.html">BoolHelper</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/FileHelper" data-name="totem::utils::filehelper">
+      <a href="Totem/Utils/FileHelper.html">FileHelper</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1>totem</h1>
+
+<p><a href="https://github.com/crystal-lang/crystal" target="_blank"><img src="https://img.shields.io/badge/language-crystal-776791.svg" alt="Language"/></a>
+<a href="https://github.com/icyleaf/totem/blob/master/CHANGELOG.md" target="_blank"><img src="https://img.shields.io/github/tag/icyleaf/totem.svg" alt="Tag"/></a>
+<a href="https://circleci.com/gh/icyleaf/totem" target="_blank"><img src="https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat" alt="Build Status"/></a></p>
+
+<p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper" target="_blank">viper</a>.</p>
+
+<p>&lt;!-- TOC --></p>
+
+<ul><li><a href="#why-totem" target="_blank">Why Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li><li><a href="#wirting-configuration" target="_blank">Wirting configuration</a></li></ul><li><a href="#contributing" target="_blank">Contributing</a></li><li><a href="#contributors" target="_blank">Contributors</a></li></ul>
+
+<p>&lt;!-- /TOC --></p>
+
+<h2>Why Totem?</h2>
+
+<p>Configuration file formats is always the problem, you want to focus on building awesome things. Totem is here to help with that.</p>
+
+<p>Totem has following features:</p>
+
+<ul><li>Load and parse a configuration file or string in JSON, YAML formats.</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide a mechanism to set override values for options specified through command line flags.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
+
+<p>Uses the following precedence order. Each item takes precedence over the item below it:</p>
+
+<ul><li>alias</li><li>explicit call to <code>set</code></li><li>config</li><li>default</li></ul>
+
+<h2>Installation</h2>
+
+<p>Add this to your application's <code>shard.yml</code>:</p>
+
+<pre><code class="language-yaml">dependencies:
+  totem:
+    github: icyleaf/totem</code></pre>
+
+<h2>Usage</h2>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span></code></pre>
+
+<h3>Operating configuration</h3>
+
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
+r.set_default <span class="s">&quot;name&quot;</span>, <span class="s">&quot;foo&quot;</span>
+r.get(<span class="s">&quot;name&quot;</span>).as_s <span class="c"># =&gt; &quot;foo&quot;</span>
+
+r.set(<span class="s">&quot;name&quot;</span>, <span class="s">&quot;bar&quot;</span>)
+r.register_alias(alias_key: <span class="s">&quot;key&quot;</span>, key: <span class="s">&quot;name&quot;</span>)
+r.get(<span class="s">&quot;name&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span>
+r.get(<span class="s">&quot;key&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
+
+<h3>Loading configuration</h3>
+
+<p>Support <code>JSON</code> and <code>YAML</code> data from raw stirng and file.</p>
+
+<h4>From raw string</h4>
+
+<p>Load yaml string</p>
+
+<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+Hacker: true
+name: steve
+hobbies:
+- skateboarding
+- snowboarding
+- go
+clothing:
+  jacket: leather
+  trousers: denim
+  pants:
+    size: large
+age: 35
+eyes : brown
+EOF</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+
+<p>Load json string</p>
+
+<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+{
+  &quot;id&quot;: &quot;0001&quot;,
+  &quot;type&quot;: &quot;donut&quot;,
+  &quot;name&quot;: &quot;Cake&quot;,
+  &quot;ppu&quot;: 0.55,
+  &quot;batters&quot;: {
+    &quot;batter&quot;: [
+      {
+        &quot;type&quot;: &quot;Regular&quot;
+      },
+      {
+        &quot;type&quot;: &quot;Chocolate&quot;
+      },
+      {
+        &quot;type&quot;: &quot;Blueberry&quot;
+      },
+      {
+        &quot;type&quot;: &quot;Devil&#39;s Food&quot;
+      }
+    ]
+  }
+}
+EOF</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.from_json raw
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+
+<h4>From file</h4>
+
+<p>Load yaml file from file with path</p>
+
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_yaml <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+
+<p>Load json file from file with multi-paths</p>
+
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_yaml <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>m <span class="s">&quot;./spec/fixtures&quot;</span>]
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+
+<h3>Wirting configuration</h3>
+
+<pre><code>raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+Hacker: true
+name: steve
+hobbies:
+- skateboarding
+- snowboarding
+- go
+clothing:
+  jacket: leather
+  trousers: denim
+  pants:
+    size: large
+age: 35
+eyes : brown
+EOF</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
+r.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Freda&quot;</span>)
+r.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
+r.write(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
+
+<h2>Todo</h2>
+
+<ul><li>[ ] Reading from environment variables</li><li>[ ] Serialize configuration to <code>Struct</code></li><li>[ ] Reading from INI, TOML and etc formatted files.</li><li>[ ] Reading from remote key-value database (redis or memcache)</li><li>[ ] Reading from remote config systems (etcd or Consul)</li></ul>
+
+<h2>Contributing</h2>
+
+<ol><li>Fork it (&lt;https://github.com/icyleaf/totem/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+
+<h2>Contributors</h2>
+
+<ul><li><a href="https://github.com/icyleaf" target="_blank">icyleaf</a> icyleaf - creator, maintainer</li></ul>
+</div>
+</body>
+</html>
