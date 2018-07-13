@@ -1,4 +1,4 @@
-# totem
+# Totem
 
 [![Language](https://img.shields.io/badge/language-crystal-776791.svg)](https://github.com/crystal-lang/crystal)
 [![Tag](https://img.shields.io/github/tag/icyleaf/totem.svg)](https://github.com/icyleaf/totem/blob/master/CHANGELOG.md)
@@ -15,7 +15,9 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Loading configuration](#loading-configuration)
     - [From raw string](#from-raw-string)
     - [From file](#from-file)
+  - [Serialization](#serialization)
   - [Wirting configuration](#wirting-configuration)
+- [Todo](#todo)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 
@@ -139,7 +141,7 @@ r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
 Load yaml file from file with path
 
 ```crystal
-r = Totem.from_yaml "./spec/fixtures/config.yaml"
+r = Totem.from_file "./spec/fixtures/config.yaml"
 r.get("Hacker").as_bool # => true
 r.get("age").as_i # => 35
 r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
@@ -148,15 +150,53 @@ r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
 Load json file from file with multi-paths
 
 ```crystal
-r = Totem.from_yaml "config.yaml", ["/etc", "."m "./spec/fixtures"]
+r = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
 r.get("Hacker").as_bool # => true
 r.get("age").as_i # => 35
 r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
 ```
 
+### Serialization
+
+Serialize configuration to `Struct`, at current stage you can pass a `JSON::Serializable` struct to mapping.
+
+```crystal
+struct Profile
+  include JSON::Serializable
+
+  property name : String
+  property hobbies : Array(String)
+  property age : Int32
+  property eyes : String
+end
+
+r = Totem.from_file "spec/fixtures/config.yaml"
+p = r.mapping(Profile)
+p.name      # => "steve"
+p.age       # => 35
+p.eyes      # => "brown"
+p.hobbies   # => ["skateboarding", "snowboarding", "go"]
+```
+
+Serialize configuration with part of key:
+
+```crystal
+struct Clothes
+  include JSON::Serializable
+
+  property jacket : String
+  property trousers : String
+  property pants : Hash(String, String)
+end
+
+r = Totem.from_file "spec/fixtures/config.yaml"
+c = r.mapping(Clothes, "clothing")
+# => Clothes(@jacket="leather", @pants={"size" => "large"}, @trousers="denim")
+```
+
 ### Wirting configuration
 
-```
+```crystal
 raw = <<-EOF
 Hacker: true
 name: steve

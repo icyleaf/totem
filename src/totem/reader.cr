@@ -82,28 +82,17 @@ module Totem
       @aliases[alias_key] = key
     end
 
-    # def set_env(key : String, value : String)
-    #   @env[env_key(key)] = value
-    # end
+    # Mapping JSON Serializable Only to Struct
+    #
+    # TODO: how to detect converter's ancestors was XXX::Serializable
+    def mapping(converter : _)
+      converter.from_json to_json
+    end
 
-    # def get_env(key : String) : String
-    #   ENV[key]? || ENV[env_key(key)]? || @env[env_key(key)]
-    # end
-
-    # def get_env?(key : String) : String?
-    #   new_key = env_key(key)
-    #   if ENV.has_key?(key)
-    #     ENV[key]
-    #   elsif ENV.has_key?(new_key)
-    #     ENV[new_key]
-    #   elsif @env.has_key?(new_key)
-    #     @env[new_key]
-    #   end
-    # end
-
-    # def env_prefix=(prefix : String)
-    #   @env_prefix = prefix.upcase
-    # end
+    def mapping(converter : _, key : String)
+      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") unless has_key?(key)
+      converter.from_json raw[key].to_json
+    end
 
     def read
       return unless file = find_config
@@ -167,16 +156,49 @@ module Totem
       File.open(file, mode) do |f|
         case extname
         when "yaml", "yml"
-          f.puts @config.to_yaml
+          f.puts raw.to_yaml
         when "json"
-          f.puts @config.to_json
+          f.puts raw.to_json
         end
       end
     end
 
+    # def set_env(key : String, value : String)
+    #   @env[env_key(key)] = value
+    # end
+
+    # def get_env(key : String) : String
+    #   ENV[key]? || ENV[env_key(key)]? || @env[env_key(key)]
+    # end
+
+    # def get_env?(key : String) : String?
+    #   new_key = env_key(key)
+    #   if ENV.has_key?(key)
+    #     ENV[key]
+    #   elsif ENV.has_key?(new_key)
+    #     ENV[new_key]
+    #   elsif @env.has_key?(new_key)
+    #     @env[new_key]
+    #   end
+    # end
+
+    # def env_prefix=(prefix : String)
+    #   @env_prefix = prefix.upcase
+    # end
+
     def debugging=(value : Bool)
       @logger.level = value ? Logger::DEBUG : Logger::ERROR
       @logging = value
+    end
+
+    # :nodoc:
+    def to_json(json)
+      raw.to_json(json)
+    end
+
+    # :nodoc:
+    def to_yaml(yaml)
+      raw.to_yaml(yaml)
     end
 
     private def find_config
@@ -227,6 +249,10 @@ module Totem
       else
         key
       end
+    end
+
+    private def raw
+      @defaults.merge(@config)
     end
 
     private def env_key(key : String)
