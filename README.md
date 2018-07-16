@@ -99,7 +99,7 @@ EOF
 r = Totem.from_yaml raw
 r.get("Hacker").as_bool # => true
 r.get("age").as_i # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
+r.get("clothing").as_h["pants"].as_h["size"].as_s # => "large"
 ```
 
 Load json string
@@ -131,9 +131,9 @@ raw = <<-EOF
 EOF
 
 r = Totem.from_json raw
-r.get("Hacker").as_bool # => true
-r.get("age").as_i # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
+r.get("name") # => "Cake"
+r.get("ppu") # => eq 0.55
+r.get("batters").as_h["batter"].as_a[0].as_h["type"] # => "Regular"
 ```
 
 #### From file
@@ -144,16 +144,16 @@ Load yaml file from file with path
 r = Totem.from_file "./spec/fixtures/config.yaml"
 r.get("Hacker").as_bool # => true
 r.get("age").as_i # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
+r.get("clothing").as_h["pants"].as_h["size"].as_s # => "large"
 ```
 
 Load json file from file with multi-paths
 
 ```crystal
 r = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
-r.get("Hacker").as_bool # => true
-r.get("age").as_i # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s.should # => "large"
+r.get("name") # => "Cake"
+r.get("ppu") # => eq 0.55
+r.get("batters").as_h["batter"].as_a[0].as_h["type"] # => "Regular"
 ```
 
 ### Serialization
