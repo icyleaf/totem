@@ -79,7 +79,7 @@ module Totem
     end
 
     def register_alias(alias_key : String, key : String)
-      @aliases[alias_key] = key
+      @aliases[alias_key.downcase] = key.downcase
     end
 
     # Mapping JSON Serializable Only to Struct
@@ -123,7 +123,7 @@ module Totem
       return unless data
 
       data.each do |key, value|
-        @config[key.to_s] = Any.new(value)
+        @config[key.to_s.downcase] = Any.new(value)
       end
     end
 

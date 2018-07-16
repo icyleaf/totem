@@ -29,7 +29,7 @@ describe Totem do
   describe "#from_yaml" do
     it "should parse" do
       r = Totem.from_yaml yaml_raw
-      r.get("Hacker").as_bool.should be_true
+      r.get("hacker").as_bool.should be_true
       r.get("age").as_i.should eq 35
       r.get("clothing").as_h["pants"].as_h["size"].as_s.should eq "large"
     end
@@ -45,7 +45,7 @@ describe Totem do
 
     it "of yaml" do
       r = Totem.parse yaml_raw, "yaml"
-      r.get("Hacker").as_bool.should be_true
+      r.get("hacker").as_bool.should be_true
       r.get("age").as_i.should eq 35
       r.get("clothing").as_h["pants"].as_h["size"].as_s.should eq "large"
     end
@@ -75,14 +75,14 @@ describe Totem do
       it "without paths" do
         file = File.join(fixture_path, "config.yaml")
         r = Totem.from_file file
-        r.get("Hacker").as_bool.should be_true
+        r.get("hacker").as_bool.should be_true
         r.get("age").as_i.should eq 35
         r.get("clothing").as_h["pants"].as_h["size"].as_s.should eq "large"
       end
 
       it "with paths" do
         r = Totem.from_file "config.yaml", [".", fixture_path, "~/"]
-        r.get("Hacker").as_bool.should be_true
+        r.get("hacker").as_bool.should be_true
         r.get("age").as_i.should eq 35
         r.get("clothing").as_h["pants"].as_h["size"].as_s.should eq "large"
       end
