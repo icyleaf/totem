@@ -194,7 +194,7 @@ EOF</span>
 r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
 r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
 r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
-r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
 
 <p>Load json string</p>
 
@@ -224,9 +224,9 @@ r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pa
 EOF</span>
 
 r <span class="o">=</span> <span class="t">Totem</span>.from_json raw
-r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
-r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
-r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Cake&quot;</span>
+r.get(<span class="s">&quot;ppu&quot;</span>) <span class="c"># =&gt; eq 0.55</span>
+r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>] <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
 
 <h4>From file</h4>
 
@@ -235,14 +235,14 @@ r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pa
 <pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
 r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
 r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
-r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
 
 <p>Load json file from file with multi-paths</p>
 
 <pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>, <span class="s">&quot;./spec/fixtures&quot;</span>]
-r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
-r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
-r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s.should <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
+r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Cake&quot;</span>
+r.get(<span class="s">&quot;ppu&quot;</span>) <span class="c"># =&gt; eq 0.55</span>
+r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>] <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
 
 <h3>Serialization</h3>
 
