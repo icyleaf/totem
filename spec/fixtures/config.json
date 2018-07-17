@@ -2,7 +2,9 @@
   "id": "0001",
   "type": "donut",
   "name": "Cake",
+  "gluten_free": false,
   "ppu": 0.55,
+  "duty_free": "no",
   "batters": {
     "batter": [
       {

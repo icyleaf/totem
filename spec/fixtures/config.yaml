@@ -9,5 +9,6 @@ clothing:
   trousers: denim
   pants:
     size: large
+gender: yes
 age: 35
 eyes : brown

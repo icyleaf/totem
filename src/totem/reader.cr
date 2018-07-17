@@ -53,7 +53,7 @@ module Totem
     end
 
     def has_key?(key : String)
-      @aliases.has_key?(key) || @config.has_key?(key) || @defaults.has_key?(key)
+      find(key) ? true : false
     end
 
     def set_default(key : String, value : T) forall T
@@ -65,17 +65,27 @@ module Totem
     end
 
     def get(key : String) : Any
+      if value = find(key)
+        return value
+      end
+
+      raise NotFoundConfigKeyError.new("Not found config: #{key}")
+    end
+
+    private def find(key : String) : Any?
       key = alias_key(key)
 
       if value = @config[key]?
         return value
       end
 
+      if value = ENV[env_key(key)]?
+        return Any.new(value)
+      end
+
       if value = @defaults[key]?
         return value
       end
-
-      raise NotFoundConfigKeyError.new("Not found config: #{key}")
     end
 
     def register_alias(alias_key : String, key : String)
@@ -167,24 +177,9 @@ module Totem
     #   @env[env_key(key)] = value
     # end
 
-    # def get_env(key : String) : String
-    #   ENV[key]? || ENV[env_key(key)]? || @env[env_key(key)]
-    # end
-
-    # def get_env?(key : String) : String?
-    #   new_key = env_key(key)
-    #   if ENV.has_key?(key)
-    #     ENV[key]
-    #   elsif ENV.has_key?(new_key)
-    #     ENV[new_key]
-    #   elsif @env.has_key?(new_key)
-    #     @env[new_key]
-    #   end
-    # end
-
-    # def env_prefix=(prefix : String)
-    #   @env_prefix = prefix.upcase
-    # end
+    def env_prefix=(prefix : String)
+      @env_prefix = prefix.upcase
+    end
 
     def debugging=(value : Bool)
       @logger.level = value ? Logger::DEBUG : Logger::ERROR
@@ -243,22 +238,17 @@ module Totem
       @aliases[key]? ? @aliases[key] : key
     end
 
-    private def merge_env_key(key : String)
-      if (prefix = @env_prefix) && !prefix.empty?
-        "#{prefix}_#{key}"
-      else
-        key
-      end
-    end
-
     private def raw
       @defaults.merge(@config)
     end
 
     private def env_key(key : String)
-      key.sub(/^[A-Z]/) { |char| char.downcase }
-        .gsub(/[A-Z]/) { |char| "_#{char}" }
-        .upcase
+      key = key.snakecase.upcase
+      if (prefix = @env_prefix) && !prefix.empty?
+        "#{prefix}_#{key}"
+      else
+        key
+      end
     end
 
     private def default_logger_formatter

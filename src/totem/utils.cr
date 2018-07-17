@@ -9,14 +9,6 @@ module Totem
       end
     end
 
-    module BoolHelper
-      def as_bool?(value : String)
-        value = value.downcase
-        value == "true" ? true : (value == "false" ? false : nil)
-      end
-    end
-
-    extend BoolHelper
     extend FileHelper
   end
 end

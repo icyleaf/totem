@@ -58,21 +58,19 @@ module Totem
       end
     end
 
-    def as_bool? : Bool?
+    def as_bool?(strict = true) : Bool?
       case object = @raw
-      when Bool, JSON::Any
-        as_bool
-      when YAML::Any
-        Utils.as_bool?(object.to_s)
+      when Bool, JSON::Any, YAML::Any
+        as_bool(strict)
       end
+    rescue TypeCastError
+      nil
     end
 
-    def as_bool : Bool
+    def as_bool(strict = true) : Bool
       case object = @raw
-      when JSON::Any
-        object.as_bool
-      when YAML::Any
-        value = Utils.as_bool?(object.to_s)
+      when JSON::Any, YAML::Any
+        value = object.to_s.to_bool(strict)
         raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
         value
       else
