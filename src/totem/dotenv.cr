@@ -1,10 +1,11 @@
 module Totem
+  # `Dotenv` is a .env file parser
   class Dotenv
     def self.from_file(file : String)
       new(File.open(file))
     end
 
-    def self.parse(raw : String)
+    def self.parse(raw : String | IO)
       new(raw)
     end
 

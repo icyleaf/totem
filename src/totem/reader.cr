@@ -4,7 +4,7 @@ require "logger"
 
 module Totem
   class Reader
-    SUPPORTED_EXTS = %w(yaml yml json)
+    SUPPORTED_EXTS = %w(yaml yml json env)
 
     def self.from_file(file : String, paths : Array(String)? = nil)
       config_name = File.basename(file, File.extname(file))
@@ -29,21 +29,26 @@ module Totem
       instance
     end
 
+    getter config_file : String?
     property config_paths
     property config_name
     property config_type
 
-    getter config_file : String?
     getter env_prefix : String?
 
-    @config = Hash(String, Any).new
-    @defaults = Hash(String, Any).new
-    @env = Hash(String, String).new
     @aliases = Hash(String, String).new
+    @config = Hash(String, Any).new
+    @env = Hash(String, String).new
+    @defaults = Hash(String, Any).new
 
-    def initialize(@config_name = "config", @config_type : String? = nil, @config_paths : Array(String) = [] of String)
+    def initialize(@config_name = "config", @config_type : String? = nil, @config_paths : Array(String) = [] of String,
+                   @automatic_env = false)
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @logging = false
+    end
+
+    def set_default(key : String, value : T) forall T
+      @defaults[key] = Any.new(value)
     end
 
     def set_defaults(defaults : Hash(String, _))
@@ -52,12 +57,20 @@ module Totem
       end
     end
 
-    def has_key?(key : String)
-      find(key) ? true : false
+    def []=(key : String, value : T) forall T
+      set(key, value)
     end
 
-    def set_default(key : String, value : T) forall T
-      @defaults[key] = Any.new(value)
+    def [](key : String) : Any
+      get(key)
+    end
+
+    def []?(key : String) : Any
+      find(key)
+    end
+
+    def has_key?(key : String)
+      find(key) ? true : false
     end
 
     def set(key : String, value : T) forall T
@@ -72,36 +85,20 @@ module Totem
       raise NotFoundConfigKeyError.new("Not found config: #{key}")
     end
 
-    private def find(key : String) : Any?
-      key = alias_key(key)
-
-      if value = @config[key]?
+    def fetch(key : String, default_value : (Any | Any::Type)? = nil)
+      if value = find(key)
         return value
       end
 
-      if value = ENV[env_key(key)]?
-        return Any.new(value)
+      unless default_value
+        return default_value
       end
 
-      if value = @defaults[key]?
-        return value
-      end
+      default_value.is_a?(Any) ? default_value : Any.new(default_value)
     end
 
-    def register_alias(alias_key : String, key : String)
+    def alias(alias_key : String, key : String)
       @aliases[alias_key.downcase] = key.downcase
-    end
-
-    # Mapping JSON Serializable Only to Struct
-    #
-    # TODO: how to detect converter's ancestors was XXX::Serializable
-    def mapping(converter : _)
-      converter.from_json to_json
-    end
-
-    def mapping(converter : _, key : String)
-      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") unless has_key?(key)
-      converter.from_json raw[key].to_json
     end
 
     def read
@@ -118,29 +115,9 @@ module Totem
       parse(File.open(file))
     end
 
-    def parse(raw : String | IO, config_type = @config_type)
-      unless (type = config_type) && SUPPORTED_EXTS.includes?(type)
-        raise UnsupportedConfigError.new("Unspoort config type: #{type}")
-      end
-
-      data = case type
-             when "yaml", "yml"
-               YAML.parse(raw).as_h
-             when "json"
-               JSON.parse(raw).as_h
-             end
-
-      return unless data
-
-      data.each do |key, value|
-        @config[key.to_s.downcase] = Any.new(value)
-      end
-    end
-
     def write
       if file = @config_file
         raise Error.new("Config file is empty") if file.empty?
-
         write(file, true)
       end
 
@@ -166,19 +143,31 @@ module Totem
       File.open(file, mode) do |f|
         case extname
         when "yaml", "yml"
-          f.puts raw.to_yaml
+          f.puts(raw.to_yaml)
         when "json"
-          f.puts raw.to_json
+          f.puts(raw.to_json)
         end
       end
     end
 
-    # def set_env(key : String, value : String)
-    #   @env[env_key(key)] = value
-    # end
+    def bind_env(key : String, real_key : String? = nil)
+      key = key.downcase
+      env_key = if real_key
+                  real_key.not_nil!
+                else
+                  env_key(key)
+                end
+
+      @env[key] = env_key
+    end
 
     def env_prefix=(prefix : String)
       @env_prefix = prefix.upcase
+    end
+
+    def automatic_env(prefix : String? = nil)
+      @env_prefix = prefix.not_nil!.upcase if prefix
+      @automatic_env = true
     end
 
     def debugging=(value : Bool)
@@ -186,19 +175,62 @@ module Totem
       @logging = value
     end
 
-    # :nodoc:
-    def to_json(json)
-      raw.to_json(json)
+    # Mapping JSON Serializable Only to Struct
+    #
+    # TODO: how to detect converter's ancestors was XXX::Serializable
+    def mapping(converter : _)
+      converter.from_json to_json
     end
 
-    # :nodoc:
-    def to_yaml(yaml)
-      raw.to_yaml(yaml)
+    def mapping(converter : _, key : String)
+      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") unless has_key?(key)
+      converter.from_json raw[key].to_json
+    end
+
+    def parse(raw : String | IO, config_type = @config_type)
+      unless (type = config_type) && SUPPORTED_EXTS.includes?(type)
+        raise UnsupportedConfigError.new("Unspoort config type: #{type}")
+      end
+
+      data = case type
+             when "yaml", "yml"
+               YAML.parse(raw).as_h
+             when "json"
+               JSON.parse(raw).as_h
+             when "env"
+                Dotenv.parse(raw)
+             end
+
+      return unless data
+
+      data.each do |key, value|
+        key = key.to_s if key.is_a?(YAML::Any)
+        @config[key.downcase] = Any.new(value)
+      end
+    end
+
+    private def find(key : String) : Any?
+      key = real_key(key)
+
+      if value = @config[key]?
+        return value
+      end
+
+      if @automatic_env && (value = ENV[env_key(key)]?)
+        return Any.new(value.as(String))
+      end
+
+      if value = @env[key]?
+        return Any.new(value.as(String))
+      end
+
+      if value = @defaults[key]?
+        return value
+      end
     end
 
     private def find_config
       @logger.debug("Searching for config in #{@config_paths}")
-
       @config_paths.each do |path|
         if (file = search_config(path))
           return file
@@ -230,31 +262,43 @@ module Totem
       end
     end
 
-    private def alias?(key)
-      @aliases.has_key?(key)
+    private def real_key(key : String)
+      key = key.downcase
+      if @aliases.has_key?(key)
+        new_key = @aliases[key]
+        @logger.debug("Alias #{key} to #{new_key}")
+        return new_key
+      end
+      key
     end
 
-    private def alias_key(key : String)
-      @aliases[key]? ? @aliases[key] : key
+    private def env_key(key : String)
+      new_key = key.upcase
+      if (prefix = @env_prefix) && !prefix.empty?
+        "#{prefix}_#{new_key}"
+      else
+        new_key
+      end
     end
 
     private def raw
       @defaults.merge(@config)
     end
 
-    private def env_key(key : String)
-      key = key.snakecase.upcase
-      if (prefix = @env_prefix) && !prefix.empty?
-        "#{prefix}_#{key}"
-      else
-        key
-      end
-    end
-
     private def default_logger_formatter
       Logger::Formatter.new do |severity, datetime, progname, message, io|
         io << severity << " " << datetime.to_s("%F %T") << " " << message
       end
+    end
+
+    # :nodoc:
+    def to_json(json)
+      raw.to_json(json)
+    end
+
+    # :nodoc:
+    def to_yaml(yaml)
+      raw.to_yaml(yaml)
     end
   end
 end

@@ -26,4 +26,8 @@ module Totem
   def self.from_yaml(raw : String)
     Reader.parse(raw, "yaml")
   end
+
+  def self.from_env(raw : String)
+    Reader.parse(raw, "env")
+  end
 end

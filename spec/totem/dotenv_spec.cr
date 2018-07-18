@@ -73,10 +73,14 @@ describe Totem::Dotenv do
   end
 
   describe "#to_json" do
-
+    pending do
+      "todo"
+    end
   end
 
   describe "#to_yaml" do
-
+    pending do
+      "todo"
+    end
   end
 end

@@ -25,7 +25,7 @@ class String
 
   # Cast value to Bool type, return `Nil` if not matched rules.
   #
-  # Here is the rules, string could be in any case:
+  # Here is the rules, case insensitive:
   #
   # - "true"/"false": `true`/`false` with strict mode
   # - "true"/"t"/"yes"/"y"/"1": `true` without strict mode

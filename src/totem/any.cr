@@ -1,4 +1,6 @@
 module Totem
+  # `Totem::Any` is a convenient wrapper around all possible types(`Totem::Any::Type`) and
+  # can be used for traversing dynamic or unkown types.
   struct Any
     alias Type = String | Int32 | Int64 | Float64 | Bool | Nil | Array(Any) | Hash(String, Any) | YAML::Any | JSON::Any
 
@@ -20,39 +22,45 @@ module Totem
     end
 
     def as_i? : Int32?
-      as_i if [Int32, YAML::Any, JSON::Any].includes?(@raw.class)
+      as_i if [Int32, String, YAML::Any, JSON::Any].includes?(@raw.class)
     end
 
     def as_i : Int32
       case object = @raw
       when JSON::Any, YAML::Any
         object.as_i
+      when String
+        object.to_i
       else
         object.as(Int).to_i
       end
     end
 
     def as_i64? : Int64?
-      as_i64 if [Int64, YAML::Any, JSON::Any].includes?(@raw.class)
+      as_i64 if [Int64, String, YAML::Any, JSON::Any].includes?(@raw.class)
     end
 
     def as_i64 : Int64
       case object = @raw
       when JSON::Any, YAML::Any
         object.as_i64
+      when String
+        object.to_i64
       else
         object.as(Int).to_i64
       end
     end
 
     def as_f? : Float64?
-      as_f if [Float64, YAML::Any, JSON::Any].includes?(@raw.class)
+      as_f if [Float64, String, YAML::Any, JSON::Any].includes?(@raw.class)
     end
 
     def as_f : Float64
       case object = @raw
       when JSON::Any, YAML::Any
         object.as_f
+      when String
+        object.to_f
       else
         object.as(Float).to_f
       end
@@ -60,17 +68,21 @@ module Totem
 
     def as_bool?(strict = true) : Bool?
       case object = @raw
-      when Bool, JSON::Any, YAML::Any
+      when Bool, JSON::Any
         as_bool(strict)
+      else
+        object.to_s.to_bool(strict)
       end
-    rescue TypeCastError
-      nil
     end
 
     def as_bool(strict = true) : Bool
       case object = @raw
       when JSON::Any, YAML::Any
         value = object.to_s.to_bool(strict)
+        raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
+        value
+      when String
+        value = object.to_bool(strict)
         raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
         value
       else
