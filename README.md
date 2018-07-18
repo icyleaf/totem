@@ -1,10 +1,12 @@
+![totem-logo](https://github.com/icyleaf/totem/raw/master/totem-logo-small.png)
+
 # Totem
 
 [![Language](https://img.shields.io/badge/language-crystal-776791.svg)](https://github.com/crystal-lang/crystal)
 [![Tag](https://img.shields.io/github/tag/icyleaf/totem.svg)](https://github.com/icyleaf/totem/blob/master/CHANGELOG.md)
 [![Build Status](https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat)](https://circleci.com/gh/icyleaf/totem)
 
-Crystal configuration with spirit. Inspired from Go's [viper](https://github.com/spf13/viper).
+Crystal configuration with spirit. Inspired from Go's [viper](https://github.com/spf13/viper). Totem Icon by Creative Stall from <a href="https://thenounproject.com">Noun Project</a>.
 
 <!-- TOC -->
 
