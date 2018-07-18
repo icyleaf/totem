@@ -8,32 +8,34 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
 
 <!-- TOC -->
 
-- [Why Totem?](#why-totem)
+- [What is Totem?](#what-is-totem)
 - [Installation](#installation)
-- [Usage](#usage)
+- [Quick Start](#quick-start)
   - [Operating configuration](#operating-configuration)
   - [Loading configuration](#loading-configuration)
     - [From raw string](#from-raw-string)
-    - [From Envoriment variables](#from-envoriment-variables)
     - [From file](#from-file)
   - [Wirting configuration](#wirting-configuration)
+- [Usage](#usage)
+  - [Load configuration with multiple paths](#load-configuration-with-multiple-paths)
+  - [Set Alias and using alias](#set-alias-and-using-alias)
+  - [Working with Envoriment variables](#working-with-envoriment-variables)
   - [Serialization](#serialization)
-- [Advanced Usage](#advanced-usage)
 - [Todo](#todo)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 
 <!-- /TOC -->
 
-## Why Totem?
+## What is Totem?
 
 Configuration file formats is always the problem, you want to focus on building awesome things. Totem is here to help with that.
 
 Totem has following features:
 
-- Load and parse a configuration file or string in JSON, YAML, DotEnv formats.
+- Load and parse a configuration file or string in JSON, YAML, dotenv formats.
+- Reading from environment variables.
 - Provide a mechanism to set default values for your different configuration options.
-- Provide a mechanism to set override values for options specified through command line flags.
 - Provide an alias system to easily rename parameters without breaking existing code.
 - Write configuration to file with JSON, YAML formats.
 
@@ -57,7 +59,7 @@ dependencies:
     github: icyleaf/totem
 ```
 
-## Usage
+## Quick Start
 
 ```crystal
 require "totem"
@@ -66,9 +68,9 @@ require "totem"
 ### Operating configuration
 
 ```crystal
-r = Totem.new
-r.set_default("name", "foo")
-r.set_defaults({
+totem = Totem.new
+totem.set_default("name", "foo")
+totem.set_defaults({
   "age"    => 18,
   "gender" => "male",
   "hobbies" => [
@@ -77,18 +79,18 @@ r.set_defaults({
     "go"
   ]
 })
-r.get("name").as_s # => "foo"
-r.get("age").as_i # => 18
 
-r.set("name", "bar")
-r.alias(alias_key: "key", key: "name")
-r.get("name").as_s # => "bar"
-r.get("key").as_s # => "bar"
+totem.get("name").as_s # => "foo"
+totem.get("age").as_i # => 18
+totem.set("name", "bar")
+totem.alias(alias_key: "key", key: "name")
+totem.get("name").as_s # => "bar"
+totem.get("key").as_s # => "bar"
 ```
 
 ### Loading configuration
 
-Support `JSON` and `YAML` data from raw stirng and file.
+Support `JSON`, `YAML` and dotenv data from raw stirng and file.
 
 #### From raw string
 
@@ -111,10 +113,10 @@ age: 35
 eyes : brown
 EOF
 
-r = Totem.from_yaml raw
-r.get("Hacker").as_bool                           # => true
-r.get("age").as_i                                 # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s # => "large"
+totem = Totem.from_yaml raw
+totem.get("Hacker").as_bool                           # => true
+totem.get("age").as_i                                 # => 35
+totem.get("clothing").as_h["pants"].as_h["size"].as_s # => "large"
 ```
 
 Load json string
@@ -145,10 +147,10 @@ raw = <<-EOF
 }
 EOF
 
-r = Totem.from_json raw
-r.get("name")                                         # => "Cake"
-r.get("ppu")                                          # => 0.55
-r.get("batters").as_h["batter"].as_a[0].as_h["type"]  # => "Regular"
+totem = Totem.from_json raw
+totem.get("name")                                         # => "Cake"
+totem.get("ppu")                                          # => 0.55
+totem.get("batters").as_h["batter"].as_a[0].as_h["type"]  # => "Regular"
 ```
 
 Load dotenv string
@@ -162,39 +164,24 @@ STR_WITH_HASH_SYMBOL="abc#123"#stick comment
 INT=33
 EOF
 
-r = Totem.from_env raw
-r.get("str")                    # => "foo"
-r.get("str_with_comments")      # => bar
-r.get("str_with_hash_symbol")   # => "abc#123"
-r.get("int")                    # => "33"
+totem = Totem.from_env raw
+totem.get("str")                    # => "foo"
+totem.get("str_with_comments")      # => bar
+totem.get("str_with_hash_symbol")   # => "abc#123"
+totem.get("int")                    # => "33"
 ```
 
 #### From file
 
-Load yaml file from file with path
-
 ```crystal
-r = Totem.from_file "./spec/fixtures/config.yaml"
-r.get("Hacker").as_bool                           # => true
-r.get("age").as_i                                 # => 35
-r.get("clothing").as_h["pants"].as_h["size"].as_s # => "large"
-```
+# Load yaml file from file with path
+totem = Totem.from_file "./spec/fixtures/config.yaml"
 
-Load json file from file with multi-paths
+# Load json file from file with multi-paths
+totem = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
 
-```crystal
-r = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
-r.get("name")                                         # => "Cake"
-r.get("ppu")                                          # => 0.55
-r.get("batters").as_h["batter"].as_a[0].as_h["type"]  # => "Regular"
-```
-
-Load dotenv file
-
-```crystal
-r = Totem.from_file "sample.env"
-r.get("int")                                          # => "42"
-r.get("str")                                          # => "foo"
+# Load dotenv file
+totem = Totem.from_file "sample.env"
 ```
 
 ### Wirting configuration
@@ -216,13 +203,45 @@ age: 35
 eyes : brown
 EOF
 
-r = Totem.from_yaml raw
-r.set("nickname", "Freda")
-r.set("eyes", "blue")
-r.write("profile.json")
+totem = Totem.from_yaml raw
+totem.set("nickname", "Freda")
+totem.set("eyes", "blue")
+totem.write("profile.json")
 ```
 
-#### Working with Envoriment variables
+## Usage
+
+### Load configuration with multiple paths
+
+Totem can search multiple paths, but currently a single Totem instance only supports a single
+configuration file.
+
+```crystal
+totem = Totem.new("config", "/etc/totem/")  # => New a instance with name and path of config file
+totem.config_paths << "~/.totem"            # => path to look for the config file in
+totem.config_paths << "./config"            # => optionally look for config in the working directory
+begin
+  totem.read                                # => Find and read the config file (order by yaml/yml/json/env)
+rescue e
+  puts "Fatal error config file: #{e.message}"
+end
+```
+
+### Set Alias and using alias
+
+Aliases permit a single value to be referenced by multiple keys
+
+```crystal
+totem.alias("nickname", "Name")
+
+totem.set("name", "foo")
+totem.set("nickname", "bar")
+
+totem.get("name")       # => "foo"
+totem.get("nickname")   # => "foo"
+```
+
+### Working with Envoriment variables
 
 Totem has full support for environment variables, example:
 
@@ -231,29 +250,29 @@ ENV["ID"] = "123"
 ENV["FOOD"] = "Pinapple"
 ENV["NAME"] = "Polly"
 
-r = Totem.new
+totem = Totem.new
 
-r.bind_env("id")
-r.get("id").as_i # => 123
+totem.bind_env("id")
+totem.get("id").as_i        # => 123
 
-r.bind_env("f", "food")
-r.get("f").as_s # => "Pinapple"
+totem.bind_env("f", "food")
+totem.get("f").as_s         # => "Pinapple"
 
-r.automative_env
-r.get("name") # => "Polly"
+totem.automative_env
+totem.get("name")           # => "Polly"
 ```
 
 Working with envoriment prefix:
 
 ```crystal
-r.automative_env(prefix: "totem")
+totem.automative_env(prefix: "totem")
 # Same as
-# r.env_prefix = "totem"
-# r.automative_env = true
+# totem.env_prefix = "totem"
+# totem.automative_env = true
 
-r.get("id").as_i # => 123
-r.get("food").as_s # => "Pinapple"
-r.get("name") # => "Polly"
+totem.get("id").as_i # => 123
+totem.get("food").as_s # => "Pinapple"
+totem.get("name") # => "Polly"
 ```
 
 ### Serialization
@@ -270,12 +289,12 @@ struct Profile
   property eyes : String
 end
 
-r = Totem.from_file "spec/fixtures/config.yaml"
-p = r.mapping(Profile)
-p.name      # => "steve"
-p.age       # => 35
-p.eyes      # => "brown"
-p.hobbies   # => ["skateboarding", "snowboarding", "go"]
+totem = Totem.from_file "spec/fixtures/config.yaml"
+profile = totem.mapping(Profile)
+profile.name      # => "steve"
+profile.age       # => 35
+profile.eyes      # => "brown"
+profile.hobbies   # => ["skateboarding", "snowboarding", "go"]
 ```
 
 Serialize configuration with part of key:
@@ -289,21 +308,16 @@ struct Clothes
   property pants : Hash(String, String)
 end
 
-r = Totem.from_file "spec/fixtures/config.yaml"
-c = r.mapping(Clothes, "clothing")
+totem = Totem.from_file "spec/fixtures/config.yaml"
+clothes = profile.mapping(Clothes, "clothing")
 # => Clothes(@jacket="leather", @pants={"size" => "large"}, @trousers="denim")
 ```
-
-## Advanced Usage
-
-
-
 
 ## Todo
 
 - [x] Reading from environment variables
 - [x] Serialize configuration to `Struct`
-- [ ] Reading from INI, TOML and etc formatted files.
+- [ ] Reading from TOML and etc formatted files.
 - [ ] Reading from remote key-value database (redis or memcache)
 - [ ] Reading from remote config systems (etcd or Consul)
 
