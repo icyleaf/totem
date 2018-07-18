@@ -133,7 +133,7 @@
 
 <p>&lt;!-- TOC --></p>
 
-<ul><li><a href="#why-totem" target="_blank">Why Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#wirting-configuration" target="_blank">Wirting configuration</a></li></ul><li><a href="#todo" target="_blank">Todo</a></li><li><a href="#contributing" target="_blank">Contributing</a></li><li><a href="#contributors" target="_blank">Contributors</a></li></ul>
+<ul><li><a href="#why-totem" target="_blank">Why Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-envoriment-variables" target="_blank">From Envoriment variables</a></li><li><a href="#from-file" target="_blank">From file</a></li><li><a href="#wirting-configuration" target="_blank">Wirting configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li></ul><li><a href="#advanced-usage" target="_blank">Advanced Usage</a></li><li><a href="#todo" target="_blank">Todo</a></li><li><a href="#contributing" target="_blank">Contributing</a></li><li><a href="#contributors" target="_blank">Contributors</a></li></ul>
 
 <p>&lt;!-- /TOC --></p>
 
@@ -143,11 +143,13 @@
 
 <p>Totem has following features:</p>
 
-<ul><li>Load and parse a configuration file or string in JSON, YAML formats.</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide a mechanism to set override values for options specified through command line flags.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
+<ul><li>Load and parse a configuration file or string in JSON, YAML, DotEnv formats.</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide a mechanism to set override values for options specified through command line flags.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
 
 <p>Uses the following precedence order. Each item takes precedence over the item below it:</p>
 
-<ul><li>alias</li><li>explicit call to <code>set</code></li><li>config</li><li>default</li></ul>
+<ul><li>alias</li><li>explicit call to <code>set</code></li><li>env</li><li>config</li><li>default</li></ul>
+
+<p>Totem configuration keys are case insensitive.</p>
 
 <h2>Installation</h2>
 
@@ -164,11 +166,21 @@
 <h3>Operating configuration</h3>
 
 <pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
-r.set_default <span class="s">&quot;name&quot;</span>, <span class="s">&quot;foo&quot;</span>
+r.set_default(<span class="s">&quot;name&quot;</span>, <span class="s">&quot;foo&quot;</span>)
+r.set_defaults({
+  <span class="s">&quot;age&quot;</span>    => <span class="n">18</span>,
+  <span class="s">&quot;gender&quot;</span> => <span class="s">&quot;male&quot;</span>,
+  <span class="s">&quot;hobbies&quot;</span> => [
+    <span class="s">&quot;skateboarding&quot;</span>,
+    <span class="s">&quot;snowboarding&quot;</span>,
+    <span class="s">&quot;go&quot;</span>
+  ]
+})
 r.get(<span class="s">&quot;name&quot;</span>).as_s <span class="c"># =&gt; &quot;foo&quot;</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 18</span>
 
 r.set(<span class="s">&quot;name&quot;</span>, <span class="s">&quot;bar&quot;</span>)
-r.register_alias(alias_key: <span class="s">&quot;key&quot;</span>, key: <span class="s">&quot;name&quot;</span>)
+r.<span class="k">alias</span>(alias_key: <span class="s">&quot;key&quot;</span>, key: <span class="s">&quot;name&quot;</span>)
 r.get(<span class="s">&quot;name&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span>
 r.get(<span class="s">&quot;key&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
 
@@ -197,8 +209,8 @@ eyes : brown
 EOF</span>
 
 r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
-r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
-r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool                           <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i                                 <span class="c"># =&gt; 35</span>
 r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
 
 <p>Load json string</p>
@@ -229,25 +241,100 @@ r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pa
 EOF</span>
 
 r <span class="o">=</span> <span class="t">Totem</span>.from_json raw
-r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Cake&quot;</span>
-r.get(<span class="s">&quot;ppu&quot;</span>) <span class="c"># =&gt; eq 0.55</span>
-r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>] <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
+r.get(<span class="s">&quot;name&quot;</span>)                                         <span class="c"># =&gt; &quot;Cake&quot;</span>
+r.get(<span class="s">&quot;ppu&quot;</span>)                                          <span class="c"># =&gt; 0.55</span>
+r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>]  <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
+
+<p>Load dotenv string</p>
+
+<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+# COMMENTS=work
+STR=&#39;foo&#39;
+STR_WITH_COMMENTS=bar         # str with comment
+STR_WITH_HASH_SYMBOL=&quot;abc#123&quot;#stick comment
+INT=33
+EOF</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.from_env raw
+r.get(<span class="s">&quot;str&quot;</span>)                    <span class="c"># =&gt; &quot;foo&quot;</span>
+r.get(<span class="s">&quot;str_with_comments&quot;</span>)      <span class="c"># =&gt; bar</span>
+r.get(<span class="s">&quot;str_with_hash_symbol&quot;</span>)   <span class="c"># =&gt; &quot;abc#123&quot;</span>
+r.get(<span class="s">&quot;int&quot;</span>)                    <span class="c"># =&gt; &quot;33&quot;</span></code></pre>
 
 <h4>From file</h4>
 
 <p>Load yaml file from file with path</p>
 
 <pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
-r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool <span class="c"># =&gt; true</span>
-r.get(<span class="s">&quot;age&quot;</span>).as_i <span class="c"># =&gt; 35</span>
+r.get(<span class="s">&quot;Hacker&quot;</span>).as_bool                           <span class="c"># =&gt; true</span>
+r.get(<span class="s">&quot;age&quot;</span>).as_i                                 <span class="c"># =&gt; 35</span>
 r.get(<span class="s">&quot;clothing&quot;</span>).as_h[<span class="s">&quot;pants&quot;</span>].as_h[<span class="s">&quot;size&quot;</span>].as_s <span class="c"># =&gt; &quot;large&quot;</span></code></pre>
 
 <p>Load json file from file with multi-paths</p>
 
 <pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>, <span class="s">&quot;./spec/fixtures&quot;</span>]
-r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Cake&quot;</span>
-r.get(<span class="s">&quot;ppu&quot;</span>) <span class="c"># =&gt; eq 0.55</span>
-r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>] <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
+r.get(<span class="s">&quot;name&quot;</span>)                                         <span class="c"># =&gt; &quot;Cake&quot;</span>
+r.get(<span class="s">&quot;ppu&quot;</span>)                                          <span class="c"># =&gt; 0.55</span>
+r.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot;batter&quot;</span>].as_a[<span class="n">0</span>].as_h[<span class="s">&quot;type&quot;</span>]  <span class="c"># =&gt; &quot;Regular&quot;</span></code></pre>
+
+<p>Load dotenv file</p>
+
+<pre><code class="language-crystal">r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;sample.env&quot;</span>
+r.get(<span class="s">&quot;int&quot;</span>)                                          <span class="c"># =&gt; &quot;42&quot;</span>
+r.get(<span class="s">&quot;str&quot;</span>)                                          <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
+
+<h3>Wirting configuration</h3>
+
+<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+Hacker: true
+name: steve
+hobbies:
+- skateboarding
+- snowboarding
+- go
+clothing:
+  jacket: leather
+  trousers: denim
+  pants:
+    size: large
+age: 35
+eyes : brown
+EOF</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
+r.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Freda&quot;</span>)
+r.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
+r.write(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
+
+<h4>Working with Envoriment variables</h4>
+
+<p>Totem has full support for environment variables, example:</p>
+
+<pre><code class="language-crystal"><span class="t">ENV</span>[<span class="s">&quot;ID&quot;</span>] <span class="o">=</span> <span class="s">&quot;123&quot;</span>
+<span class="t">ENV</span>[<span class="s">&quot;FOOD&quot;</span>] <span class="o">=</span> <span class="s">&quot;Pinapple&quot;</span>
+<span class="t">ENV</span>[<span class="s">&quot;NAME&quot;</span>] <span class="o">=</span> <span class="s">&quot;Polly&quot;</span>
+
+r <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
+
+r.bind_env(<span class="s">&quot;id&quot;</span>)
+r.get(<span class="s">&quot;id&quot;</span>).as_i <span class="c"># =&gt; 123</span>
+
+r.bind_env(<span class="s">&quot;f&quot;</span>, <span class="s">&quot;food&quot;</span>)
+r.get(<span class="s">&quot;f&quot;</span>).as_s <span class="c"># =&gt; &quot;Pinapple&quot;</span>
+
+r.automative_env
+r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
+
+<p>Working with envoriment prefix:</p>
+
+<pre><code class="language-crystal">r.automative_env(prefix: <span class="s">&quot;totem&quot;</span>)
+<span class="c"># Same as</span>
+<span class="c"># r.env_prefix = &quot;totem&quot;</span>
+<span class="c"># r.automative_env = true</span>
+
+r.get(<span class="s">&quot;id&quot;</span>).as_i <span class="c"># =&gt; 123</span>
+r.get(<span class="s">&quot;food&quot;</span>).as_s <span class="c"># =&gt; &quot;Pinapple&quot;</span>
+r.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
 
 <h3>Serialization</h3>
 
@@ -283,32 +370,11 @@ r <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s
 c <span class="o">=</span> r.mapping(<span class="t">Clothes</span>, <span class="s">&quot;clothing&quot;</span>)
 <span class="c"># =&gt; Clothes(@jacket=&quot;leather&quot;, @pants={&quot;size&quot; =&gt; &quot;large&quot;}, @trousers=&quot;denim&quot;)</span></code></pre>
 
-<h3>Wirting configuration</h3>
-
-<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
-Hacker: true
-name: steve
-hobbies:
-- skateboarding
-- snowboarding
-- go
-clothing:
-  jacket: leather
-  trousers: denim
-  pants:
-    size: large
-age: 35
-eyes : brown
-EOF</span>
-
-r <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
-r.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Freda&quot;</span>)
-r.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
-r.write(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
+<h2>Advanced Usage</h2>
 
 <h2>Todo</h2>
 
-<ul><li>[ ] Reading from environment variables</li><li>[ ] Serialize configuration to <code>Struct</code></li><li>[ ] Reading from INI, TOML and etc formatted files.</li><li>[ ] Reading from remote key-value database (redis or memcache)</li><li>[ ] Reading from remote config systems (etcd or Consul)</li></ul>
+<ul><li>[x] Reading from environment variables</li><li>[x] Serialize configuration to <code>Struct</code></li><li>[ ] Reading from INI, TOML and etc formatted files.</li><li>[ ] Reading from remote key-value database (redis or memcache)</li><li>[ ] Reading from remote config systems (etcd or Consul)</li></ul>
 
 <h2>Contributing</h2>
 
