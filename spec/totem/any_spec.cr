@@ -17,9 +17,7 @@ describe Totem::Any do
       Totem::Any.new(true).as_bool?.should be_true
       Totem::Any.new(false).as_bool.should be_false
       Totem::Any.new(false).as_bool?.should be_false
-      expect_raises TypeCastError do
-        Totem::Any.new("true").as_bool
-      end
+      Totem::Any.new("true").as_bool.should be_true
 
       json = JSON.parse(%Q{[true, false]})
       Totem::Any.new(json).as_a.first.as_bool.should eq true
