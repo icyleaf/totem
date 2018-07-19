@@ -295,7 +295,7 @@ EOF</span>
 totem <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
 totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Freda&quot;</span>)
 totem.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
-totem.write(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
+totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
 <h2>Usage</h2>
 
@@ -308,7 +308,7 @@ configuration file.</p>
 totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;~/.totem&quot;</span>            <span class="c"># =&gt; path to look for the config file in</span>
 totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;./config&quot;</span>            <span class="c"># =&gt; optionally look for config in the working directory</span>
 <span class="k">begin</span>
-  totem.read                                <span class="c"># =&gt; Find and read the config file (order by yaml/yml/json/env)</span>
+  totem.load!                               <span class="c"># =&gt; Find and read the config file (order by yaml/yml/json/env)</span>
 <span class="k">rescue</span> e
   puts <span class="s">&quot;Fatal error config file: </span><span class="i">#{</span>e.message<span class="i">}</span><span class="s">&quot;</span>
 <span class="k">end</span></code></pre>
