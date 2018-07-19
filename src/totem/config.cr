@@ -176,16 +176,81 @@ module Totem
       @logging = value
     end
 
-    # Mapping JSON Serializable Only to Struct
-    #
-    # TODO: how to detect converter's ancestors was XXX::Serializable
-    def mapping(converter : _)
-      converter.from_json to_json
+    # Mapping JSON/YAML Serializable to Struct
+    # 
+    # ```
+    # struct Profile
+    #   include JSON::Serializable
+    #   # or
+    #   # include YAML::Serializable
+    # 
+    #   property name : String
+    #   property hobbies : Array(String)
+    #   property age : Int32
+    #   property eyes : String
+    # end
+    # 
+    # profile = totem.mapping(Profile)
+    # profile.name # => "steve"
+    # ```
+    def mapping(converter : T.class) forall T
+      {% begin %}
+        {{ struct_type = nil }}
+        {% for ancestor in T.ancestors %}
+          {% if ancestor == JSON::Serializable %}
+            {{ struct_type = "json" }}
+          {% elsif ancestor == YAML::Serializable %}
+            {{ struct_type = "yaml" }}
+          {% end %}
+        {% end %}
+
+        {% if struct_type == "json" %}
+          converter.from_json to_json
+        {% elsif struct_type == "yaml" %}
+          converter.from_yaml to_yaml
+        {% else %}
+          raise MappingError.new("Can not mapping with class: #{T}, avaiable in JSON::Serializable, YAML::Serializable")
+        {% end %}
+      {% end %}
     end
 
-    def mapping(converter : _, key : String)
+    # Mapping JSON/YAML Serializable to Struct with key
+    # 
+    # ```
+    # struct Clothes
+    #   include JSON::Serializable
+    #   # or
+    #   # include YAML::Serializable
+    # 
+    #   property jacket : String
+    #   property trousers : String
+    #   property pants : Hash(String, String)
+    # end
+    # 
+    # clothes = totem.mapping(Clothes, "clothing")
+    # clothes.jacket # => "leather"
+    # ```
+    def mapping(converter : T.class, key : String) forall T
       NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") unless has_key?(key)
-      converter.from_json raw[key].to_json
+
+      {% begin %}
+        {{ struct_type = nil }}
+        {% for ancestor in T.ancestors %}
+          {% if ancestor == JSON::Serializable %}
+            {{ struct_type = "json" }}
+          {% elsif ancestor == YAML::Serializable %}
+            {{ struct_type = "yaml" }}
+          {% end %}
+        {% end %}
+
+        {% if struct_type == "json" %}
+          converter.from_json raw[key].to_json
+        {% elsif struct_type == "yaml" %}
+          converter.from_yaml raw[key].to_json
+        {% else %}
+          raise MappingError.new("Can not mapping with class: #{T.class}, avaiable in JSON::Serializable, YAML::Serializable")
+        {% end %}
+      {% end %}
     end
 
     def parse(raw : String | IO, config_type = @config_type)

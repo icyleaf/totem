@@ -1,17 +1,5 @@
 require "./spec_helper"
 
-private def json_raw
-  load_fixture("config.json")
-end
-
-private def yaml_raw
-  load_fixture("config.yaml")
-end
-
-private def env_raw
-  load_fixture("sample.env")
-end
-
 private def json_spec_group(t)
   t.get("name").as_s.should eq "Cake"
   t.get("gluten_free").as_bool.should be_false
