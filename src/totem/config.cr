@@ -1,5 +1,6 @@
 require "json"
 require "yaml"
+require "poncho"
 require "logger"
 
 module Totem
@@ -198,7 +199,7 @@ module Totem
              when "json"
                JSON.parse(raw).as_h
              when "env"
-                Dotenv.parse(raw)
+               Poncho.parse(raw)
              end
 
       return unless data

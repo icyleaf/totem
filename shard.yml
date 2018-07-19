@@ -6,4 +6,9 @@ authors:
 
 crystal: 0.25.1
 
+dependencies:
+  poncho:
+    github: icyleaf/poncho
+    branch: master
+
 license: MIT
