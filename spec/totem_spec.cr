@@ -85,8 +85,7 @@ describe Totem do
   describe "#from_file" do
     describe "use json file" do
       it "without paths" do
-        file = File.join(fixture_path, "config.json")
-        t = Totem.from_file file
+        t = Totem.from_file File.join(fixture_path, "config.json")
         json_spec_group t
       end
 
@@ -98,8 +97,7 @@ describe Totem do
 
     it "use yaml file" do
       it "without paths" do
-        file = File.join(fixture_path, "config.yaml")
-        t = Totem.from_file file
+        t = Totem.from_file File.join(fixture_path, "config.yaml")
         yaml_spec_group t
       end
 
@@ -111,13 +109,12 @@ describe Totem do
 
     it "use env file" do
       it "without paths" do
-        file = File.join(fixture_path, "sample.yaml")
-        t = Totem.from_file file
+        t = Totem.from_file File.join(fixture_path, "sample.env")
         env_spec_group t
       end
 
       it "with paths" do
-        t = Totem.from_file "sample.yaml", [".", fixture_path, "~/"]
+        t = Totem.from_file "sample.env", [".", fixture_path, "~/"]
         env_spec_group t
       end
     end

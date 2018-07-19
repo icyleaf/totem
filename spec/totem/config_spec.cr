@@ -54,6 +54,36 @@ private struct Clothes
 end 
 
 describe Totem::Config do
+
+  describe "#get" do
+    describe "find key" do 
+      pending do
+        "todo"
+      end
+    end
+
+    describe "find nested key" do
+      it "should gets" do
+        totem = Totem.new
+        totem.set_default("super", {
+          "deep" => {
+            "nested" => "value"
+          }
+        })
+        
+        totem.get("super").as_h.should eq({ "deep" => Totem::Any.new({ "nested" => "value" })})
+        totem.get("super.deep").as_h.should eq({ "nested" => Totem::Any.new("value") })
+        totem.get("super.deep.nested").as_s.should eq("value")
+      end
+
+      it "returns nil with shadowed path" do
+        pending do
+          "todo"
+        end
+      end
+    end
+  end
+
   describe "#mapping" do 
     it "should works with JSON::Serializable" do
       t = Totem::Config.parse yaml_raw, "yaml"

@@ -208,7 +208,7 @@ EOF
 totem = Totem.from_yaml raw
 totem.set("nickname", "Freda")
 totem.set("eyes", "blue")
-totem.write("profile.json")
+totem.store!("profile.json")
 ```
 
 ## Usage
@@ -223,7 +223,7 @@ totem = Totem.new("config", "/etc/totem/")  # => New a instance with name and pa
 totem.config_paths << "~/.totem"            # => path to look for the config file in
 totem.config_paths << "./config"            # => optionally look for config in the working directory
 begin
-  totem.read                                # => Find and read the config file (order by yaml/yml/json/env)
+  totem.load!                               # => Find and read the config file (order by yaml/yml/json/env)
 rescue e
   puts "Fatal error config file: #{e.message}"
 end

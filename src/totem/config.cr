@@ -3,10 +3,22 @@ require "yaml"
 require "poncho"
 require "logger"
 
-module Totem
+module Totem 
+  # `Totem::Config` is the core configuration reader, parser and writer.
+  # 
+  # The config type are avaiable in:
+  # 
+  # - yaml/yml
+  # - json
+  # - env
   class Config
     SUPPORTED_EXTS = %w(yaml yml json env)
 
+    # Load configuration from a file
+    # 
+    # ```
+    # Totem::Config.from_file("config.yaml", ["/etc/totem", "~/.totem", "./"])
+    # ```
     def self.from_file(file : String, paths : Array(String)? = nil)
       config_name = File.basename(file, File.extname(file))
       config_type = Utils.config_type(file)
@@ -20,10 +32,11 @@ module Totem
         instance.config_paths << File.dirname(file)
       end
 
-      instance.read
+      instance.load!
       instance
     end
 
+    # Parse configuration from a raw string.
     def self.parse(raw : String, type : String)
       instance = new(config_type: type)
       instance.parse(raw)
@@ -34,50 +47,119 @@ module Totem
     property config_paths
     property config_name
     property config_type
+    property config_delimiter
 
     getter env_prefix : String?
 
     @aliases = Hash(String, String).new
+    @overrides = Hash(String, Any).new
     @config = Hash(String, Any).new
     @env = Hash(String, String).new
     @defaults = Hash(String, Any).new
 
-    def initialize(@config_name = "config", @config_type : String? = nil, @config_paths : Array(String) = [] of String,
+    def initialize(@config_name = "config", @config_type : String? = nil,
+                   @config_paths : Array(String) = [] of String,
+                   @config_delimiter = ".",
                    @automatic_env = false)
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @logging = false
     end
 
+    # Sets the default value for given key
+    # 
+    # ```
+    # totem.set_default("id", 123)
+    # totem.set_default("user.name", "foobar")
+    # ```
     def set_default(key : String, value : T) forall T
       @defaults[key] = Any.new(value)
     end
 
+    # Sets the default values with `Hash` data
+    # 
+    # ```
+    # totem.set_defaults({
+    #   "id" => 123,
+    #   "user" => {
+    #     "name" => "foobar"
+    #   }
+    # })
+    # ```
     def set_defaults(defaults : Hash(String, _))
       defaults.each do |key, value|
         set_default(key, value)
       end
     end
 
+    # Alias to `set` method.
+    # 
+    # ```
+    # totem["id"] = 123
+    # totem["user.name"] = "foobar"
+    # ```
     def []=(key : String, value : T) forall T
       set(key, value)
     end
 
+    # Alias to `get` method.
+    # 
+    # ```
+    # totem["id"]
+    # totem["user.name"]
+    # ```
     def [](key : String) : Any
       get(key)
     end
 
+    # Alias to `fetch` method but return `Nil` if not exists.
+    # 
+    # ```
+    # totem["id"]?
+    # totem["user.name"]?
+    # ```
     def []?(key : String) : Any
       find(key)
     end
 
-    def has_key?(key : String)
+    # Checks to see if the key has been set in any of the data locations.
+    # 
+    # > Case-insensitive for a key.
+    def has_key?(key : String) : Bool
       find(key) ? true : false
     end
 
+    # Sets the value for the key in the override regiser. 
+    # 
+    # Will be used instead of values obtained via config file, env, default.
+    # 
+    # > Case-insensitive for a key.
+    # 
+    # ```
+    # totem.set("id", 123)
+    # totem.set("user.name", "foobar")
+    # ```
     def set(key : String, value : T) forall T
-      @config[key] = Any.new(value)
+      key = real_key(key.downcase)
+
+      paths = key.split(@config_delimiter)
+      last_key = paths.last.downcase
+
+      deep_hash = deep_search(@overrides, paths[0..-2])
+      deep_hash[last_key] = Any.new(value)
     end
 
+    # Gets any value by given key
+    # 
+    # The behavior of returning the value associated with the first
+    # place from where it is set. following order:
+    # override, flag, env, config file, default
+    # 
+    # > Case-insensitive for a key.
+    # 
+    # ```
+    # totem.get("id")
+    # totem.get("user.name")
+    # ```
     def get(key : String) : Any
       if value = find(key)
         return value
@@ -86,6 +168,13 @@ module Totem
       raise NotFoundConfigKeyError.new("Not found config: #{key}")
     end
 
+    # Similar to `get` method but returns given value if key not exists.
+    # 
+    # > Case-insensitive for a key.
+    # 
+    # ```
+    # totem.fetch("env", "development")
+    # ```
     def fetch(key : String, default_value : (Any | Any::Type)? = nil)
       if value = find(key)
         return value
@@ -98,59 +187,34 @@ module Totem
       default_value.is_a?(Any) ? default_value : Any.new(default_value)
     end
 
+    # Register an aliase
+    # 
+    # ```
+    # totem.set("food", "apple")
+    # totem.alias("f", "food")
+    # 
+    # totem.set("user.name", "foobar")
+    # totem.alias("username", "user.name")
+    # ```
     def alias(alias_key : String, key : String)
       @aliases[alias_key.downcase] = key.downcase
     end
 
-    def read
-      return unless file = find_config
-      read(file)
-    end
-
-    def read(file : String)
-      @logger.info("Attempting to read in config file")
-      @logger.debug("Reading file: #{file}")
-
-      @config_file = file
-      @config_type = Utils.config_type(file)
-      parse(File.open(file))
-    end
-
-    def write
-      if file = @config_file
-        raise Error.new("Config file is empty") if file.empty?
-        write(file, true)
-      end
-
-      raise Error.new("Config file is not be setted")
-    end
-
-    def write(file : String, force : Bool = false)
-      @logger.info("Attempting to write configuration to file: #{file}")
-
-      unless extname = Utils.config_type(file)
-        raise "Requires vaild extension name with file: #{file}"
-      end
-
-      unless SUPPORTED_EXTS.includes?(extname)
-        raise UnsupportedConfigError.new(file)
-      end
-
-      mode = "w"
-      if !force && File.exists?(file)
-        raise "File #{file} exists. Use write_config(force: true) to overwrite"
-      end
-
-      File.open(file, mode) do |f|
-        case extname
-        when "yaml", "yml"
-          f.puts(raw.to_yaml)
-        when "json"
-          f.puts(raw.to_json)
-        end
-      end
-    end
-
+    # Bind a key to a ENV vairable
+    # 
+    # If only a key is provided, it will use the `ENV` key matching the key, upcased.
+    # 
+    # It will append env prefix when `env_prefix` is seted and the key is not provided.
+    # 
+    # > Case-sensitive for a key.
+    # 
+    # ```
+    # totem.bind_env("HOME")
+    # totem.bind_env("root_path", "HOME")
+    # 
+    # totem.get("home")
+    # totem.get("root_path")
+    # ```
     def bind_env(key : String, real_key : String? = nil)
       key = key.downcase
       env_key = if real_key
@@ -162,34 +226,160 @@ module Totem
       @env[key] = env_key
     end
 
+    # Defines a `ENV` prefix
+    # 
+    # If defined with "totem", Totem will look for env variables that start with "TOTEM_"
+    # 
+    # > It always upcase the prefix.
+    # 
+    # ```
+    # ENV["TOTEM_ENV"] = "development"
+    # 
+    # totem.env_prefix = "totem"
+    # totem.bind_env("env")
+    # totem.get("env") # => "development"
+    # ```
     def env_prefix=(prefix : String)
       @env_prefix = prefix.upcase
     end
 
+    # Enable and load ENV variables to Totem to search.
+    # 
+    # It provide an argument to quick define the env prefix(`env_prefix=`)
+    # 
+    # ```
+    # ENV["TOTEM_ENV"] = "development"
+    # 
+    # totem.automatic_env("totem")
+    # totem.get("env") # => "development"
+    # ```
     def automatic_env(prefix : String? = nil)
       @env_prefix = prefix.not_nil!.upcase if prefix
       @automatic_env = true
     end
 
+    # Load configuration file from disk, searching in the defined paths.
+    # 
+    # ```
+    # totem = Totem.new("config")
+    # totem.config_paths << "/etc/totem" << "~/.totem"
+    # begin
+    #   totem.load!
+    # rescue e
+    #   puts "Fatal error config file: #{e.message}"
+    # end
+    # ```
+    def load!
+      return unless file = find_config
+      load_file!(file)
+    end
+
+    # Load configuration file by given file name.
+    # 
+    # It will ignore the values of `config_name`, `config_type` and `config_paths`.
+    # 
+    # ```
+    # totem = Totem.new("config", "json")
+    # totem.config_paths << "/etc/totem" << "~/.totem"
+    # 
+    # begin
+    #   totem.load_file!("~/config/development.yaml")
+    # rescue e
+    #   puts "Fatal error config file: #{e.message}"
+    # end
+    # ```
+    def load_file!(file : String)
+      @logger.info("Attempting to read in config file")
+      @logger.debug("Reading file: #{file}")
+
+      @config_file = file
+      @config_type = Utils.config_type(file)
+      parse(File.open(file))
+    end
+
+    # Store the current configuration to a file.
+    # 
+    # ```
+    # totem = Totem.new("config", "json")
+    # totem.config_paths << "/etc/totem" << "~/.totem"
+    # 
+    # begin
+    #   totem.store!
+    # rescue e
+    #   puts "Fatal error config file: #{e.message}"
+    # end
+    # ```
+    def store!
+      if file = @config_file
+        raise Error.new("Config file is empty") if file.empty?
+        store_file!(file, true)
+      end
+
+      raise Error.new("Config file is not be setted")
+    end
+
+    # Store current configuration to a given file.
+    # 
+    # It will ignore the values of `config_name`, `config_type` and `config_paths`.
+    # 
+    # ```
+    # totem = Totem.new("config", "json")
+    # 
+    # begin
+    #   totem.store_file!("~/config.yaml", force: true)
+    # rescue e
+    #   puts "Fatal error config file: #{e.message}"
+    # end
+    # ```
+    def store_file!(file : String, force : Bool = false)
+      @logger.info("Attempting to write configuration to file: #{file}")
+
+      unless extname = Utils.config_type(file)
+        raise "Requires vaild extension name with file: #{file}"
+      end
+
+      unless SUPPORTED_EXTS.includes?(extname)
+        raise UnsupportedConfigError.new(file)
+      end
+
+      if !force && File.exists?(file)
+        raise "File #{file} exists. Use write_config(force: true) to overwrite"
+      end
+
+      mode = "w"
+      File.open(file, mode) do |f|
+        case extname
+        when "yaml", "yml"
+          f.puts(raw.to_yaml)
+        when "json"
+          f.puts(raw.to_json)
+        when "env"
+          # TODO
+          raise Error.new("Not complete store file with dotenv.")
+        end
+      end
+    end
+
+    # Debugging switch
     def debugging=(value : Bool)
       @logger.level = value ? Logger::DEBUG : Logger::ERROR
       @logging = value
     end
 
     # Mapping JSON/YAML Serializable to Struct
-    # 
+    #
     # ```
     # struct Profile
     #   include JSON::Serializable
     #   # or
     #   # include YAML::Serializable
-    # 
+    #
     #   property name : String
     #   property hobbies : Array(String)
     #   property age : Int32
     #   property eyes : String
     # end
-    # 
+    #
     # profile = totem.mapping(Profile)
     # profile.name # => "steve"
     # ```
@@ -215,18 +405,18 @@ module Totem
     end
 
     # Mapping JSON/YAML Serializable to Struct with key
-    # 
+    #
     # ```
     # struct Clothes
     #   include JSON::Serializable
     #   # or
     #   # include YAML::Serializable
-    # 
+    #
     #   property jacket : String
     #   property trousers : String
     #   property pants : Hash(String, String)
     # end
-    # 
+    #
     # clothes = totem.mapping(Clothes, "clothing")
     # clothes.jacket # => "leather"
     # ```
@@ -253,6 +443,13 @@ module Totem
       {% end %}
     end
 
+    # Parse raw string with given config type to configuration
+    # 
+    # The config type are avaiable in:
+    # 
+    # - yaml/yml
+    # - json
+    # - env
     def parse(raw : String | IO, config_type = @config_type)
       unless (type = config_type) && SUPPORTED_EXTS.includes?(type)
         raise UnsupportedConfigError.new("Unspoort config type: #{type}")
@@ -276,22 +473,100 @@ module Totem
     end
 
     private def find(key : String) : Any?
-      key = real_key(key)
+      paths = key.split(@config_delimiter)
+      nested = paths.size > 1
+      # return if nested && shadow_path?(paths, @aliases).empty?
 
-      if value = @config[key]?
+      key = real_key(key)
+      paths = key.split(@config_delimiter)
+      nested = paths.size > 1
+      
+      # Override
+      if value = has_value?(@overrides, paths)
         return value
       end
+      # return if nested && shadow_path?(paths, @overrides).empty?
 
+      # Env
       if @automatic_env && (value = ENV[env_key(key)]?)
         return Any.new(value.as(String))
+        return unless shadow_path?(paths)
       end
-
-      if value = @env[key]?
-        return Any.new(value.as(String))
-      end
-
-      if value = @defaults[key]?
+      if value = has_value?(@env, paths)
         return value
+      end
+      # return if nested && shadow_path?(paths, @env).empty?
+
+      # Config
+      if value = has_value?(@config, paths)
+        return value
+      end
+      # return if nested && shadow_path?(paths, @config).empty?
+
+      # Default
+      if value = has_value?(@defaults, paths)
+        return value
+      end
+      # return if nested && shadow_path?(paths, @defaults).empty?
+    end
+
+    private def has_value?(source : Hash(String, String | Any), paths : Array(String)) : Any?
+      return Any.new(source) if paths.size.zero?
+      if value = source[paths.first]?
+        return value.is_a?(Any) ? value : Any.new(value) if paths.size == 1
+
+        has_value?(value.as_h, paths[1..-1]) if value.is_a?(Any) && value.as_h?
+      end
+    end
+
+    # Return paths if given paths is shadowed somewhere in given hash
+    private def shadow_path?(paths : Array(String), hash : Hash(String, String | Any)) : String
+      paths.each_with_index do |_, i|
+        return "" unless value = has_value?(hash, paths[0..i])
+
+        if value.is_a?(Any) && value.as_h?
+          next
+        else
+          return paths[0..i].join(@config_delimiter)
+        end
+      end
+
+      ""
+    end
+
+    private def deep_search(source : Hash(String, String | Any), paths : Array(String)) : Hash(String, Any)
+      paths.each do |path|
+        subtree = source[path]?
+
+        unless subtree
+          hash = Hash(String, Any).new
+          source[path] = Any.new(hash)
+          source = hash
+
+          next
+        end
+
+        source = if subtree.is_a?(Any)
+                   subtree.as_h
+                 elsif subtree.is_a?(Hash)
+                   subtree.as(Hash(String, Any))
+                 else
+                   hash = Hash(String, Any).new
+                   source[path] = Any.new(hash)
+                   hash
+                 end
+      end
+
+      source
+    end
+
+    # Return paths if given paths is shadowed somewhere in the ENV
+    private def shadow_path?(paths : Array(String)) : String?
+      paths.each_with_index do |_, i|
+        key = paths[0..i].join(@config_delimiter)
+        if value = ENV[env_key(key)]?
+          return value
+        end
       end
     end
 
@@ -321,7 +596,11 @@ module Totem
 
     private def config_file(path, extname)
       file = File.join(path, "#{@config_name}.#{extname}")
+      # Converts to an absolute path
+      file = file.sub("$HOME", "~/") if file.starts_with?("$HOME")
+      file = File.expand_path(file)
       @logger.debug("Checking for #{file}")
+
       if File.exists?(file) && File.readable?(file)
         @logger.debug("Found: #{file}")
         file
@@ -347,8 +626,8 @@ module Totem
       end
     end
 
-    private def raw
-      @defaults.merge(@config)
+    def raw
+      (@defaults.merge(@config)).merge(@overrides)
     end
 
     private def default_logger_formatter
