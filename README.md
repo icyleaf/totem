@@ -17,13 +17,13 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Loading configuration](#loading-configuration)
     - [From raw string](#from-raw-string)
     - [From file](#from-file)
-  - [Wirting configuration](#wirting-configuration)
 - [Usage](#usage)
   - [Load configuration with multiple paths](#load-configuration-with-multiple-paths)
   - [Set Alias and using alias](#set-alias-and-using-alias)
+  - [Working with nested key](#working-with-nested-key)
   - [Working with Envoriment variables](#working-with-envoriment-variables)
   - [Serialization](#serialization)
-- [Todo](#todo)
+  - [Storing configuration to file](#storing-configuration-to-file)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 
@@ -44,7 +44,7 @@ Totem has following features:
 Uses the following precedence order. Each item takes precedence over the item below it:
 
 - alias
-- explicit call to `set`
+- override, explicit call to `set`
 - env
 - config
 - default
@@ -186,31 +186,6 @@ totem = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
 totem = Totem.from_file "sample.env"
 ```
 
-### Wirting configuration
-
-```crystal
-raw = <<-EOF
-Hacker: true
-name: steve
-hobbies:
-- skateboarding
-- snowboarding
-- go
-clothing:
-  jacket: leather
-  trousers: denim
-  pants:
-    size: large
-age: 35
-eyes : brown
-EOF
-
-totem = Totem.from_yaml raw
-totem.set("nickname", "Freda")
-totem.set("eyes", "blue")
-totem.store!("profile.json")
-```
-
 ## Usage
 
 ### Load configuration with multiple paths
@@ -241,6 +216,17 @@ totem.set("nickname", "bar")
 
 totem.get("name")       # => "foo"
 totem.get("nickname")   # => "foo"
+```
+
+### Working with nested key
+
+All accessor methods accept nested key:
+
+```crystal
+totem.set_default("profile.user.name", "foo")
+totem.set("profile.user.age", 13)
+totem.alias("username", "profile.user.name")
+totem.get("profile.user.age")
 ```
 
 ### Working with Envoriment variables
@@ -313,6 +299,31 @@ end
 totem = Totem.from_file "spec/fixtures/config.yaml"
 clothes = profile.mapping(Clothes, "clothing")
 # => Clothes(@jacket="leather", @pants={"size" => "large"}, @trousers="denim")
+```
+
+### Storing configuration to file
+
+```crystal
+raw = <<-EOF
+Hacker: true
+name: steve
+hobbies:
+- skateboarding
+- snowboarding
+- go
+clothing:
+  jacket: leather
+  trousers: denim
+  pants:
+    size: large
+age: 35
+eyes : brown
+EOF
+
+totem = Totem.from_yaml raw
+totem.set("nickname", "Freda")
+totem.set("eyes", "blue")
+totem.store!("profile.json")
 ```
 
 ## Contributing
