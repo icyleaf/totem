@@ -315,14 +315,6 @@ clothes = profile.mapping(Clothes, "clothing")
 # => Clothes(@jacket="leather", @pants={"size" => "large"}, @trousers="denim")
 ```
 
-## Todo
-
-- [x] Reading from environment variables
-- [x] Serialize configuration to `Struct`
-- [ ] Reading from TOML and etc formatted files.
-- [ ] Reading from remote key-value database (redis or memcache)
-- [ ] Reading from remote config systems (etcd or Consul)
-
 ## Contributing
 
 1. Fork it (<https://github.com/icyleaf/totem/fork>)
