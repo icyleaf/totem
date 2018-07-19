@@ -3,7 +3,7 @@ require "yaml"
 require "logger"
 
 module Totem
-  class Reader
+  class Config
     SUPPORTED_EXTS = %w(yaml yml json env)
 
     def self.from_file(file : String, paths : Array(String)? = nil)

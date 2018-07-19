@@ -6,7 +6,7 @@
 [![Tag](https://img.shields.io/github/tag/icyleaf/totem.svg)](https://github.com/icyleaf/totem/blob/master/CHANGELOG.md)
 [![Build Status](https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat)](https://circleci.com/gh/icyleaf/totem)
 
-Crystal configuration with spirit. Inspired from Go's [viper](https://github.com/spf13/viper). Totem Icon by Creative Stall from <a href="https://thenounproject.com">Noun Project</a>.
+Crystal configuration with spirit. Inspired from Go's [viper](https://github.com/spf13/viper). Totem Icon by lastspark from <a href="https://thenounproject.com">Noun Project</a>.
 
 <!-- TOC -->
 

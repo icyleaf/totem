@@ -44,7 +44,7 @@ end
 
 describe Totem do
   describe "#new" do
-    it "should works as Totem::Reader" do
+    it "should works as Totem::Config" do
       t =  Totem.new
       t.set_default "name", "foo"
       t.get("name").as_s.should eq "foo"
