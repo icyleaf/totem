@@ -357,7 +357,7 @@ totem.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot
 
 <h3>Serialization</h3>
 
-<p>Serialize configuration to <code>Struct</code>, at current stage you can pass a <code>JSON::Serializable</code> struct to mapping.</p>
+<p>Serialize configuration to <code>Struct</code>, at current stage you can pass a <code>JSON::Serializable</code>/<code>YAML::Serializable</code> struct to mapping.</p>
 
 <pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Profile</span>
   <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
