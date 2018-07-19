@@ -61,8 +61,8 @@
       
     </li>
   
-  <li class=" " data-id="github.com/icyleaf/totem/Totem/Dotenv" data-name="totem::dotenv">
-      <a href="Totem/Dotenv.html">Dotenv</a>
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Config" data-name="totem::config">
+      <a href="Totem/Config.html">Config</a>
       
     </li>
   
@@ -88,11 +88,6 @@
   
 </ul>
 
-      
-    </li>
-  
-  <li class=" " data-id="github.com/icyleaf/totem/Totem/Reader" data-name="totem::reader">
-      <a href="Totem/Reader.html">Reader</a>
       
     </li>
   
@@ -131,7 +126,7 @@
 <a href="https://github.com/icyleaf/totem/blob/master/CHANGELOG.md" target="_blank"><img src="https://img.shields.io/github/tag/icyleaf/totem.svg" alt="Tag"/></a>
 <a href="https://circleci.com/gh/icyleaf/totem" target="_blank"><img src="https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat" alt="Build Status"/></a></p>
 
-<p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper" target="_blank">viper</a>. Totem Icon by Creative Stall from &lt;a href="https://thenounproject.com">Noun Project&lt;/a>.</p>
+<p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper" target="_blank">viper</a>. Totem Icon by lastspark from &lt;a href="https://thenounproject.com">Noun Project&lt;/a>.</p>
 
 <p>&lt;!-- TOC --></p>
 
@@ -388,10 +383,6 @@ profile.hobbies   <span class="c"># =&gt; [&quot;skateboarding&quot;, &quot;snow
 totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;spec/fixtures/config.yaml&quot;</span>
 clothes <span class="o">=</span> profile.mapping(<span class="t">Clothes</span>, <span class="s">&quot;clothing&quot;</span>)
 <span class="c"># =&gt; Clothes(@jacket=&quot;leather&quot;, @pants={&quot;size&quot; =&gt; &quot;large&quot;}, @trousers=&quot;denim&quot;)</span></code></pre>
-
-<h2>Todo</h2>
-
-<ul><li>[x] Reading from environment variables</li><li>[x] Serialize configuration to <code>Struct</code></li><li>[ ] Reading from TOML and etc formatted files.</li><li>[ ] Reading from remote key-value database (redis or memcache)</li><li>[ ] Reading from remote config systems (etcd or Consul)</li></ul>
 
 <h2>Contributing</h2>
 
