@@ -16,8 +16,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Crystal Version"
+          name: "Crystal version"
           command: crystal version
+      - run:
+          name: "Install dependencies"
+          command: shards install
       - run:
           name: "Specs"
           command: crystal spec
