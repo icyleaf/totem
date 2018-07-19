@@ -279,7 +279,7 @@ totem.get("name") # => "Polly"
 
 ### Serialization
 
-Serialize configuration to `Struct`, at current stage you can pass a `JSON::Serializable` struct to mapping.
+Serialize configuration to `Struct`, at current stage you can pass a `JSON::Serializable`/`YAML::Serializable` struct to mapping.
 
 ```crystal
 struct Profile
