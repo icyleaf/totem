@@ -71,6 +71,11 @@
       
         <ul>
   
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/MappingError" data-name="totem::exception::mappingerror">
+      <a href="../Totem/Exception/MappingError.html">MappingError</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/NotFoundConfigFileError" data-name="totem::exception::notfoundconfigfileerror">
       <a href="../Totem/Exception/NotFoundConfigFileError.html">NotFoundConfigFileError</a>
       
@@ -146,7 +151,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L7" target="_blank">totem/config.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L7" target="_blank">totem/config.cr</a>
     
     <br/>
   
@@ -295,14 +300,16 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#mapping%28converter%3A_%29-instance-method" class="signature"><strong>#mapping</strong>(converter : _)</a>
+        <a href="#mapping%28converter%3AT.class%29forallT-instance-method" class="signature"><strong>#mapping</strong>(converter : T.class) forall T</a>
         
-          <div class="summary"><p>Mapping JSON Serializable Only to Struct</p></div>
+          <div class="summary"><p>Mapping JSON/YAML Serializable to Struct</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#mapping%28converter%3A_%2Ckey%3AString%29-instance-method" class="signature"><strong>#mapping</strong>(converter : _, key : String)</a>
+        <a href="#mapping%28converter%3AT.class%2Ckey%3AString%29forallT-instance-method" class="signature"><strong>#mapping</strong>(converter : T.class, key : String) forall T</a>
+        
+          <div class="summary"><p>Mapping JSON/YAML Serializable to Struct with key</p></div>
         
       </li>
     
@@ -390,7 +397,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -411,7 +418,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -427,7 +434,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -448,7 +455,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -464,7 +471,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -480,7 +487,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L69" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L69" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -496,7 +503,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -512,7 +519,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L169" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L169" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -528,7 +535,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -544,7 +551,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -560,7 +567,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -576,7 +583,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -592,7 +599,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -608,7 +615,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -624,7 +631,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -640,7 +647,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -656,7 +663,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L174" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L174" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -672,7 +679,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -688,7 +695,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L165" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L165" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -704,7 +711,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L89" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L89" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -720,7 +727,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -736,43 +743,70 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="mapping(converter:_)-instance-method">
+    <div class="entry-detail" id="mapping(converter:T.class)forallT-instance-method">
       <div class="signature">
         
-        def <strong>mapping</strong>(converter : _)
+        def <strong>mapping</strong>(converter : T.class) forall T
 
-        <a class="method-permalink" href="#mapping%28converter%3A_%29-instance-method">#</a>
+        <a class="method-permalink" href="#mapping%28converter%3AT.class%29forallT-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Mapping JSON Serializable Only to Struct</p>
+        <div class="doc"><p>Mapping JSON/YAML Serializable to Struct</p>
 
-<p><span class="flag orange">TODO</span>  how to detect converter's ancestors was XXX::Serializable</p></div>
+<pre><code><span class="k">struct</span> <span class="t">Profile</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+  <span class="c"># or</span>
+  <span class="c"># include YAML::Serializable</span>
+
+  property name : <span class="t">String</span>
+  property hobbies : <span class="t">Array</span>(<span class="t">String</span>)
+  property age : <span class="t">Int32</span>
+  property eyes : <span class="t">String</span>
+<span class="k">end</span>
+
+profile <span class="o">=</span> totem.mapping(<span class="t">Profile</span>)
+profile.name <span class="c"># =&gt; &quot;steve&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L182" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="mapping(converter:_,key:String)-instance-method">
+    <div class="entry-detail" id="mapping(converter:T.class,key:String)forallT-instance-method">
       <div class="signature">
         
-        def <strong>mapping</strong>(converter : _, key : <a href="../String.html">String</a>)
+        def <strong>mapping</strong>(converter : T.class, key : <a href="../String.html">String</a>) forall T
 
-        <a class="method-permalink" href="#mapping%28converter%3A_%2Ckey%3AString%29-instance-method">#</a>
+        <a class="method-permalink" href="#mapping%28converter%3AT.class%2Ckey%3AString%29forallT-instance-method">#</a>
       </div>
+      
+        <div class="doc"><p>Mapping JSON/YAML Serializable to Struct with key</p>
+
+<pre><code><span class="k">struct</span> <span class="t">Clothes</span>
+  <span class="k">include</span> <span class="t">JSON</span><span class="t">::</span><span class="t">Serializable</span>
+  <span class="c"># or</span>
+  <span class="c"># include YAML::Serializable</span>
+
+  property jacket : <span class="t">String</span>
+  property trousers : <span class="t">String</span>
+  property pants : <span class="t">Hash</span>(<span class="t">String</span>, <span class="t">String</span>)
+<span class="k">end</span>
+
+clothes <span class="o">=</span> totem.mapping(<span class="t">Clothes</span>, <span class="s">&quot;clothing&quot;</span>)
+clothes.jacket <span class="c"># =&gt; &quot;leather&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L233" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -788,7 +822,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L191" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L256" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -804,7 +838,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -820,7 +854,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -836,7 +870,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L77" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -852,7 +886,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -868,7 +902,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -884,7 +918,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L119" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -900,7 +934,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4f3468ebebed55adc84b6b74c1cd485637242a79/src/totem/config.cr#L128" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/680a79297e733cd51dd28b19c9d5f0987546c75d/src/totem/config.cr#L128" target="_blank">View source</a>]
         
       </div>
     </div>
