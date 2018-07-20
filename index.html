@@ -321,14 +321,14 @@ totem.get(<span class="s">&quot;profile.user.age&quot;</span>)</code></pre>
 
 totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
 
-totem.bind_env(<span class="s">&quot;id&quot;</span>)
+totem.bind_env(<span class="s">&quot;ID&quot;</span>)
 totem.get(<span class="s">&quot;id&quot;</span>).as_i        <span class="c"># =&gt; 123</span>
 
-totem.bind_env(<span class="s">&quot;f&quot;</span>, <span class="s">&quot;food&quot;</span>)
+totem.bind_env(<span class="s">&quot;f&quot;</span>, <span class="s">&quot;FOOD&quot;</span>)
 totem.get(<span class="s">&quot;f&quot;</span>).as_s         <span class="c"># =&gt; &quot;Pinapple&quot;</span>
 
 totem.automative_env
-totem.get(<span class="s">&quot;name&quot;</span>)           <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
+totem.get(<span class="s">&quot;name&quot;</span>).as_s      <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
 
 <p>Working with envoriment prefix:</p>
 
@@ -337,9 +337,9 @@ totem.get(<span class="s">&quot;name&quot;</span>)           <span class="c"># =
 <span class="c"># totem.env_prefix = &quot;totem&quot;</span>
 <span class="c"># totem.automative_env = true</span>
 
-totem.get(<span class="s">&quot;id&quot;</span>).as_i <span class="c"># =&gt; 123</span>
-totem.get(<span class="s">&quot;food&quot;</span>).as_s <span class="c"># =&gt; &quot;Pinapple&quot;</span>
-totem.get(<span class="s">&quot;name&quot;</span>) <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
+totem.get(<span class="s">&quot;id&quot;</span>).as_i    <span class="c"># =&gt; 123</span>
+totem.get(<span class="s">&quot;food&quot;</span>).as_s  <span class="c"># =&gt; &quot;Pinapple&quot;</span>
+totem.get(<span class="s">&quot;name&quot;</span>).as_s  <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
 
 <h3>Serialization</h3>
 
