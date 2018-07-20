@@ -3,11 +3,11 @@ require "yaml"
 require "poncho"
 require "logger"
 
-module Totem 
+module Totem
   # `Totem::Config` is the core configuration reader, parser and writer.
-  # 
+  #
   # The config type are avaiable in:
-  # 
+  #
   # - yaml/yml
   # - json
   # - env
@@ -15,7 +15,7 @@ module Totem
     SUPPORTED_EXTS = %w(yaml yml json env)
 
     # Load configuration from a file
-    # 
+    #
     # ```
     # Totem::Config.from_file("config.yaml", ["/etc/totem", "~/.totem", "./"])
     # ```
@@ -66,7 +66,7 @@ module Totem
     end
 
     # Sets the default value for given key
-    # 
+    #
     # ```
     # totem.set_default("id", 123)
     # totem.set_default("user.name", "foobar")
@@ -76,13 +76,13 @@ module Totem
     end
 
     # Sets the default values with `Hash` data
-    # 
+    #
     # ```
     # totem.set_defaults({
-    #   "id" => 123,
+    #   "id"   => 123,
     #   "user" => {
-    #     "name" => "foobar"
-    #   }
+    #     "name" => "foobar",
+    #   },
     # })
     # ```
     def set_defaults(defaults : Hash(String, _))
@@ -92,7 +92,7 @@ module Totem
     end
 
     # Alias to `set` method.
-    # 
+    #
     # ```
     # totem["id"] = 123
     # totem["user.name"] = "foobar"
@@ -102,7 +102,7 @@ module Totem
     end
 
     # Alias to `get` method.
-    # 
+    #
     # ```
     # totem["id"]
     # totem["user.name"]
@@ -112,28 +112,28 @@ module Totem
     end
 
     # Alias to `fetch` method but return `Nil` if not exists.
-    # 
+    #
     # ```
     # totem["id"]?
     # totem["user.name"]?
     # ```
-    def []?(key : String) : Any
+    def []?(key : String) : Any?
       find(key)
     end
 
     # Checks to see if the key has been set in any of the data locations.
-    # 
+    #
     # > Case-insensitive for a key.
     def has_key?(key : String) : Bool
       find(key) ? true : false
     end
 
-    # Sets the value for the key in the override regiser. 
-    # 
+    # Sets the value for the key in the override regiser.
+    #
     # Will be used instead of values obtained via config file, env, default.
-    # 
+    #
     # > Case-insensitive for a key.
-    # 
+    #
     # ```
     # totem.set("id", 123)
     # totem.set("user.name", "foobar")
@@ -149,13 +149,13 @@ module Totem
     end
 
     # Gets any value by given key
-    # 
+    #
     # The behavior of returning the value associated with the first
     # place from where it is set. following order:
     # override, flag, env, config file, default
-    # 
+    #
     # > Case-insensitive for a key.
-    # 
+    #
     # ```
     # totem.get("id")
     # totem.get("user.name")
@@ -169,30 +169,28 @@ module Totem
     end
 
     # Similar to `get` method but returns given value if key not exists.
-    # 
+    #
     # > Case-insensitive for a key.
-    # 
+    #
     # ```
     # totem.fetch("env", "development")
     # ```
-    def fetch(key : String, default_value : (Any | Any::Type)? = nil)
+    def fetch(key : String, default_value : (Any | Any::Type)? = nil) : Any?
       if value = find(key)
         return value
       end
 
-      unless default_value
-        return default_value
-      end
+      return if default_value.nil?
 
       default_value.is_a?(Any) ? default_value : Any.new(default_value)
     end
 
     # Register an aliase
-    # 
+    #
     # ```
     # totem.set("food", "apple")
     # totem.alias("f", "food")
-    # 
+    #
     # totem.set("user.name", "foobar")
     # totem.alias("username", "user.name")
     # ```
@@ -201,17 +199,17 @@ module Totem
     end
 
     # Bind a key to a ENV vairable
-    # 
+    #
     # If only a key is provided, it will use the `ENV` key matching the key, upcased.
-    # 
+    #
     # It will append env prefix when `env_prefix` is seted and the key is not provided.
-    # 
+    #
     # > Case-sensitive for a key.
-    # 
+    #
     # ```
     # totem.bind_env("HOME")
     # totem.bind_env("root_path", "HOME")
-    # 
+    #
     # totem.get("home")
     # totem.get("root_path")
     # ```
@@ -227,14 +225,14 @@ module Totem
     end
 
     # Defines a `ENV` prefix
-    # 
+    #
     # If defined with "totem", Totem will look for env variables that start with "TOTEM_"
-    # 
+    #
     # > It always upcase the prefix.
-    # 
+    #
     # ```
     # ENV["TOTEM_ENV"] = "development"
-    # 
+    #
     # totem.env_prefix = "totem"
     # totem.bind_env("env")
     # totem.get("env") # => "development"
@@ -244,12 +242,12 @@ module Totem
     end
 
     # Enable and load ENV variables to Totem to search.
-    # 
+    #
     # It provide an argument to quick define the env prefix(`env_prefix=`)
-    # 
+    #
     # ```
     # ENV["TOTEM_ENV"] = "development"
-    # 
+    #
     # totem.automatic_env("totem")
     # totem.get("env") # => "development"
     # ```
@@ -259,7 +257,7 @@ module Totem
     end
 
     # Load configuration file from disk, searching in the defined paths.
-    # 
+    #
     # ```
     # totem = Totem.new("config")
     # totem.config_paths << "/etc/totem" << "~/.totem"
@@ -275,13 +273,13 @@ module Totem
     end
 
     # Load configuration file by given file name.
-    # 
+    #
     # It will ignore the values of `config_name`, `config_type` and `config_paths`.
-    # 
+    #
     # ```
     # totem = Totem.new("config", "json")
     # totem.config_paths << "/etc/totem" << "~/.totem"
-    # 
+    #
     # begin
     #   totem.load_file!("~/config/development.yaml")
     # rescue e
@@ -298,11 +296,11 @@ module Totem
     end
 
     # Store the current configuration to a file.
-    # 
+    #
     # ```
     # totem = Totem.new("config", "json")
     # totem.config_paths << "/etc/totem" << "~/.totem"
-    # 
+    #
     # begin
     #   totem.store!
     # rescue e
@@ -319,12 +317,12 @@ module Totem
     end
 
     # Store current configuration to a given file.
-    # 
+    #
     # It will ignore the values of `config_name`, `config_type` and `config_paths`.
-    # 
+    #
     # ```
     # totem = Totem.new("config", "json")
-    # 
+    #
     # begin
     #   totem.store_file!("~/config.yaml", force: true)
     # rescue e
@@ -444,9 +442,9 @@ module Totem
     end
 
     # Parse raw string with given config type to configuration
-    # 
+    #
     # The config type are avaiable in:
-    # 
+    #
     # - yaml/yml
     # - json
     # - env
@@ -480,7 +478,7 @@ module Totem
       key = real_key(key)
       paths = key.split(@config_delimiter)
       nested = paths.size > 1
-      
+
       # Override
       if value = has_value?(@overrides, paths)
         return value

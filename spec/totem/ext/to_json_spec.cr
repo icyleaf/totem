@@ -10,7 +10,7 @@ end
 describe Slice do
   describe "#to_json" do
     Slice(UInt8).empty.to_json.should eq "[]"
-    Slice.new(3) {|i| i + 10}.to_json.should eq "[10,11,12]"
+    Slice.new(3) { |i| i + 10 }.to_json.should eq "[10,11,12]"
   end
 end
 
