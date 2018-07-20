@@ -496,8 +496,8 @@ module Totem
         return Any.new(value.as(String))
         return unless shadow_path?(paths)
       end
-      if value = has_value?(@env, paths)
-        return value
+      if (env_key = @env[key]?) && (value = ENV[env_key(env_key)]?)
+        return Any.new(value.as(String))
       end
       # return if nested && shadow_path?(paths, @env).empty?
 
@@ -624,7 +624,7 @@ module Totem
     private def env_key(key : String)
       new_key = key.upcase
       if (prefix = @env_prefix) && !prefix.empty?
-        "#{prefix}_#{new_key}"
+        new_key.starts_with?(prefix) ? new_key : "#{prefix}_#{new_key}"
       else
         new_key
       end
