@@ -72,7 +72,13 @@ module Totem
     # totem.set_default("user.name", "foobar")
     # ```
     def set_default(key : String, value : T) forall T
-      @defaults[key] = Any.new(value)
+      key = real_key(key.downcase)
+
+      paths = key.split(@config_delimiter)
+      last_key = paths.last.downcase
+
+      deep_hash = deep_search(@defaults, paths[0..-2])
+      deep_hash[last_key] = Any.new(value)
     end
 
     # Sets the default values with `Hash` data

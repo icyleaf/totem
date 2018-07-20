@@ -256,6 +256,44 @@ describe Totem::Config do
     end
   end
 
+  describe "#set_default" do
+    it "should sets" do
+      t = Totem::Config.new
+      t.set_default("str", "foo")
+      t.set_default("int", 123)
+      t.set_default("float", 123.45)
+      t.set_default("bool", true)
+      t.set_default("array", [1, "2", 3])
+      t.set_default("hash", {"a" => "b", "c" => "d"})
+      t.set_default("json_any", JSON.parse(%Q{{"a": "b", "c": "d"}}))
+      t.set_default("yaml_any", YAML.parse(%Q{---\na: b\nc: d}))
+      t.set_default("super.deep.nested.key", "value")
+
+      t.get("str").raw.should eq "foo"
+      t.get("int").raw.should eq 123
+      t.get("float").raw.should eq 123.45
+      t.get("bool").raw.should be_true
+      t.get("array").raw.should eq [Totem::Any.new(1), Totem::Any.new("2"), Totem::Any.new(3)]
+      t.get("hash").raw.should eq({"a" => Totem::Any.new("b"), "c" => Totem::Any.new("d")})
+      t.get("json_any").raw.should eq JSON.parse(%Q{{"a": "b", "c": "d"}})
+      t.get("yaml_any").raw.should eq YAML.parse(%Q{---\na: b\nc: d})
+      t.get("super.deep.nested").raw.should eq({"key" => Totem::Any.new("value")})
+      t.get("super.deep.nested.key").raw.should eq "value"
+    end
+  end
+
+  describe "#set_defaults" do
+    it "should sets with hash" do
+      t = Totem::Config.new
+      t.set_defaults({"str" => "foo", "int" => 123, "array" => [1,"2",3], "hash" => {"a" => "b", "c" => "d"}})
+
+      t.get("str").raw.should eq "foo"
+      t.get("int").raw.should eq 123
+      t.get("array").raw.should eq [Totem::Any.new(1), Totem::Any.new("2"), Totem::Any.new(3)]
+      t.get("hash").raw.should eq({"a" => Totem::Any.new("b"), "c" => Totem::Any.new("d")})
+    end
+  end
+
   describe "#has_key?" do
     it "should works" do
       t = Totem::Config.from_file File.join(fixture_path, "config.json")
