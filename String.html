@@ -267,7 +267,7 @@ show a replacement character when there's an error in incoming data.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/d4085443fe780e02c4b3ee9cbb8888d60c3e2935/src/totem/ext/string.cr#L1" target="_blank">totem/ext/string.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/36472b22fa9835c638dc8f5313afb89d65c173cf/src/totem/ext/string.cr#L1" target="_blank">totem/ext/string.cr</a>
     
     <br/>
   
@@ -287,13 +287,6 @@ show a replacement character when there's an error in incoming data.</p>
         <a href="#snakecase-instance-method" class="signature"><strong>#snakecase</strong></a>
         
           <div class="summary"><p>Converts camelcase to snakecase(underscores) boundaries.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_bool%28strict%3Dtrue%29%3ABool%3F-instance-method" class="signature"><strong>#to_bool</strong>(strict = <span class="n">true</span>) : Bool?</a>
-        
-          <div class="summary"><p>Cast value to Bool type, return <code>Nil</code> if not matched rules.</p></div>
         
       </li>
     
@@ -359,35 +352,7 @@ show a replacement character when there's an error in incoming data.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/d4085443fe780e02c4b3ee9cbb8888d60c3e2935/src/totem/ext/string.cr#L7" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="to_bool(strict=true):Bool?-instance-method">
-      <div class="signature">
-        
-        def <strong>to_bool</strong>(strict = <span class="n">true</span>) : Bool?
-
-        <a class="method-permalink" href="#to_bool%28strict%3Dtrue%29%3ABool%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc"><p>Cast value to Bool type, return <code>Nil</code> if not matched rules.</p>
-
-<p>Here is the rules, case insensitive:</p>
-
-<ul><li>"true"/"false": <code>true</code>/<code>false</code> with strict mode</li><li>"true"/"t"/"yes"/"y"/"1": <code>true</code> without strict mode</li><li>"false"/"f"/"no"/"n"/"0": <code>false</code> without strict mode</li></ul>
-
-<pre><code><span class="s">&quot;true&quot;</span>.to_bool               <span class="c"># =&gt; true</span>
-<span class="s">&quot;false&quot;</span>.to_bool              <span class="c"># =&gt; false</span>
-<span class="s">&quot;yes&quot;</span>.to_bool(strict: <span class="n">false</span>) <span class="c"># =&gt; true</span>
-<span class="s">&quot;n&quot;</span>.to_bool(strict: <span class="n">false</span>)   <span class="c"># =&gt; false</span>
-<span class="s">&quot;1&quot;</span>.to_bool(<span class="n">false</span>)           <span class="c"># =&gt; true</span></code></pre></div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/icyleaf/totem/blob/d4085443fe780e02c4b3ee9cbb8888d60c3e2935/src/totem/ext/string.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/36472b22fa9835c638dc8f5313afb89d65c173cf/src/totem/ext/string.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
