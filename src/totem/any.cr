@@ -1,3 +1,5 @@
+require "popcorn"
+
 module Totem
   # `Totem::Any` is a convenient wrapper around all possible types(`Totem::Any::Type`) and
   # can be used for traversing dynamic or unkown types.
@@ -21,73 +23,36 @@ module Totem
       end
     end
 
-    def as_i? : Int32?
-      as_i if [Int32, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_i?
+      Popcorn.to_int?(@raw)
     end
 
-    def as_i : Int32
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_i
-      when String
-        object.to_i
-      else
-        object.as(Int).to_i
-      end
+    def as_i
+      Popcorn.to_int(@raw)
     end
 
-    def as_i64? : Int64?
-      as_i64 if [Int64, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_i64?
+      Popcorn.to_int64?(@raw)
     end
 
-    def as_i64 : Int64
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_i64
-      when String
-        object.to_i64
-      else
-        object.as(Int).to_i64
-      end
+    def as_i64
+      Popcorn.to_int64(@raw)
     end
 
-    def as_f? : Float64?
-      as_f if [Float64, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_f?
+      Popcorn.to_float?(@raw)
     end
 
-    def as_f : Float64
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_f
-      when String
-        object.to_f
-      else
-        object.as(Float).to_f
-      end
+    def as_f
+      Popcorn.to_float(@raw)
     end
 
-    def as_bool?(strict = true) : Bool?
-      case object = @raw
-      when Bool, JSON::Any
-        as_bool(strict)
-      else
-        object.to_s.to_bool(strict)
-      end
+    def as_bool?
+      Popcorn.to_bool?(@raw)
     end
 
-    def as_bool(strict = true) : Bool
-      case object = @raw
-      when JSON::Any, YAML::Any
-        value = object.to_s.to_bool(strict)
-        raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
-        value
-      when String
-        value = object.to_bool(strict)
-        raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
-        value
-      else
-        object.as(Bool)
-      end
+    def as_bool
+      Popcorn.to_bool(@raw)
     end
 
     def as_nil : Nil

@@ -9,6 +9,9 @@ crystal: 0.25.1
 dependencies:
   poncho:
     github: icyleaf/poncho
-    branch: master
+    version: ~> 0.1.0
+  popcorn:
+    github: icyleaf/popcorn
+    version: ~> 0.1.1
 
 license: MIT

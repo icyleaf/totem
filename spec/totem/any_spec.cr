@@ -17,7 +17,20 @@ describe Totem::Any do
       Totem::Any.new(true).as_bool?.should be_true
       Totem::Any.new(false).as_bool.should be_false
       Totem::Any.new(false).as_bool?.should be_false
-      Totem::Any.new("true").as_bool.should be_true
+      Totem::Any.new(1).as_bool.should be_true
+      Totem::Any.new(0).as_bool.should be_false
+      Totem::Any.new("TRUE").as_bool.should be_true
+      Totem::Any.new("t").as_bool.should be_true
+      Totem::Any.new("yes").as_bool.should be_true
+      Totem::Any.new("Y").as_bool.should be_true
+      Totem::Any.new("on").as_bool.should be_true
+      Totem::Any.new("1").as_bool.should be_true
+      Totem::Any.new("FALSE").as_bool.should be_false
+      Totem::Any.new("f").as_bool.should be_false
+      Totem::Any.new("no").as_bool.should be_false
+      Totem::Any.new("N").as_bool.should be_false
+      Totem::Any.new("off").as_bool.should be_false
+      Totem::Any.new("0").as_bool.should be_false
 
       json = JSON.parse(%Q{[true, false]})
       Totem::Any.new(json).as_a.first.as_bool.should eq true
@@ -30,10 +43,14 @@ describe Totem::Any do
       Totem::Any.new(yaml).as_a.first.as_bool?.should eq true
       Totem::Any.new(yaml).as_a.last.as_bool.should eq false
       Totem::Any.new(yaml).as_a.last.as_bool?.should eq false
+      Totem::Any.new(yaml).as_a[1].as_bool.should be_true
 
-      Totem::Any.new(yaml).as_a[1].as_bool?.should be_nil
       expect_raises TypeCastError do
-        Totem::Any.new(yaml).as_a[1].as_bool
+        Totem::Any.new(json).as_bool
+      end
+
+      expect_raises TypeCastError do
+        Totem::Any.new(yaml).as_bool
       end
     end
 
@@ -42,7 +59,7 @@ describe Totem::Any do
       Totem::Any.new(123).as_i?.should eq 123
       Totem::Any.new(123456789123456).as_i64.should eq 123456789123456
       Totem::Any.new(123456789123456).as_i64?.should eq 123456789123456
-      Totem::Any.new(true).as_i?.should be_nil
+      Totem::Any.new(true).as_i?.should eq 1
 
       json = JSON.parse(%Q{[123, 123456789123456]})
       Totem::Any.new(json).as_a.first.as_i.should eq 123
