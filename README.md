@@ -28,6 +28,7 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
 - [Help and Discussion](#help-and-discussion)
 - [Donate](#donate)
 - [How to Contribute](#how-to-contribute)
+- [You may also like](#you-may-also-like)
 - [License](#license)
 
 <!-- /TOC -->
@@ -371,6 +372,13 @@ You can donate via [Paypal](https://www.paypal.me/icyleaf/5).
 Your contributions are always welcome! Please submit a pull request or create an issue to add a new question, bug or feature to the list.
 
 All [Contributors](https://github.com/icyleaf/totem/graphs/contributors) are on the wall.
+
+## You may also like
+
+- [halite](https://github.com/icyleaf/halite) - Crystal HTTP Requests Client with a chainable REST API, built-in sessions and loggers.
+- [poncho](https://github.com/icyleaf/poncho) - A .env parser/loader improved for performance.
+- [popcorn](https://github.com/icyleaf/popcorn) - Easy and Safe casting from one type to another.
+- [fast-crystal](https://github.com/icyleaf/fast-crystal) - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.
 
 ## License
 
