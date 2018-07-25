@@ -92,7 +92,7 @@ totem.get("key").as_s # => "bar"
 
 ### Loading configuration
 
-Support `JSON`, `YAML` and dotenv data from raw stirng and file.
+Support `JSON`, `YAML` and dotenv data from raw string and file.
 
 #### From raw string
 
