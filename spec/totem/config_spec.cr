@@ -167,12 +167,6 @@ describe Totem::Config do
             t.get("unkown.super.deep.nested")
           end
         end
-
-        it "returns nil with shadowed path" do
-          pending do
-            "todo"
-          end
-        end
       end
     end
 
@@ -270,6 +264,81 @@ describe Totem::Config do
         t.get("super.deep.nested.key").raw.should eq "value"
       end
     end
+
+    describe "#flat_keys" do
+      it "should iterates" do
+        t = Totem::Config.new
+        t.set_default("user.name", "foo")
+        t.set_default("user.age", 35)
+        t.alias("age", "user.age")
+        t.set("id", 12345)
+
+        t.flat_keys.should eq ["age", "id", "user.name", "user.age"]
+      end
+    end
+
+    describe "#settings" do
+      it "should gets" do
+        hash = {
+          "name" => "elian",
+          "age" => 20
+        }
+
+        ENV["TOTEM_AGE"] = "40"
+
+        t = Totem::Config.parse hash.to_yaml, "yaml"
+        t.set_default("name", "foo")
+        t.set_default("age", 35)
+        t.alias("age", "name")
+
+        t.env_prefix = "totem"
+        t.bind_env("TOTEM_AGE")
+        t.set("name", "bar")
+
+        t.settings["name"].raw.should eq "bar"
+        t.settings["age"].raw.should eq "bar"
+      end
+    end
+
+    describe "#keys" do
+      it "should iterates" do
+        hash = {
+          "name" => "elian",
+          "age" => 20
+        }
+
+        t = Totem::Config.parse hash.to_yaml, "yaml"
+        t.set_default("name", "foo")
+        t.set_default("age", 35)
+        t.alias("age", "name")
+        t.set("name", "bar")
+
+        t.keys.each do |key|
+          hash.has_key?(key).should be_true
+        end
+      end
+    end
+
+    describe "#each" do
+      it "should iterates" do
+        hash = {
+          "name" => "elian",
+          "age" => 20
+        }
+
+        t = Totem::Config.parse hash.to_yaml, "yaml"
+        t.set_default("name", "foo")
+        t.set_default("age", 35)
+        t.set("name", "bar")
+
+        hash["name"]  = "bar"
+
+        t.each do |key, value|
+          hash[key].should eq value.raw
+        end
+      end
+    end
+
 
     describe "#set_default" do
       it "should sets" do

@@ -354,9 +354,9 @@ module Totem
       File.open(file, mode) do |f|
         case extname
         when "yaml", "yml"
-          f.puts(raw.to_yaml)
+          f.puts(settings.to_yaml)
         when "json"
-          f.puts(raw.to_json)
+          f.puts(settings.to_json)
         when "env"
           # TODO
           raise Error.new("Not complete store file with dotenv.")
@@ -388,24 +388,7 @@ module Totem
     # profile.name # => "steve"
     # ```
     def mapping(converter : T.class) forall T
-      {% begin %}
-        {{ struct_type = nil }}
-        {% for ancestor in T.ancestors %}
-          {% if ancestor == JSON::Serializable %}
-            {{ struct_type = "json" }}
-          {% elsif ancestor == YAML::Serializable %}
-            {{ struct_type = "yaml" }}
-          {% end %}
-        {% end %}
-
-        {% if struct_type == "json" %}
-          converter.from_json to_json
-        {% elsif struct_type == "yaml" %}
-          converter.from_yaml to_yaml
-        {% else %}
-          raise MappingError.new("Can not mapping with class: #{T}, avaiable in JSON::Serializable, YAML::Serializable")
-        {% end %}
-      {% end %}
+      mapping(converter)
     end
 
     # Mapping JSON/YAML Serializable to Struct with key
@@ -424,8 +407,8 @@ module Totem
     # clothes = totem.mapping(Clothes, "clothing")
     # clothes.jacket # => "leather"
     # ```
-    def mapping(converter : T.class, key : String) forall T
-      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") unless has_key?(key)
+    def mapping(converter : T.class, key : String? = nil) forall T
+      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") if key && !has_key?(key.not_nil!)
 
       {% begin %}
         {{ struct_type = nil }}
@@ -437,10 +420,9 @@ module Totem
           {% end %}
         {% end %}
 
-        {% if struct_type == "json" %}
-          converter.from_json raw[key].to_json
-        {% elsif struct_type == "yaml" %}
-          converter.from_yaml raw[key].to_json
+        {% if struct_type != nil %}
+          raw = key ? find(key.not_nil!).to_{{ struct_type.id }} : to_{{ struct_type.id }}
+          converter.from_{{ struct_type.id }}(raw)
         {% else %}
           raise MappingError.new("Can not mapping with class: #{T.class}, avaiable in JSON::Serializable, YAML::Serializable")
         {% end %}
@@ -473,6 +455,41 @@ module Totem
       data.each do |key, value|
         key = key.to_s if key.is_a?(YAML::Any)
         @config[key.downcase] = Any.new(value)
+      end
+    end
+
+    # Returns all keys holding a value, regardless of where they are set.
+    #
+    # Nested keys are returns with a `#config_delimiter` (= ".") separator.
+    def flat_keys : Array(String)
+      keys = flat_merge(@aliases, @overrides, @env, @config, @defaults, source: {} of String => Bool)
+      keys.each_with_object([] of String) do |(key, _), obj|
+        obj << key
+      end
+    end
+
+    # Returns an iterator over the key of `#settings` entries.
+    def keys
+      settings.keys
+    end
+
+    # Returns an iterator over the `#settings` entries.
+    def each
+      settings.each do |key, value|
+        yield key, value
+      end
+    end
+
+    # Returns all settings of configuration.
+    def settings : Hash(String, Any)
+      flat_keys.each_with_object({} of String => Any) do |key, obj|
+        next unless value = find(key)
+
+        paths = key.split(@config_delimiter)
+        last_key = paths.last.downcase
+
+        hash = deep_search(obj, paths[0..-2])
+        hash[last_key] = value
       end
     end
 
@@ -574,6 +591,37 @@ module Totem
       end
     end
 
+    private def flat_merge(*targets, source : Hash(String, Bool), prefix : String = "")
+      targets.each do |target|
+        raise Error.new("Can not merge with #{target.class}") unless target.is_a?(Hash)
+        source = flat_merge(target, source, prefix)
+      end
+
+      source
+    end
+
+    private def flat_merge(target : Hash(String, String | Any), source : Hash(String, Bool), prefix : String = "")
+      return source if !source.empty? && !prefix.empty? && source.has_key?(prefix)
+
+      subtree = {} of String => Any
+      prefix += @config_delimiter unless prefix.empty?
+      target.each do |key, value|
+        full_key = "#{prefix}#{key}"
+        if value.is_a?(Hash)
+          subtree = value
+        elsif value.is_a?(Totem::Any) && (temp_value = value.as(Totem::Any).as_h?)
+          subtree = temp_value
+        else
+          source[full_key.downcase] = true
+          next
+        end
+
+        source = flat_merge(subtree, source, full_key)
+      end
+
+      source
+    end
+
     private def find_config
       @logger.debug("Searching for config in #{@config_paths}")
       @config_paths.each do |path|
@@ -630,24 +678,25 @@ module Totem
       end
     end
 
-    def raw
-      (@defaults.merge(@config)).merge(@overrides)
-    end
-
     private def default_logger_formatter
       Logger::Formatter.new do |severity, datetime, progname, message, io|
         io << severity << " " << datetime.to_s("%F %T") << " " << message
       end
     end
 
+    # Alias to `#settings`
+    def to_h
+      settings
+    end
+
     # :nodoc:
     def to_json(json)
-      raw.to_json(json)
+      settings.to_json(json)
     end
 
     # :nodoc:
     def to_yaml(yaml)
-      raw.to_yaml(yaml)
+      settings.to_yaml(yaml)
     end
   end
 end
