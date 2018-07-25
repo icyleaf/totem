@@ -65,7 +65,9 @@ module Totem
     end
 
     def as_h? : Hash(String, Any)?
-      as_h if @raw.is_a?(Hash) || @raw.is_a?(JSON::Any) || @raw.is_a?(YAML::Any)
+      as_h if @raw.is_a?(Hash) ||
+              (@raw.is_a?(JSON::Any) && @raw.as(JSON::Any).as_h?) ||
+              (@raw.is_a?(YAML::Any) && @raw.as(YAML::Any).as_h?)
     end
 
     def as_h : Hash(String, Any)
@@ -79,12 +81,14 @@ module Totem
           end
         end
       else
-        raise Error.new("Cant convert Hash")
+        Popcorn.raise_error!(object.class.to_s, "Hash")
       end
     end
 
     def as_a? : Array(Any)?
-      as_a if @raw.is_a?(Array) || @raw.is_a?(JSON::Any) || @raw.is_a?(YAML::Any)
+      as_a if @raw.is_a?(Array) ||
+              (@raw.is_a?(JSON::Any) && @raw.as(JSON::Any).as_a?) ||
+              (@raw.is_a?(YAML::Any) && @raw.as(YAML::Any).as_a?)
     end
 
     def as_a : Array(Any)
@@ -94,7 +98,7 @@ module Totem
       when YAML::Any, JSON::Any
         object.as_a.map { |value| Any.new(value) }
       else
-        raise Error.new("Cant convert Array")
+        Popcorn.raise_error!(object.class.to_s, "Array")
       end
     end
 

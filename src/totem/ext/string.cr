@@ -1,3 +1,4 @@
+# This is a extension of `String`.
 class String
   # Converts camelcase to snakecase(underscores) boundaries.
   #

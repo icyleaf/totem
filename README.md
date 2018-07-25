@@ -1,4 +1,4 @@
-![totem-logo](https://github.com/icyleaf/totem/raw/master/totem-logo-small.png)
+![totem-logo](https://github.com/icyleaf/totem/raw/master/logo-small.png)
 
 # Totem
 
@@ -22,10 +22,14 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Set Alias and using alias](#set-alias-and-using-alias)
   - [Working with nested key](#working-with-nested-key)
   - [Working with Envoriment variables](#working-with-envoriment-variables)
+  - [Iterating configuration](#iterating-configuration)
   - [Serialization](#serialization)
   - [Storing configuration to file](#storing-configuration-to-file)
-- [Contributing](#contributing)
-- [Contributors](#contributors)
+- [Help and Discussion](#help-and-discussion)
+- [Donate](#donate)
+- [How to Contribute](#how-to-contribute)
+- [You may also like](#you-may-also-like)
+- [License](#license)
 
 <!-- /TOC -->
 
@@ -226,6 +230,7 @@ All accessor methods accept nested key:
 totem.set_default("profile.user.name", "foo")
 totem.set("profile.user.age", 13)
 totem.alias("username", "profile.user.name")
+totem.bind_env("profile.user.nickname", "PROFILE_USER_NICKNAME")
 totem.get("profile.user.age")
 ```
 
@@ -261,6 +266,20 @@ totem.automative_env(prefix: "totem")
 totem.get("id").as_i    # => 123
 totem.get("food").as_s  # => "Pinapple"
 totem.get("name").as_s  # => "Polly"
+```
+
+### Iterating configuration
+
+Iterate in Totem is very easy, you can get `#keys`, `#flat_keys`, `#settings` (a.k.a `#to_h`) even iterating it directly with `#each`:
+
+```crystal
+totem.settings    # => {"id" => 123, "user" => {"name" => "foobar", "age" => 20}}
+totem.keys        # => ["id", "user"]
+totem.flat_keys   # => ["id", "user.name", "user.age"]
+
+totem.each do |key, value|
+  # do something
+end
 ```
 
 ### Serialization
@@ -326,14 +345,41 @@ totem.set("eyes", "blue")
 totem.store!("profile.json")
 ```
 
-## Contributing
+## Help and Discussion
 
-1. Fork it (<https://github.com/icyleaf/totem/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+You can browse the API documents:
 
-## Contributors
+https://icyleaf.github.io/totem/
 
-- [icyleaf](https://github.com/icyleaf) icyleaf - creator, maintainer
+You can browse the Changelog:
+
+https://github.com/icyleaf/totem/blob/master/CHANGELOG.md
+
+If you have found a bug, please create a issue here:
+
+https://github.com/icyleaf/totem/issues/new
+
+## Donate
+
+Totem is a open source, collaboratively funded project. If you run a business and are using Totem in a revenue-generating product,
+it would make business sense to sponsor Totem development. Individual users are also welcome to make a one time donation
+if Totem has helped you in your work or personal projects.
+
+You can donate via [Paypal](https://www.paypal.me/icyleaf/5).
+
+## How to Contribute
+
+Your contributions are always welcome! Please submit a pull request or create an issue to add a new question, bug or feature to the list.
+
+All [Contributors](https://github.com/icyleaf/totem/graphs/contributors) are on the wall.
+
+## You may also like
+
+- [halite](https://github.com/icyleaf/halite) - Crystal HTTP Requests Client with a chainable REST API, built-in sessions and loggers.
+- [poncho](https://github.com/icyleaf/poncho) - A .env parser/loader improved for performance.
+- [popcorn](https://github.com/icyleaf/popcorn) - Easy and Safe casting from one type to another.
+- [fast-crystal](https://github.com/icyleaf/fast-crystal) - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.
+
+## License
+
+[MIT License](https://github.com/icyleaf/totem/blob/master/LICENSE) © icyleaf
