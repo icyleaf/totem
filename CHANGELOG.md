@@ -35,5 +35,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 :star2:First beta version:star2:
 
-[Unreleased]: https://github.com/icyleaf/totem/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/icyleaf/totem/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/icyleaf/totem/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/icyleaf/totem/compare/03303bead652c98c51a68c39a44908c7ed2f9327...v0.1.0
