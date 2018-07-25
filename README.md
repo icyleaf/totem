@@ -1,4 +1,4 @@
-![totem-logo](https://github.com/icyleaf/totem/raw/master/totem-logo-small.png)
+![totem-logo](https://github.com/icyleaf/totem/raw/master/logo-small.png)
 
 # Totem
 
