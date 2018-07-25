@@ -123,7 +123,7 @@
 
 
 <div class="main-content">
-<p><img src="https://github.com/icyleaf/totem/raw/master/totem-logo-small.png" alt="totem-logo"/></p>
+<p><img src="https://github.com/icyleaf/totem/raw/master/logo-small.png" alt="totem-logo"/></p>
 
 <h1>Totem</h1>
 
@@ -135,7 +135,7 @@
 
 <p>&lt;!-- TOC --></p>
 
-<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li></ul><li><a href="#contributing" target="_blank">Contributing</a></li><li><a href="#contributors" target="_blank">Contributors</a></li></ul>
+<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#license" target="_blank">License</a></li></ul>
 
 <p>&lt;!-- /TOC --></p>
 
@@ -309,6 +309,7 @@ totem.get(<span class="s">&quot;nickname&quot;</span>)   <span class="c"># =&gt;
 <pre><code class="language-crystal">totem.set_default(<span class="s">&quot;profile.user.name&quot;</span>, <span class="s">&quot;foo&quot;</span>)
 totem.set(<span class="s">&quot;profile.user.age&quot;</span>, <span class="n">13</span>)
 totem.<span class="k">alias</span>(<span class="s">&quot;username&quot;</span>, <span class="s">&quot;profile.user.name&quot;</span>)
+totem.bind_env(<span class="s">&quot;profile.user.nickname&quot;</span>, <span class="s">&quot;PROFILE_USER_NICKNAME&quot;</span>)
 totem.get(<span class="s">&quot;profile.user.age&quot;</span>)</code></pre>
 
 <h3>Working with Envoriment variables</h3>
@@ -340,6 +341,18 @@ totem.get(<span class="s">&quot;name&quot;</span>).as_s      <span class="c"># =
 totem.get(<span class="s">&quot;id&quot;</span>).as_i    <span class="c"># =&gt; 123</span>
 totem.get(<span class="s">&quot;food&quot;</span>).as_s  <span class="c"># =&gt; &quot;Pinapple&quot;</span>
 totem.get(<span class="s">&quot;name&quot;</span>).as_s  <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
+
+<h3>Iterating configuration</h3>
+
+<p>Iterate in Totem is very easy, you can get <code>#keys</code>, <code>#flat_keys</code>, <code>#settings</code> (a.k.a <code>#to_h</code>) even iterating it directly with <code>#each</code>:</p>
+
+<pre><code class="language-crystal">totem.settings    <span class="c"># =&gt; {&quot;id&quot; =&gt; 123, &quot;user&quot; =&gt; {&quot;name&quot; =&gt; &quot;foobar&quot;, &quot;age&quot; =&gt; 20}}</span>
+totem.keys        <span class="c"># =&gt; [&quot;id&quot;, &quot;user&quot;]</span>
+totem.flat_keys   <span class="c"># =&gt; [&quot;id&quot;, &quot;user.name&quot;, &quot;user.age&quot;]</span>
+
+totem.each <span class="k">do</span> <span class="o">|</span>key, value<span class="o">|</span>
+  <span class="c"># do something</span>
+<span class="k">end</span></code></pre>
 
 <h3>Serialization</h3>
 
@@ -398,13 +411,37 @@ totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Fre
 totem.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
 totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
-<h2>Contributing</h2>
+<h2>Help and Discussion</h2>
 
-<ol><li>Fork it (&lt;https://github.com/icyleaf/totem/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+<p>You can browse the API documents:</p>
 
-<h2>Contributors</h2>
+<p>https://icyleaf.github.io/totem/</p>
 
-<ul><li><a href="https://github.com/icyleaf" target="_blank">icyleaf</a> icyleaf - creator, maintainer</li></ul>
+<p>You can browse the Changelog:</p>
+
+<p>https://github.com/icyleaf/totem/blob/master/CHANGELOG.md</p>
+
+<p>If you have found a bug, please create a issue here:</p>
+
+<p>https://github.com/icyleaf/totem/issues/new</p>
+
+<h2>Donate</h2>
+
+<p>Totem is a open source, collaboratively funded project. If you run a business and are using Totem in a revenue-generating product,
+it would make business sense to sponsor Totem development. Individual users are also welcome to make a one time donation
+if Totem has helped you in your work or personal projects.</p>
+
+<p>You can donate via <a href="https://www.paypal.me/icyleaf/5" target="_blank">Paypal</a>.</p>
+
+<h2>How to Contribute</h2>
+
+<p>Your contributions are always welcome! Please submit a pull request or create an issue to add a new question, bug or feature to the list.</p>
+
+<p>All <a href="https://github.com/icyleaf/totem/graphs/contributors" target="_blank">Contributors</a> are on the wall.</p>
+
+<h2>License</h2>
+
+<p><a href="https://github.com/icyleaf/totem/blob/master/LICENSE" target="_blank">MIT License</a> © icyleaf</p>
 </div>
 </body>
 </html>
