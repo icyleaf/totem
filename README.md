@@ -375,7 +375,8 @@ All [Contributors](https://github.com/icyleaf/totem/graphs/contributors) are on 
 
 ## You may also like
 
-- [halite](https://github.com/icyleaf/halite) - Crystal HTTP Requests Client with a chainable REST API, built-in sessions and loggers.
+- [halite](https://github.com/icyleaf/halite) - HTTP Requests Client with a chainable REST API, built-in sessions and loggers.
+- [markd](https://github.com/icyleaf/markd) - Yet another markdown parser built for speed, Compliant to CommonMark specification.
 - [poncho](https://github.com/icyleaf/poncho) - A .env parser/loader improved for performance.
 - [popcorn](https://github.com/icyleaf/popcorn) - Easy and Safe casting from one type to another.
 - [fast-crystal](https://github.com/icyleaf/fast-crystal) - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.
