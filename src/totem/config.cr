@@ -408,7 +408,7 @@ module Totem
     # clothes.jacket # => "leather"
     # ```
     def mapping(converter : T.class, key : String? = nil) forall T
-      NotFoundConfigKeyError.new("Not found the key in configuration: #{key}") if key && !has_key?(key.not_nil!)
+      raise MappingError.new("Not found the key in configuration: #{key}") if key && !has_key?(key.not_nil!)
 
       {% begin %}
         {{ struct_type = nil }}

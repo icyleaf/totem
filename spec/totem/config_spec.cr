@@ -479,10 +479,17 @@ describe Totem::Config do
         profile.hobbies[0].should eq "skateboarding"
       end
 
-      it "throws an exception without JSON::Serializable" do
+      it "throws an exception without JSON::Serializable or YAML::Serializable" do
         t = Totem::Config.parse yaml_raw, "yaml"
         expect_raises Totem::MappingError do
           t.mapping(Profile)
+        end
+      end
+
+      it "throws an exception if key is not exists" do
+        t = Totem::Config.parse yaml_raw, "yaml"
+        expect_raises Totem::MappingError do
+          t.mapping(YAMLProfile, "null")
         end
       end
     end
