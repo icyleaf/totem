@@ -25,6 +25,8 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Iterating configuration](#iterating-configuration)
   - [Serialization](#serialization)
   - [Storing configuration to file](#storing-configuration-to-file)
+- [Q & A](#q--a)
+  - [How to debug?](#how-to-debug)
 - [Help and Discussion](#help-and-discussion)
 - [Donate](#donate)
 - [How to Contribute](#how-to-contribute)
@@ -322,6 +324,8 @@ clothes = profile.mapping(Clothes, "clothing")
 
 ### Storing configuration to file
 
+Simple to use `#store!` method.
+
 ```crystal
 raw = <<-EOF
 Hacker: true
@@ -343,6 +347,38 @@ totem = Totem.from_yaml raw
 totem.set("nickname", "Freda")
 totem.set("eyes", "blue")
 totem.store!("profile.json")
+```
+
+## Q & A
+
+### How to debug?
+
+You can use Crystal built-in `#pp!` method to prints a series of instance variables:
+
+```crystal
+pp! totem # => #<Totem::Config:0x107df6f80
+ @aliases={"user" => "name"},
+ @automatic_env=false,
+ @config={},
+ @config_delimiter=".",
+ @config_file=nil,
+ @config_name="config",
+ @config_paths=[],
+ @config_type="json",
+ @defaults={"name" => "Name"},
+ @env={},
+ @env_prefix=nil,
+ @logger=
+  #<Logger:0x107deeac0
+   @closed=false,
+   @formatter=
+    #<Proc(Logger::Severity, Time, String, String, IO, Nil):0x1079ab4a0>,
+   @io=#<IO::FileDescriptor: fd=1>,
+   @level=ERROR,
+   @mutex=#<Mutex:0x107df0ed0 @lock_count=0, @mutex_fiber=nil, @queue=nil>,
+   @progname="">,
+ @logging=false,
+ @overrides={"name" => "foo"}>
 ```
 
 ## Help and Discussion
