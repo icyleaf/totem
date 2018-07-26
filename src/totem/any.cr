@@ -201,6 +201,31 @@ module Totem
     def_hash raw
 
     # :nodoc:
+    def pretty_print(pp)
+      @raw.pretty_print(pp)
+    end
+
+    # Returns `true` if both `self` and *other*'s raw object are equal.
+    def ==(other : Totem::Any)
+      raw == other.raw
+    end
+
+    # Returns `true` if the raw object is equal to *other*.
+    def ==(other)
+      raw == other
+    end
+
+    # :nodoc:
+    def inspect(io)
+      @raw.inspect(io)
+    end
+
+    # :nodoc:
+    def to_s(io)
+      @raw.to_s(io)
+    end
+
+    # :nodoc:
     def to_yaml(yaml : YAML::Nodes::Builder)
       @raw.to_yaml(yaml)
     end
@@ -224,5 +249,63 @@ module Totem
     def pretty_print(pp)
       @raw.pretty_print(pp)
     end
+  end
+end
+
+# :nodoc:
+class Object
+  def ===(other : Totem::Any)
+    self === other.raw
+  end
+end
+
+# :nodoc:
+struct Value
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Reference
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Array
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Hash
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+struct YAML::Any
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+struct JSON::Any
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Regex
+  def ===(other : Totem::Any)
+    value = self === other.raw
+    $~ = $~
+    value
   end
 end

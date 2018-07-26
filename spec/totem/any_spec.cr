@@ -183,6 +183,19 @@ describe Totem::Any do
     end
   end
 
+  it "should equals" do
+    Totem::Any.new(nil).should eq nil
+    Totem::Any.new(true).should eq true
+    Totem::Any.new("foo").should eq "foo"
+    Totem::Any.new(123).should eq 123
+    Totem::Any.new(123_i64).should eq 123_i64
+    Totem::Any.new(123.45).should eq 123.45
+    Totem::Any.new([1, 2, 3]).should eq([1, 2, 3])
+    Totem::Any.new({"foo" => "bar"}).should eq({"foo" => "bar"})
+    Totem::Any.new(JSON::Any.new(raw: "foo")).should eq JSON::Any.new(raw: "foo")
+    Totem::Any.new(YAML::Any.new(raw: "foo")).should eq YAML::Any.new(raw: "foo")
+  end
+
   it "dups" do
     any = Totem::Any.new([1, 2, 3])
     any2 = any.dup
