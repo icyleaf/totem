@@ -414,29 +414,18 @@ totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
 <p>You can use Crystal built-in <code>#pp</code> or <code>#pp!</code> method to prints a series of instance variables:</p>
 
-<pre><code class="language-crystal">pp! totem <span class="c"># =&gt; #&lt;Totem::Config:0x107df6f80</span>
- @aliases<span class="o">=</span>{<span class="s">&quot;user&quot;</span> => <span class="s">&quot;name&quot;</span>},
- @automatic_env<span class="o">=</span><span class="n">false</span>,
- @config<span class="o">=</span>{},
- @config_delimiter<span class="o">=</span><span class="s">&quot;.&quot;</span>,
- @config_file<span class="o">=</span><span class="n">nil</span>,
+<pre><code><span class="c">#&lt;Totem::Config</span>
+ @config_paths<span class="o">=</span>[<span class="s">&quot;/etc/totem&quot;</span>, <span class="s">&quot;~/.totem&quot;</span>],
  @config_name<span class="o">=</span><span class="s">&quot;config&quot;</span>,
- @config_paths<span class="o">=</span><span class="o">[]</span>,
  @config_type<span class="o">=</span><span class="s">&quot;json&quot;</span>,
- @defaults<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;Name&quot;</span>},
- @env<span class="o">=</span>{},
+ @key_delimiter<span class="o">=</span><span class="s">&quot;.&quot;</span>,
+ @automatic_env<span class="o">=</span><span class="n">false</span>,
  @env_prefix<span class="o">=</span><span class="n">nil</span>,
- @logger<span class="o">=</span>
-  <span class="c">#&lt;Logger:0x107deeac0</span>
-   @closed<span class="o">=</span><span class="n">false</span>,
-   @formatter<span class="o">=</span>
-    <span class="c">#&lt;Proc(Logger::Severity, Time, String, String, IO, Nil):0x1079ab4a0&gt;,</span>
-   @io<span class="o">=</span><span class="c">#&lt;IO::FileDescriptor: fd=1&gt;,</span>
-   @level<span class="o">=</span><span class="t">ERROR</span>,
-   @mutex<span class="o">=</span><span class="c">#&lt;Mutex:0x107df0ed0 @lock_count=0, @mutex_fiber=nil, @queue=nil&gt;,</span>
-   @progname<span class="o">=</span><span class="s">&quot;&quot;</span><span class="o">&gt;</span>,
- @logging<span class="o">=</span><span class="n">false</span>,
- @overrides<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;foo&quot;</span>}<span class="o">&gt;</span></code></pre>
+ @aliases<span class="o">=</span>{<span class="s">&quot;user&quot;</span> => <span class="s">&quot;profile.user.name&quot;</span>},
+ @overrides<span class="o">=</span>{<span class="s">&quot;profile&quot;</span> => {<span class="s">&quot;user&quot;</span> => {<span class="s">&quot;gender&quot;</span> => <span class="s">&quot;male&quot;</span>}}, <span class="s">&quot;name&quot;</span> => <span class="s">&quot;foo&quot;</span>},
+ @config<span class="o">=</span>{<span class="s">&quot;profile&quot;</span> => {<span class="s">&quot;user&quot;</span> => {<span class="s">&quot;gender&quot;</span> => <span class="s">&quot;unkown&quot;</span>}}, <span class="s">&quot;name&quot;</span> => <span class="s">&quot;bar&quot;</span>}},
+ @env<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;TOTEM_NAME&quot;</span>},
+ @defaults<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;alana&quot;</span>}<span class="o">&gt;</span></code></pre>
 
 <h2>Help and Discussion</h2>
 
