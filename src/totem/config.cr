@@ -47,7 +47,7 @@ module Totem
     property config_paths
     property config_name
     property config_type
-    property config_delimiter
+    property key_delimiter
 
     getter env_prefix : String?
 
@@ -59,10 +59,10 @@ module Totem
 
     def initialize(@config_name = "config", @config_type : String? = nil,
                    @config_paths : Array(String) = [] of String,
-                   @config_delimiter = ".",
+                   @key_delimiter = ".",
                    @automatic_env = false)
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
-      @logging = false
+      @debugging = false
     end
 
     # Sets the default value for given key
@@ -74,7 +74,7 @@ module Totem
     def set_default(key : String, value : T) forall T
       key = real_key(key.downcase)
 
-      paths = key.split(@config_delimiter)
+      paths = key.split(@key_delimiter)
       last_key = paths.last.downcase
 
       deep_hash = deep_search(@defaults, paths[0..-2])
@@ -147,7 +147,7 @@ module Totem
     def set(key : String, value : T) forall T
       key = real_key(key.downcase)
 
-      paths = key.split(@config_delimiter)
+      paths = key.split(@key_delimiter)
       last_key = paths.last.downcase
 
       deep_hash = deep_search(@overrides, paths[0..-2])
@@ -367,7 +367,7 @@ module Totem
     # Debugging switch
     def debugging=(value : Bool)
       @logger.level = value ? Logger::DEBUG : Logger::ERROR
-      @logging = value
+      @debugging = value
     end
 
     # Mapping JSON/YAML Serializable to Struct
@@ -460,7 +460,7 @@ module Totem
 
     # Returns all keys holding a value, regardless of where they are set.
     #
-    # Nested keys are returns with a `#config_delimiter` (= ".") separator.
+    # Nested keys are returns with a `#key_delimiter` (= ".") separator.
     def flat_keys : Array(String)
       keys = flat_merge(@aliases, @overrides, @env, @config, @defaults, source: {} of String => Bool)
       keys.each_with_object([] of String) do |(key, _), obj|
@@ -485,7 +485,7 @@ module Totem
       flat_keys.each_with_object({} of String => Any) do |key, obj|
         next unless value = find(key)
 
-        paths = key.split(@config_delimiter)
+        paths = key.split(@key_delimiter)
         last_key = paths.last.downcase
 
         hash = deep_search(obj, paths[0..-2])
@@ -493,13 +493,18 @@ module Totem
       end
     end
 
+    # Alias to `#settings`
+    def to_h
+      settings
+    end
+
     private def find(key : String) : Any?
-      paths = key.split(@config_delimiter)
+      paths = key.split(@key_delimiter)
       nested = paths.size > 1
       # return if nested && shadow_path?(paths, @aliases).empty?
 
       key = real_key(key)
-      paths = key.split(@config_delimiter)
+      paths = key.split(@key_delimiter)
       nested = paths.size > 1
 
       # Override
@@ -548,7 +553,7 @@ module Totem
         if value.is_a?(Any) && value.as_h?
           next
         else
-          return paths[0..i].join(@config_delimiter)
+          return paths[0..i].join(@key_delimiter)
         end
       end
 
@@ -584,7 +589,7 @@ module Totem
     # Return paths if given paths is shadowed somewhere in the ENV
     private def shadow_path?(paths : Array(String)) : String?
       paths.each_with_index do |_, i|
-        key = paths[0..i].join(@config_delimiter)
+        key = paths[0..i].join(@key_delimiter)
         if value = ENV[env_key(key)]?
           return value
         end
@@ -604,7 +609,7 @@ module Totem
       return source if !source.empty? && !prefix.empty? && source.has_key?(prefix)
 
       subtree = {} of String => Any
-      prefix += @config_delimiter unless prefix.empty?
+      prefix += @key_delimiter unless prefix.empty?
       target.each do |key, value|
         full_key = "#{prefix}#{key}"
         if value.is_a?(Hash)
@@ -684,9 +689,33 @@ module Totem
       end
     end
 
-    # Alias to `#settings`
-    def to_h
-      settings
+    # :nodoc:
+    def inspect_body(pretty_print = false)
+      newline = pretty_print ? "\n" : ""
+      String.build do |io|
+        io << "#<" << self.class << newline
+        io << " @config_paths=" << @config_paths << "," << newline
+        io << " @config_name=\"" << @config_name << "\"" << "," << newline
+        io << " @config_type=\"" << @config_type << "\"" << "," << newline
+        io << " @key_delimiter=\"" << @key_delimiter << "\"" << "," << newline
+        io << " @automatic_env=" << @automatic_env << "," << newline
+        io << " @env_prefix=" << (@env_prefix.nil? ? "nil" : %Q{"#{@env_prefix}"}) << "," << newline
+        io << " @aliases=" << @aliases << "," << newline
+        io << " @overrides=" << @overrides << "," << newline
+        io << " @config=" << @config << "," << newline
+        io << " @env=" << @env << "," << newline
+        io << " @defaults=" << @defaults << ">"
+      end
+    end
+
+    # :nodoc:
+    def inspect(io)
+      io << inspect_body(false)
+    end
+
+    # :nodoc:
+    def pretty_print(pp : PrettyPrint)
+      pp.text(inspect_body(true))
     end
 
     # :nodoc:

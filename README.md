@@ -353,32 +353,21 @@ totem.store!("profile.json")
 
 ### How to debug?
 
-You can use Crystal built-in `#pp!` method to prints a series of instance variables:
+You can use Crystal built-in `#pp` or `#pp!` method to prints a series of instance variables:
 
-```crystal
-pp! totem # => #<Totem::Config:0x107df6f80
- @aliases={"user" => "name"},
- @automatic_env=false,
- @config={},
- @config_delimiter=".",
- @config_file=nil,
+```
+#<Totem::Config
+ @config_paths=["/etc/totem", "~/.totem"],
  @config_name="config",
- @config_paths=[],
  @config_type="json",
- @defaults={"name" => "Name"},
- @env={},
+ @key_delimiter=".",
+ @automatic_env=false,
  @env_prefix=nil,
- @logger=
-  #<Logger:0x107deeac0
-   @closed=false,
-   @formatter=
-    #<Proc(Logger::Severity, Time, String, String, IO, Nil):0x1079ab4a0>,
-   @io=#<IO::FileDescriptor: fd=1>,
-   @level=ERROR,
-   @mutex=#<Mutex:0x107df0ed0 @lock_count=0, @mutex_fiber=nil, @queue=nil>,
-   @progname="">,
- @logging=false,
- @overrides={"name" => "foo"}>
+ @aliases={"user" => "profile.user.name"},
+ @overrides={"profile" => {"user" => {"gender" => "male"}}, "name" => "foo"},
+ @config={"profile" => {"user" => {"gender" => "unkown"}}, "name" => "bar"}},
+ @env={"name" => "TOTEM_NAME"},
+ @defaults={"name" => "alana"}>
 ```
 
 ## Help and Discussion
