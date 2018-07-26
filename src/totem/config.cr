@@ -347,7 +347,7 @@ module Totem
       end
 
       if !force && File.exists?(file)
-        raise "File #{file} exists. Use write_config(force: true) to overwrite"
+        raise Error.new("File #{file} exists. Use write_config(force: true) to overwrite")
       end
 
       mode = "w"
@@ -358,8 +358,12 @@ module Totem
         when "json"
           f.puts(settings.to_json)
         when "env"
-          # TODO
-          raise Error.new("Not complete store file with dotenv.")
+          flat_keys.sort.each do |key|
+            next unless value = find(key)
+            real_key = key.gsub(@key_delimiter, "_")
+            line = "#{env_key(real_key)}=value"
+            f.puts(line)
+          end
         end
       end
     end
