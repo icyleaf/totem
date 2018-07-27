@@ -59,5 +59,6 @@ module Totem
 
     extend FileHelper
     extend EnvHelper
+    extend HashHelper
   end
 end
