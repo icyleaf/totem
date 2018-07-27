@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Support Writting to file with dotenv format.
+- Added adapter for configuration formats, writting and using custom adapter. (see [#3](https://github.com/icyleaf/totem/issues/3))
+- Added Writting to file with dotenv format.
 - Improved inspect output with `#pp` or `#pp!`.
 - Added Totem::Any equal with other class & struct.
 

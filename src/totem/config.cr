@@ -1,6 +1,3 @@
-require "json"
-require "yaml"
-require "poncho"
 require "logger"
 
 module Totem
@@ -12,8 +9,6 @@ module Totem
   # - json
   # - env
   class Config
-    SUPPORTED_EXTS = %w(yaml yml json env)
-
     # Load configuration from a file
     #
     # ```
@@ -342,7 +337,7 @@ module Totem
         raise "Requires vaild extension name with file: #{file}"
       end
 
-      unless SUPPORTED_EXTS.includes?(extname)
+      unless ConfigTypes.has_adapter?(extname)
         raise UnsupportedConfigError.new(file)
       end
 
@@ -352,19 +347,7 @@ module Totem
 
       mode = "w"
       File.open(file, mode) do |f|
-        case extname
-        when "yaml", "yml"
-          f.puts(settings.to_yaml)
-        when "json"
-          f.puts(settings.to_json)
-        when "env"
-          flat_keys.sort.each do |key|
-            next unless value = find(key)
-            real_key = key.gsub(@key_delimiter, "_")
-            line = "#{env_key(real_key)}=value"
-            f.puts(line)
-          end
-        end
+        ConfigTypes[extname].store(f, self)
       end
     end
 
@@ -441,25 +424,12 @@ module Totem
     # - json
     # - env
     def parse(raw : String | IO, config_type = @config_type)
-      unless (type = config_type) && SUPPORTED_EXTS.includes?(type)
+      unless (type = config_type) && ConfigTypes.has_adapter?(type)
         raise UnsupportedConfigError.new("Unspoort config type: #{type}")
       end
 
-      data = case type
-             when "yaml", "yml"
-               YAML.parse(raw).as_h
-             when "json"
-               JSON.parse(raw).as_h
-             when "env"
-               Poncho.parse(raw)
-             end
-
-      return unless data
-
-      data.each do |key, value|
-        key = key.to_s if key.is_a?(YAML::Any)
-        @config[key.downcase] = Any.new(value)
-      end
+      return unless config = ConfigTypes[type].parse(raw)
+      @config = config
     end
 
     # Returns all keys holding a value, regardless of where they are set.
@@ -520,8 +490,9 @@ module Totem
       # Env
       if @automatic_env && (value = ENV[env_key(key)]?)
         return Any.new(value.as(String))
-        return unless shadow_path?(paths)
+        # return unless shadow_path?(paths)
       end
+
       if (env_key = @env[key]?) && (value = ENV[env_key(env_key)]?)
         return Any.new(value.as(String))
       end
@@ -647,7 +618,7 @@ module Totem
       if (content_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
-        SUPPORTED_EXTS.each do |ext|
+        ConfigTypes.adapter_names.each do |ext|
           if file = config_file(path, ext)
             return file
           end

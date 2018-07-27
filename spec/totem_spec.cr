@@ -66,12 +66,12 @@ describe Totem do
 
     it "use env file" do
       it "without paths" do
-        t = Totem.from_file File.join(fixture_path, "sample.env")
+        t = Totem.from_file File.join(fixture_path, "config.env")
         env_spec_group t
       end
 
       it "with paths" do
-        t = Totem.from_file "sample.env", [".", fixture_path, "~/"]
+        t = Totem.from_file "config.env", [".", fixture_path, "~/"]
         env_spec_group t
       end
     end

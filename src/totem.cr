@@ -1,4 +1,5 @@
-require "./totem/**"
+require "./totem/ext/*"
+require "./totem/*"
 
 module Totem
   def self.new(config_name = "config", config_type : String? = nil, config_paths : Array(String) = [] of String)

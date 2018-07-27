@@ -1,5 +1,6 @@
 require "spec"
 require "../src/totem"
+require "../src/totem/config_types/*"
 
 def fixture_path
   path = File.expand_path("../fixtures/", __FILE__)
@@ -18,7 +19,7 @@ def yaml_raw
 end
 
 def env_raw
-  load_fixture("sample.env")
+  load_fixture("config.env")
 end
 
 def json_spec_group(t)

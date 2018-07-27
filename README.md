@@ -189,7 +189,7 @@ totem = Totem.from_file "./spec/fixtures/config.yaml"
 totem = Totem.from_file "config.yaml", ["/etc", ".", "./spec/fixtures"]
 
 # Load dotenv file
-totem = Totem.from_file "sample.env"
+totem = Totem.from_file "config.env"
 ```
 
 ## Usage
