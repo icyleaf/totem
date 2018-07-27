@@ -13,16 +13,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [ ] Reading from remote key-value database (redis or memcache)
 - [ ] Reading from remote config systems (etcd or Consul)
 
+## [0.3.0] (2018-07-27)
+
 ### Added
 
 - Added adapter for configuration formats, writting and using custom adapter. (see [#3](https://github.com/icyleaf/totem/issues/3))
 - Added Writting to file with dotenv format.
-- Improved inspect output with `#pp` or `#pp!`.
 - Added Totem::Any equal with other class & struct.
-
-### Changed
-
 - Added nested key setting for the raw content of configuration formats. (see [specs](https://github.com/icyleaf/totem/blob/master/spec/totem/config_spec.cr#L609))
+- Improved inspect output with `#pp` or `#pp!`.
 
 ## [0.2.1] (2018-07-26)
 
@@ -51,7 +50,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 :star2:First beta version:star2:
 
-[Unreleased]: https://github.com/icyleaf/totem/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/icyleaf/totem/compare/v0.3.0...HEAD
+[0.2.1]: https://github.com/icyleaf/totem/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/icyleaf/totem/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/icyleaf/totem/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/icyleaf/totem/compare/03303bead652c98c51a68c39a44908c7ed2f9327...v0.1.0
