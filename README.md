@@ -167,7 +167,11 @@ totem.get("batters").as_h["batter"].as_a[0].as_h["type"]  # => "Regular"
 
 Load dotenv string
 
+> Add [poncho](https://github.com/icyleaf/poncho) to `shards.yml` and require the adapter.
+
 ```crystal
+require "totem/config_types/env"    # Make sure you require
+
 raw = <<-EOF
 # COMMENTS=work
 STR='foo'
@@ -184,6 +188,8 @@ totem.get("int")                    # => "33"
 ```
 
 #### From file
+
+> Add [poncho](https://github.com/icyleaf/poncho) to `shards.yml` and require the adapter if you need load dotenv file.
 
 ```crystal
 # Load yaml file from file with path
