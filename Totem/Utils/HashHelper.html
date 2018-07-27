@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
-  <title>Totem::Exception::UnsupportedConfigError - github.com/icyleaf/totem</title>
+  <title>Totem::Utils::HashHelper - github.com/icyleaf/totem</title>
 </head>
 <body>
 
@@ -96,7 +96,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/Exception" data-name="totem::exception">
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Exception" data-name="totem::exception">
       <a href="../../Totem/Exception.html">Exception</a>
       
         <ul>
@@ -116,7 +116,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/icyleaf/totem/Totem/Exception/UnsupportedConfigError" data-name="totem::exception::unsupportedconfigerror">
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/UnsupportedConfigError" data-name="totem::exception::unsupportedconfigerror">
       <a href="../../Totem/Exception/UnsupportedConfigError.html">UnsupportedConfigError</a>
       
     </li>
@@ -126,7 +126,7 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Utils" data-name="totem::utils">
+  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/Utils" data-name="totem::utils">
       <a href="../../Totem/Utils.html">Utils</a>
       
         <ul>
@@ -141,7 +141,7 @@
       
     </li>
   
-  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/HashHelper" data-name="totem::utils::hashhelper">
+  <li class=" current" data-id="github.com/icyleaf/totem/Totem/Utils/HashHelper" data-name="totem::utils::hashhelper">
       <a href="../../Totem/Utils/HashHelper.html">HashHelper</a>
       
     </li>
@@ -170,12 +170,11 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Totem::Exception::UnsupportedConfigError
+  <span class="kind">module</span> Totem::Utils::HashHelper
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Totem/Exception/UnsupportedConfigError.html">Totem::Exception::UnsupportedConfigError</a></li><li class="superclass">Totem::Exception::Error</li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -189,6 +188,12 @@
 
 
 
+  <h2>Direct including types</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../Totem/Config.html">Totem::Config</a></li>
+  
+  </ul>
 
 
 
@@ -196,7 +201,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/80ff3d546853a63552c81c8f569eb9fdf2631637/src/totem/exception.cr#L10" target="_blank">totem/exception.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/80ff3d546853a63552c81c8f569eb9fdf2631637/src/totem/utils.cr#L24" target="_blank">totem/utils.cr</a>
     
     <br/>
   
@@ -209,69 +214,26 @@
 
 
 
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#deep_search%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AHash%28String%2CAny%29-instance-method" class="signature"><strong>#deep_search</strong>(source : Hash(String, String | Any), paths : Array(String)) : Hash(String, Any)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#has_value%3F%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AAny%3F-instance-method" class="signature"><strong>#has_value?</strong>(source : Hash(String, String | Any), paths : Array(String)) : Any?</a>
+        
+      </li>
+    
+  </ul>
+
 
 
 
 
 <div class="methods-inherited">
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from class <code>Reference</code></h3>
-  
-  
-    <a href="../../Reference.html#%3D%3D%28other%3ATotem%3A%3AAny%29-instance-method" class="tooltip">
-      <span>==(other : Totem::Any)</span>
-    ==</a>
-    
-  
-
-
-    
-
-
-    
-
-
-  
-    
-
-  <h3>Instance methods inherited from class <code>Object</code></h3>
-  
-  
-    <a href="../../Object.html#%3D%3D%3D%28other%3ATotem%3A%3AAny%29-instance-method" class="tooltip">
-      <span>===(other : Totem::Any)</span>
-    ===</a>
-    
-  
-
-
-    
-
-
-    
-
-
   
 </div>
 
@@ -279,6 +241,41 @@
 
 
 
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="deep_search(source:Hash(String,String|Any),paths:Array(String)):Hash(String,Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>deep_search</strong>(source : Hash(String, String | <a href="../../Totem/Any.html">Any</a>), paths : Array(String)) : Hash(String, <a href="../../Totem/Any.html">Any</a>)
+
+        <a class="method-permalink" href="#deep_search%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AHash%28String%2CAny%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/80ff3d546853a63552c81c8f569eb9fdf2631637/src/totem/utils.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="has_value?(source:Hash(String,String|Any),paths:Array(String)):Any?-instance-method">
+      <div class="signature">
+        
+        def <strong>has_value?</strong>(source : Hash(String, String | <a href="../../Totem/Any.html">Any</a>), paths : Array(String)) : <a href="../../Totem/Any.html">Any</a>?
+
+        <a class="method-permalink" href="#has_value%3F%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AAny%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/80ff3d546853a63552c81c8f569eb9fdf2631637/src/totem/utils.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 

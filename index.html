@@ -36,6 +36,11 @@
   <div class="types-list">
     <ul>
   
+  <li class=" " data-id="github.com/icyleaf/totem/JSON" data-name="json">
+      <a href="JSON.html">JSON</a>
+      
+    </li>
+  
   <li class="parent " data-id="github.com/icyleaf/totem/Totem" data-name="totem">
       <a href="Totem.html">Totem</a>
       
@@ -58,6 +63,36 @@
   
   <li class=" " data-id="github.com/icyleaf/totem/Totem/Config" data-name="totem::config">
       <a href="Totem/Config.html">Config</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/ConfigTypes" data-name="totem::configtypes">
+      <a href="Totem/ConfigTypes.html">ConfigTypes</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/ConfigTypes/Adapter" data-name="totem::configtypes::adapter">
+      <a href="Totem/ConfigTypes/Adapter.html">Adapter</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/ConfigTypes/Env" data-name="totem::configtypes::env">
+      <a href="Totem/ConfigTypes/Env.html">Env</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/ConfigTypes/JSON" data-name="totem::configtypes::json">
+      <a href="Totem/ConfigTypes/JSON.html">JSON</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/ConfigTypes/YAML" data-name="totem::configtypes::yaml">
+      <a href="Totem/ConfigTypes/YAML.html">YAML</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -96,11 +131,21 @@
       
         <ul>
   
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/EnvHelper" data-name="totem::utils::envhelper">
+      <a href="Totem/Utils/EnvHelper.html">EnvHelper</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/FileHelper" data-name="totem::utils::filehelper">
       <a href="Totem/Utils/FileHelper.html">FileHelper</a>
       
     </li>
   
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/HashHelper" data-name="totem::utils::hashhelper">
+      <a href="Totem/Utils/HashHelper.html">HashHelper</a>
+      
+    </li>
+  
 </ul>
 
       
@@ -108,6 +153,11 @@
   
 </ul>
 
+      
+    </li>
+  
+  <li class=" " data-id="github.com/icyleaf/totem/YAML" data-name="yaml">
+      <a href="YAML.html">YAML</a>
       
     </li>
   
@@ -130,7 +180,7 @@
 
 <p>&lt;!-- TOC --></p>
 
-<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
+<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li><li><a href="#write-custom-adapter" target="_blank">Write custom adapter</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
 
 <p>&lt;!-- /TOC --></p>
 
@@ -141,6 +191,9 @@
 <p>Totem has following features:</p>
 
 <ul><li>Load and parse a configuration file or string in JSON, YAML, dotenv formats.</li><li>Reading from environment variables.</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
+
+<p>And we keep it minimize and require what you want with adapter! <strong>No more dependenices what you do not need</strong>.
+Only JSON and YAML adapters were auto requires.</p>
 
 <p>Uses the following precedence order. Each item takes precedence over the item below it:</p>
 
@@ -183,7 +236,7 @@ totem.get(<span class="s">&quot;key&quot;</span>).as_s <span class="c"># =&gt; &
 
 <h3>Loading configuration</h3>
 
-<p>Support <code>JSON</code>, <code>YAML</code> and dotenv data from raw string and file.</p>
+<p>Support <code><a href="JSON.html">JSON</a></code>, <code><a href="YAML.html">YAML</a></code> and dotenv data from raw string and file.</p>
 
 <h4>From raw string</h4>
 
@@ -244,7 +297,11 @@ totem.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot
 
 <p>Load dotenv string</p>
 
-<pre><code class="language-crystal">raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
+<blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter.</blockquote>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem/config_types/env&quot;</span>    <span class="c"># Make sure you require</span>
+
+raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
 # COMMENTS=work
 STR=&#39;foo&#39;
 STR_WITH_COMMENTS=bar         # str with comment
@@ -260,6 +317,8 @@ totem.get(<span class="s">&quot;int&quot;</span>)                    <span class
 
 <h4>From file</h4>
 
+<blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter if you need load dotenv file.</blockquote>
+
 <pre><code class="language-crystal"><span class="c"># Load yaml file from file with path</span>
 totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
 
@@ -267,7 +326,7 @@ totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span clas
 totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.yaml&quot;</span>, [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;.&quot;</span>, <span class="s">&quot;./spec/fixtures&quot;</span>]
 
 <span class="c"># Load dotenv file</span>
-totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;sample.env&quot;</span></code></pre>
+totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.env&quot;</span></code></pre>
 
 <h2>Usage</h2>
 
@@ -407,6 +466,36 @@ totem <span class="o">=</span> <span class="t">Totem</span>.from_yaml raw
 totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Freda&quot;</span>)
 totem.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
 totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
+
+<h3>Write custom adapter</h3>
+
+<p>Creating the custom adapter by integration <code><a href="Totem/ConfigTypes/Adapter.html">Totem::ConfigTypes::Adapter</a></code> abstract class. Here has two methods must be implement:
+<code>read</code> and <code>write</code>. For example, let us write a INI adapter:</p>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;ini&quot;</span>
+
+<span class="k">class</span> <span class="t">INIAdapter</span> <span class="o">&lt;</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span><span class="t">::</span><span class="t">Adapter</span>
+  <span class="k">def</span> <span class="m">read</span>(raw)
+    <span class="t">INI</span>.parse(raw)
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="m">write</span>(io, config)
+    config.settings.each <span class="k">do</span> <span class="o">|</span>key, items<span class="o">|</span>
+      <span class="k">next</span> <span class="k">unless</span> data <span class="o">=</span> items.as_h?
+      io <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span> <span class="o">&lt;&lt;</span> key <span class="o">&lt;&lt;</span> <span class="s">&quot;]\n&quot;</span>
+      data.each <span class="k">do</span> <span class="o">|</span>name, value<span class="o">|</span>
+        io <span class="o">&lt;&lt;</span> name <span class="o">&lt;&lt;</span> <span class="s">&quot; = &quot;</span> <span class="o">&lt;&lt;</span> value <span class="o">&lt;&lt;</span> <span class="s">&quot;\n&quot;</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c"># Do not forget register it</span>
+<span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_adapter(<span class="s">&quot;ini&quot;</span>, <span class="t">INIAdapter</span>.<span class="k">new</span>)
+<span class="c"># Also you can set aliases</span>
+<span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_alias(<span class="s">&quot;cnf&quot;</span>, <span class="s">&quot;ini&quot;</span>)</code></pre>
+
+<p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types" target="_blank">built-in adapters</a>.</p>
 
 <h2>Q & A</h2>
 
