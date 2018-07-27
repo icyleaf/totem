@@ -15,15 +15,11 @@ module Totem
       @@adapters[normalize(name)]
     end
 
-    def self.[]?(name : String)
-      @@adapters[normalize(name)]?
+    def self.has_keys?(name : String)
+      keys.includes?(name)
     end
 
-    def self.has_adapter?(name : String)
-      adapter_names.includes?(name)
-    end
-
-    def self.adapter_names
+    def self.keys
       @@adapters.keys.concat(@@aliases.keys)
     end
 

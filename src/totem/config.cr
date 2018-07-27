@@ -324,7 +324,7 @@ module Totem
         raise "Requires vaild extension name with file: #{file}"
       end
 
-      unless ConfigTypes.has_adapter?(extname)
+      unless ConfigTypes.has_keys?(extname)
         raise UnsupportedConfigError.new(file)
       end
 
@@ -411,7 +411,7 @@ module Totem
     # - json
     # - env
     def parse(raw : String | IO, config_type = @config_type)
-      unless (type = config_type) && ConfigTypes.has_adapter?(type)
+      unless (type = config_type) && ConfigTypes.has_keys?(type)
         raise UnsupportedConfigError.new("Unspoort config type: #{type}")
       end
 
@@ -573,7 +573,7 @@ module Totem
       if (content_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
-        ConfigTypes.adapter_names.each do |ext|
+        ConfigTypes.keys.each do |ext|
           if file = config_file(path, ext)
             return file
           end
