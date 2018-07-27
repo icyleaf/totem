@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
-  <title>Totem::ConfigTypes - github.com/icyleaf/totem</title>
+  <title>Totem::RemoteProviders - github.com/icyleaf/totem</title>
 </head>
 <body>
 
@@ -76,7 +76,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/ConfigTypes" data-name="totem::configtypes">
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/ConfigTypes" data-name="totem::configtypes">
       <a href="../Totem/ConfigTypes.html">ConfigTypes</a>
       
         <ul>
@@ -141,7 +141,7 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/icyleaf/totem/Totem/RemoteProviders" data-name="totem::remoteproviders">
+  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/RemoteProviders" data-name="totem::remoteproviders">
       <a href="../Totem/RemoteProviders.html">RemoteProviders</a>
       
         <ul>
@@ -205,7 +205,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Totem::ConfigTypes
+  <span class="kind">module</span> Totem::RemoteProviders
 
 </h1>
 
@@ -229,22 +229,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L2" target="_blank">totem/config_types.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L2" target="_blank">totem/remote_providers.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types/json.cr#L3" target="_blank">totem/config_types/json.cr</a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types/yaml.cr#L3" target="_blank">totem/config_types/yaml.cr</a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types/env.cr#L3" target="_blank">totem/config_types/env.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers/redis.cr#L4" target="_blank">totem/remote_providers/redis.cr</a>
     
     <br/>
   
@@ -264,7 +254,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#has_keys%3F%28name%3AString%29-class-method" class="signature"><strong>.has_keys?</strong>(name : String)</a>
+        <a href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method" class="signature"><strong>.connect</strong>(name : String, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#has_key%3F%28key%29-class-method" class="signature"><strong>.has_key?</strong>(key)</a>
         
       </li>
     
@@ -274,12 +269,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#register_adapter%28name%3AString%2Cadapter%3AAdapter%29-class-method" class="signature"><strong>.register_adapter</strong>(name : String, adapter : Adapter)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#register_alias%28shortcut%3AString%2Cname%3AString%29-class-method" class="signature"><strong>.register_alias</strong>(shortcut : String, name : String)</a>
+        <a href="#register%28name%3AString%2Cadapter%3AAdapter.class%29-class-method" class="signature"><strong>.register</strong>(name : String, adapter : Adapter.class)</a>
         
       </li>
     
@@ -311,23 +301,39 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="has_keys?(name:String)-class-method">
+    <div class="entry-detail" id="connect(name:String,**options)-class-method">
       <div class="signature">
         
-        def self.<strong>has_keys?</strong>(name : String)
+        def self.<strong>connect</strong>(name : String, **options)
 
-        <a class="method-permalink" href="#has_keys%3F%28name%3AString%29-class-method">#</a>
+        <a class="method-permalink" href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="has_key?(key)-class-method">
+      <div class="signature">
+        
+        def self.<strong>has_key?</strong>(key)
+
+        <a class="method-permalink" href="#has_key%3F%28key%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -343,39 +349,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="register_adapter(name:String,adapter:Adapter)-class-method">
+    <div class="entry-detail" id="register(name:String,adapter:Adapter.class)-class-method">
       <div class="signature">
         
-        def self.<strong>register_adapter</strong>(name : String, adapter : <a href="../Totem/ConfigTypes/Adapter.html">Adapter</a>)
+        def self.<strong>register</strong>(name : String, adapter : Adapter.class)
 
-        <a class="method-permalink" href="#register_adapter%28name%3AString%2Cadapter%3AAdapter%29-class-method">#</a>
+        <a class="method-permalink" href="#register%28name%3AString%2Cadapter%3AAdapter.class%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L6" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="register_alias(shortcut:String,name:String)-class-method">
-      <div class="signature">
-        
-        def self.<strong>register_alias</strong>(shortcut : String, name : String)
-
-        <a class="method-permalink" href="#register_alias%28shortcut%3AString%2Cname%3AString%29-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/config_types.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/4df5afd64d99b58abdd24c4f0001816b005e8c33/src/totem/remote_providers.cr#L5" target="_blank">View source</a>]
         
       </div>
     </div>
