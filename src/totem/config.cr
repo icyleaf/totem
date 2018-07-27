@@ -325,7 +325,7 @@ module Totem
       end
 
       unless ConfigTypes.has_keys?(extname)
-        raise UnsupportedConfigError.new(file)
+        raise UnsupportedConfigError.new("Unsport config type: #{extname}")
       end
 
       if !force && File.exists?(file)
@@ -412,7 +412,7 @@ module Totem
     # - env
     def parse(raw : String | IO, config_type = @config_type)
       unless (type = config_type) && ConfigTypes.has_keys?(type)
-        raise UnsupportedConfigError.new("Unspoort config type: #{type}")
+        raise UnsupportedConfigError.new("Unsport config type: #{type}")
       end
 
       return unless data = ConfigTypes[type].read(raw)
