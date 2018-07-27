@@ -25,6 +25,7 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Iterating configuration](#iterating-configuration)
   - [Serialization](#serialization)
   - [Storing configuration to file](#storing-configuration-to-file)
+  - [Write custom adapter](#write-custom-adapter)
 - [Q & A](#q--a)
   - [How to debug?](#how-to-debug)
 - [Help and Discussion](#help-and-discussion)
@@ -46,6 +47,9 @@ Totem has following features:
 - Provide a mechanism to set default values for your different configuration options.
 - Provide an alias system to easily rename parameters without breaking existing code.
 - Write configuration to file with JSON, YAML formats.
+
+And we keep it minimize and require what you want with adapter! **No more dependenices what you do not need**.
+Only JSON and YAML adapters were auto requires.
 
 Uses the following precedence order. Each item takes precedence over the item below it:
 
@@ -348,6 +352,38 @@ totem.set("nickname", "Freda")
 totem.set("eyes", "blue")
 totem.store!("profile.json")
 ```
+
+### Write custom adapter
+
+Creating the custom adapter by integration `Totem::ConfigTypes::Adapter` abstract class. Here has two methods must be implement:
+`read` and `write`. For example, let us write a INI adapter:
+
+```crystal
+require "ini"
+
+class INIAdapter < Totem::ConfigTypes::Adapter
+  def read(raw)
+    INI.parse(raw)
+  end
+
+  def write(io, config)
+    config.settings.each do |key, items|
+      next unless data = items.as_h?
+      io << "[" << key << "]\n"
+      data.each do |name, value|
+        io << name << " = " << value << "\n"
+      end
+    end
+  end
+end
+
+# Do not forget register it
+Totem::ConfigTypes.register_adapter("ini", INIAdapter.new)
+# Also you can set aliases
+Totem::ConfigTypes.register_alias("cnf", "ini")
+```
+
+More examples to review [built-in adapters](https://github.com/icyleaf/totem/blob/master/src/totem/config_types).
 
 ## Q & A
 
