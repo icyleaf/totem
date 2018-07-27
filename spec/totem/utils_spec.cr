@@ -31,4 +31,14 @@ describe Totem::Utils do
       it_detect_env_key "name", "TOTEM_NAME", env_prefix: "totem_"
     end
   end
+
+  describe Totem::Utils::HashHelper do
+    describe ".has_value?" do
+      Totem::Utils.has_value?({} of String => String, [] of String).should eq Hash(String, String).new
+      Totem::Utils.has_value?({"user" => "foo"}, ["user"]).should eq "foo"
+      Totem::Utils.has_value?({"user" => "foo"}, ["foo"]).should be_nil
+      Totem::Utils.has_value?({"profile" => Totem::Any.new({"user" => "foo"})}, ["profile", "user"]).should eq "foo"
+      Totem::Utils.has_value?({"profile" => Totem::Any.new({"user" => "foo"})}, ["profile", "user", "name", "first_name"]).should be_nil
+    end
+  end
 end
