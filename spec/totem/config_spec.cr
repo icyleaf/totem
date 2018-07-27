@@ -515,16 +515,41 @@ describe Totem::Config do
       end
     end
 
-    # describe "#store_file!" do
-    #   it "should writes to json file" do
-    #     with_tempfile("config.json") do |file|
-    #       t = Totem::Config.parse json_raw, "json"
-    #       t.store_file!(file)
+    describe "#store_file!" do
+      it "should writes to json file" do
+        with_tempfile("config.json") do |file|
+          t = Totem::Config.parse json_raw, "json"
+          t.store_file!(file)
 
-    #       File.read(file).should eq json_raw
-    #     end
-    #   end
-    # end
+          ::JSON.parse(File.read(file)).as_h.each do |key, value|
+            t[key].should eq value.raw
+          end
+        end
+      end
+
+      it "should writes to yaml file" do
+        with_tempfile("config.yaml") do |file|
+          t = Totem::Config.parse yaml_raw, "yaml"
+          t.store_file!(file)
+
+          data = ::YAML.parse(File.read(file)).as_h
+          data.each do |key, value|
+            t[key.to_s].should eq value.raw
+          end
+        end
+      end
+
+      it "should writes to env file" do
+        with_tempfile("config.env") do |file|
+          t = Totem::Config.parse env_raw, "env"
+          t.store_file!(file)
+
+          Poncho.parse(file).each do |key, value|
+            t[key].should eq value
+          end
+        end
+      end
+    end
   end
 
   describe "following order" do
