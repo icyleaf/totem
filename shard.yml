@@ -15,5 +15,8 @@ development_dependencies:
   poncho:
     github: icyleaf/poncho
     version: ~> 0.1.0
+  redis:
+    github: stefanwille/crystal-redis
+    version: ~> 2.0.0
 
 license: MIT

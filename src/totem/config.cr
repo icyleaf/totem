@@ -1,4 +1,5 @@
 require "logger"
+require "uri"
 require "./utils"
 
 module Totem
@@ -56,6 +57,8 @@ module Totem
     @config = Hash(String, Any).new
     @env = Hash(String, String).new
     @defaults = Hash(String, Any).new
+
+    @remote_provider : RemoteProviders::Adapter?
 
     def initialize(@config_name = "config", @config_type : String? = nil,
                    @config_paths : Array(String) = [] of String, @key_delimiter = ".")
@@ -145,7 +148,11 @@ module Totem
     #
     # The behavior of returning the value associated with the first
     # place from where it is set. following order:
-    # override, flag, env, config file, default
+    # - override
+    # - env
+    # - config file
+    # - key/value store
+    # - default
     #
     # > Case-insensitive for a key.
     #
@@ -244,6 +251,33 @@ module Totem
       @automatic_env = true
     end
 
+    # Add a remote provider
+    #
+    # Two arguments must passed:
+    #
+    # - `endpoint`: the url of endporint.
+    # - `provider`: The name of provider, ignore it if endpoint's scheme is same as provider.
+    #
+    # #### Add redis
+    #
+    # ```
+    # totem.add_remote(provider: "redis", endpoint: "redis://user:pass@localhost:6379/1")
+    # # or
+    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1")
+    # ```
+    def add_remote(**options)
+      provider = options[:provider]?
+      raise Error.new("Missing the endpoint of remote provider") unless endpoint = options[:endpoint]?
+
+      provider = URI.parse(endpoint.not_nil!).scheme unless provider
+      if (name = provider) && RemoteProviders.has_key?(name)
+        @logger.info("Adding #{name}:#{endpoint} to remote config list")
+        @remote_provider = RemoteProviders.connect(name, **options)
+      else
+        raise UnsupportedRemoteProviderError.new("Unsupport remote provider: #{provider}")
+      end
+    end
+
     # Load configuration file from disk, searching in the defined paths.
     #
     # ```
@@ -324,8 +358,8 @@ module Totem
         raise "Requires vaild extension name with file: #{file}"
       end
 
-      unless ConfigTypes.has_adapter?(extname)
-        raise UnsupportedConfigError.new(file)
+      unless ConfigTypes.has_keys?(extname)
+        raise UnsupportedConfigError.new("Unsupport config type: #{extname}")
       end
 
       if !force && File.exists?(file)
@@ -411,8 +445,8 @@ module Totem
     # - json
     # - env
     def parse(raw : String | IO, config_type = @config_type)
-      unless (type = config_type) && ConfigTypes.has_adapter?(type)
-        raise UnsupportedConfigError.new("Unspoort config type: #{type}")
+      unless (type = config_type) && ConfigTypes.has_keys?(type)
+        raise UnsupportedConfigError.new("Unsupport config type: #{type}")
       end
 
       return unless data = ConfigTypes[type].read(raw)
@@ -494,6 +528,11 @@ module Totem
       end
       # return if nested && shadow_path?(paths, @config).empty?
 
+      # key/value store
+      if (provider = @remote_provider) && (value = provider.get(key))
+        return value
+      end
+
       # Default
       if value = has_value?(@defaults, paths)
         return value
@@ -573,7 +612,7 @@ module Totem
       if (content_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
-        ConfigTypes.adapter_names.each do |ext|
+        ConfigTypes.keys.each do |ext|
           if file = config_file(path, ext)
             return file
           end

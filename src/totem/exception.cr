@@ -9,6 +9,8 @@ module Totem
 
     class UnsupportedConfigError < Error; end
 
+    class UnsupportedRemoteProviderError < Error; end
+
     class MappingError < Error; end
   end
 
