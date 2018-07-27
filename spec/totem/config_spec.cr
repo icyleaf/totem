@@ -514,6 +514,17 @@ describe Totem::Config do
         end
       end
     end
+
+    # describe "#store_file!" do
+    #   it "should writes to json file" do
+    #     with_tempfile("config.json") do |file|
+    #       t = Totem::Config.parse json_raw, "json"
+    #       t.store_file!(file)
+
+    #       File.read(file).should eq json_raw
+    #     end
+    #   end
+    # end
   end
 
   describe "following order" do

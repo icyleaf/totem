@@ -1,4 +1,5 @@
 require "logger"
+require "./utils"
 
 module Totem
   # `Totem::Config` is the core configuration reader, parser and writer.
@@ -9,6 +10,9 @@ module Totem
   # - json
   # - env
   class Config
+    include Totem::Utils::EnvHelper
+    include Totem::Utils::FileHelper
+
     # Load configuration from a file
     #
     # ```
@@ -216,12 +220,7 @@ module Totem
     # ```
     def bind_env(key : String, real_key : String? = nil)
       key = key.downcase
-      env_key = if real_key
-                  real_key.not_nil!
-                else
-                  env_key(key)
-                end
-
+      env_key = real_key ? real_key.not_nil! : env_key(key, @env_prefix)
       @env[key] = env_key
     end
 
@@ -292,7 +291,7 @@ module Totem
       @logger.debug("Reading file: #{file}")
 
       @config_file = file
-      @config_type = Utils.config_type(file)
+      @config_type = config_type(file)
       parse(File.open(file))
     end
 
@@ -333,7 +332,7 @@ module Totem
     def store_file!(file : String, force : Bool = false)
       @logger.info("Attempting to write configuration to file: #{file}")
 
-      unless extname = Utils.config_type(file)
+      unless extname = config_type(file)
         raise "Requires vaild extension name with file: #{file}"
       end
 
@@ -488,12 +487,12 @@ module Totem
       # return if nested && shadow_path?(paths, @overrides).empty?
 
       # Env
-      if @automatic_env && (value = ENV[env_key(key)]?)
+      if @automatic_env && (value = env_value?(key))
         return Any.new(value.as(String))
         # return unless shadow_path?(paths)
       end
 
-      if (env_key = @env[key]?) && (value = ENV[env_key(env_key)]?)
+      if (env_key = @env[key]?) && (value = env_value?(env_key))
         return Any.new(value.as(String))
       end
       # return if nested && shadow_path?(paths, @env).empty?
@@ -565,7 +564,7 @@ module Totem
     private def shadow_path?(paths : Array(String)) : String?
       paths.each_with_index do |_, i|
         key = paths[0..i].join(@key_delimiter)
-        if value = ENV[env_key(key)]?
+        if value = env_value?(key)
           return value
         end
       end
@@ -639,7 +638,7 @@ module Totem
       end
     end
 
-    private def real_key(key : String)
+    private def real_key(key : String) : String
       key = key.downcase
       if @aliases.has_key?(key)
         new_key = @aliases[key]
@@ -649,13 +648,8 @@ module Totem
       key
     end
 
-    private def env_key(key : String)
-      new_key = key.upcase
-      if (prefix = @env_prefix) && !prefix.empty?
-        new_key.starts_with?(prefix) ? new_key : "#{prefix}_#{new_key}"
-      else
-        new_key
-      end
+    private def env_value?(key : String) : String?
+      ENV[env_key(key, @env_prefix)]?
     end
 
     private def default_logger_formatter

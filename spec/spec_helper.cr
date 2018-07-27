@@ -1,4 +1,6 @@
 require "spec"
+require "tempfile"
+require "file_utils"
 require "../src/totem"
 require "../src/totem/config_types/*"
 
@@ -48,4 +50,20 @@ def env_spec_group(t)
   t.get("BOOL_FALSE").as_i.should eq 0
   t.get("BOOL_TRUE").as_bool.should be_true
   t.get("BOOL_FALSE").as_bool.should be_false
+end
+
+SPEC_TEMPFILE_PATH = File.join(Tempfile.dirname, "totem-spec-#{Random.new.hex(8)}")
+
+def with_tempfile(*paths, file = __FILE__)
+  calling_spec = File.basename(file).rchop("_spec.cr")
+  paths = paths.map { |path| File.join(SPEC_TEMPFILE_PATH, calling_spec, path) }
+  FileUtils.mkdir_p(File.join(SPEC_TEMPFILE_PATH, calling_spec))
+
+  begin
+    yield *paths
+  ensure
+    paths.each do |path|
+      FileUtils.rm_r(path) if File.exists?(path)
+    end
+  end
 end
