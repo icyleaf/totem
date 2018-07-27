@@ -32,8 +32,8 @@ module Totem
     end
 
     abstract class Adapter
-      abstract def parse(raw : String | IO) : Hash(String, Totem::Any)
-      abstract def store(io : File, config : Config)
+      abstract def read(raw : String | IO) : Hash(String, Totem::Any)
+      abstract def write(io : File, config : Config)
     end
   end
 end

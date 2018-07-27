@@ -2,7 +2,7 @@ require "poncho"
 
 module Totem::ConfigTypes
   class Env < Adapter
-    def parse(raw)
+    def read(raw)
       data = Poncho.parse(raw)
       Hash(String, Totem::Any).new.tap do |obj|
         data.each do |key, value|
@@ -11,7 +11,7 @@ module Totem::ConfigTypes
       end
     end
 
-    def store(io, config)
+    def write(io, config)
       config.flat_keys.sort.each do |key|
         next unless value = config[key]?
         real_key = key.gsub(config.key_delimiter, "_").upcase

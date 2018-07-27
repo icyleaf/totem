@@ -347,7 +347,7 @@ module Totem
 
       mode = "w"
       File.open(file, mode) do |f|
-        ConfigTypes[extname].store(f, self)
+        ConfigTypes[extname].write(f, self)
       end
     end
 
@@ -428,7 +428,7 @@ module Totem
         raise UnsupportedConfigError.new("Unspoort config type: #{type}")
       end
 
-      return unless config = ConfigTypes[type].parse(raw)
+      return unless config = ConfigTypes[type].read(raw)
       @config = config
     end
 
