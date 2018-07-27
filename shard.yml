@@ -11,7 +11,7 @@ dependencies:
     github: icyleaf/popcorn
     version: ~> 0.1.1
 
-develop_dependencies:
+development_dependencies:
   poncho:
     github: icyleaf/poncho
     version: ~> 0.1.0
