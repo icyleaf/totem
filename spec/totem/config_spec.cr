@@ -605,4 +605,45 @@ describe Totem::Config do
       t.get("super.deep.nested.name").raw.should eq "apple"
     end
   end
+
+  describe "custom key delimiter" do
+    it "should getts by set nested key" do
+      t = Totem::Config.new(key_delimiter: "_")
+
+      t.set("profile_user_name", "foo")
+      t.set("profile_user_age", 20)
+
+      t.get("profile_user_name").should eq "foo"
+      t.get("profile_user_age").should eq 20
+      t.get("profile").as_h["user"].as_h["name"].should eq "foo"
+      t.get("profile").as_h["user"].as_h["age"].should eq 20
+    end
+
+    it "should getts from json raw" do
+      t = Totem::Config.parse %Q{{"profile_user_name":"foo", "profile_user_age": 20}}, "json", "_"
+
+      t.get("profile_user_name").should eq "foo"
+      t.get("profile_user_age").should eq 20
+      t.get("profile").as_h["user"].as_h["name"].should eq "foo"
+      t.get("profile").as_h["user"].as_h["age"].should eq 20
+    end
+
+    it "should getts from yaml raw" do
+      t = Totem::Config.parse %Q{---\nprofile_user_name: "foo"\nprofile_user_age: 20}, "yaml", "_"
+
+      t.get("profile_user_name").should eq "foo"
+      t.get("profile_user_age").should eq 20
+      t.get("profile").as_h["user"].as_h["name"].should eq "foo"
+      t.get("profile").as_h["user"].as_h["age"].should eq 20
+    end
+
+    it "should getts from dotenv raw" do
+      t = Totem::Config.parse %Q{PROFILE_USER_NAME=foo\nPROFILE_USER_AGE=20}, "env", "_"
+
+      t.get("profile_user_name").should eq "foo"
+      t.get("profile_user_age").should eq "20"
+      t.get("profile").as_h["user"].as_h["name"].should eq "foo"
+      t.get("profile").as_h["user"].as_h["age"].should eq "20"
+    end
+  end
 end

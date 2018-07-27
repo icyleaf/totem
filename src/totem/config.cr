@@ -12,16 +12,17 @@ module Totem
   class Config
     include Totem::Utils::EnvHelper
     include Totem::Utils::FileHelper
+    include Totem::Utils::HashHelper
 
     # Load configuration from a file
     #
     # ```
     # Totem::Config.from_file("config.yaml", ["/etc/totem", "~/.totem", "./"])
     # ```
-    def self.from_file(file : String, paths : Array(String)? = nil)
+    def self.from_file(file : String, paths : Array(String)? = nil, key_delimiter : String? = ".")
       config_name = File.basename(file, File.extname(file))
       config_type = Utils.config_type(file)
-      instance = new(config_name, config_type)
+      instance = new(config_name, config_type, key_delimiter: key_delimiter)
 
       if config_paths = paths
         config_paths.each do |path|
@@ -36,8 +37,8 @@ module Totem
     end
 
     # Parse configuration from a raw string.
-    def self.parse(raw : String, type : String)
-      instance = new(config_type: type)
+    def self.parse(raw : String, type : String, key_delimiter : String? = ".")
+      instance = new(config_type: type, key_delimiter: key_delimiter)
       instance.parse(raw)
       instance
     end
@@ -57,27 +58,10 @@ module Totem
     @defaults = Hash(String, Any).new
 
     def initialize(@config_name = "config", @config_type : String? = nil,
-                   @config_paths : Array(String) = [] of String,
-                   @key_delimiter = ".",
-                   @automatic_env = false)
+                   @config_paths : Array(String) = [] of String, @key_delimiter = ".")
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @debugging = false
-    end
-
-    # Sets the default value for given key
-    #
-    # ```
-    # totem.set_default("id", 123)
-    # totem.set_default("user.name", "foobar")
-    # ```
-    def set_default(key : String, value : T) forall T
-      key = real_key(key.downcase)
-
-      paths = key.split(@key_delimiter)
-      last_key = paths.last.downcase
-
-      deep_hash = deep_search(@defaults, paths[0..-2])
-      deep_hash[last_key] = Any.new(value)
+      @automatic_env = false
     end
 
     # Sets the default values with `Hash` data
@@ -94,6 +78,16 @@ module Totem
       defaults.each do |key, value|
         set_default(key, value)
       end
+    end
+
+    # Sets the default value for given key
+    #
+    # ```
+    # totem.set_default("id", 123)
+    # totem.set_default("user.name", "foobar")
+    # ```
+    def set_default(key : String, value : T) forall T
+      set_config_from(@defaults, key, value)
     end
 
     # Alias to `set` method.
@@ -144,13 +138,7 @@ module Totem
     # totem.set("user.name", "foobar")
     # ```
     def set(key : String, value : T) forall T
-      key = real_key(key.downcase)
-
-      paths = key.split(@key_delimiter)
-      last_key = paths.last.downcase
-
-      deep_hash = deep_search(@overrides, paths[0..-2])
-      deep_hash[last_key] = Any.new(value)
+      set_config_from(@overrides, key, value)
     end
 
     # Gets any value by given key
@@ -289,9 +277,9 @@ module Totem
     def load_file!(file : String)
       @logger.info("Attempting to read in config file")
       @logger.debug("Reading file: #{file}")
-
       @config_file = file
       @config_type = config_type(file)
+
       parse(File.open(file))
     end
 
@@ -427,8 +415,11 @@ module Totem
         raise UnsupportedConfigError.new("Unspoort config type: #{type}")
       end
 
-      return unless config = ConfigTypes[type].read(raw)
-      @config = config
+      return unless data = ConfigTypes[type].read(raw)
+
+      data.each do |key, value|
+        set_config_from(@config, key, value)
+      end
     end
 
     # Returns all keys holding a value, regardless of where they are set.
@@ -510,15 +501,6 @@ module Totem
       # return if nested && shadow_path?(paths, @defaults).empty?
     end
 
-    private def has_value?(source : Hash(String, String | Any), paths : Array(String)) : Any?
-      return Any.new(source) if paths.size.zero?
-      if value = source[paths.first]?
-        return value.is_a?(Any) ? value : Any.new(value) if paths.size == 1
-
-        has_value?(value.as_h, paths[1..-1]) if value.is_a?(Any) && value.as_h?
-      end
-    end
-
     # Return paths if given paths is shadowed somewhere in given hash
     private def shadow_path?(paths : Array(String), hash : Hash(String, String | Any)) : String
       paths.each_with_index do |_, i|
@@ -532,32 +514,6 @@ module Totem
       end
 
       ""
-    end
-
-    private def deep_search(source : Hash(String, String | Any), paths : Array(String)) : Hash(String, Any)
-      paths.each do |path|
-        subtree = source[path]?
-
-        unless subtree
-          hash = Hash(String, Any).new
-          source[path] = Any.new(hash)
-          source = hash
-
-          next
-        end
-
-        source = if subtree.is_a?(Any)
-                   subtree.as_h
-                 elsif subtree.is_a?(Hash)
-                   subtree.as(Hash(String, Any))
-                 else
-                   hash = Hash(String, Any).new
-                   source[path] = Any.new(hash)
-                   hash
-                 end
-      end
-
-      source
     end
 
     # Return paths if given paths is shadowed somewhere in the ENV
@@ -636,6 +592,16 @@ module Totem
         @logger.debug("Found: #{file}")
         file
       end
+    end
+
+    private def set_config_from(source : Hash(String, Totem::Any), key : String, value : T) forall T
+      key = real_key(key.downcase)
+
+      paths = key.split(@key_delimiter)
+      last_key = paths.last.downcase
+
+      deep_hash = deep_search(source, paths[0..-2])
+      deep_hash[last_key] = Any.new(value)
     end
 
     private def real_key(key : String) : String

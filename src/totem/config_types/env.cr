@@ -3,12 +3,7 @@ require "poncho"
 module Totem::ConfigTypes
   class Env < Adapter
     def read(raw)
-      data = Poncho.parse(raw)
-      Hash(String, Totem::Any).new.tap do |obj|
-        data.each do |key, value|
-          obj[key.downcase] = Any.new(value)
-        end
-      end
+      Poncho.parse(raw).to_h
     end
 
     def write(io, config)

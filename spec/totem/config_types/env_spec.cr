@@ -10,10 +10,10 @@ USER_AGE=20
 TAGS=profile
 EOF
 
-    data["id"].should eq "123"
-    data["user_name"].should eq "foo"
-    data["user_age"].should eq "20"
-    data["tags"].should eq "profile"
+    data["ID"].should eq "123"
+    data["USER_NAME"].should eq "foo"
+    data["USER_AGE"].should eq "20"
+    data["TAGS"].should eq "profile"
   end
 
   it "should writes" do

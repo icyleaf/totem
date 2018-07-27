@@ -20,6 +20,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Improved inspect output with `#pp` or `#pp!`.
 - Added Totem::Any equal with other class & struct.
 
+### Changed
+
+- Added nested key setting for the raw content of configuration formats. (see [specs](https://github.com/icyleaf/totem/blob/master/spec/totem/config_spec.cr#L609))
+
 ## [0.2.1] (2018-07-26)
 
 ### Fixed
