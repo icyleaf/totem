@@ -20,13 +20,14 @@ module Totem
 
     @@instance = {} of String => Adapter
 
-    def self.connect(name : String, **options)
+    def self.connect(name : String, config : Config, **options)
       cls = @@providers[name]
-      provider = cls.new(**options)
-      @@instance[name] = provider
+      options = options.merge({config: config})
+      @@instance[name] = cls.new(**options)
     end
 
     abstract class Adapter
+      abstract def read : Hash(String, Totem::Any::Type)?
       abstract def get(key : String) : Any
     end
   end

@@ -49,14 +49,7 @@ module Totem
     property config_name
     property config_type
     property key_delimiter
-
     getter env_prefix : String?
-
-    @aliases = Hash(String, String).new
-    @overrides = Hash(String, Any).new
-    @config = Hash(String, Any).new
-    @env = Hash(String, String).new
-    @defaults = Hash(String, Any).new
 
     @remote_provider : RemoteProviders::Adapter?
 
@@ -65,6 +58,13 @@ module Totem
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @debugging = false
       @automatic_env = false
+
+      @aliases = Hash(String, String).new
+      @overrides = Hash(String, Any).new
+      @config = Hash(String, Any).new
+      @env = Hash(String, String).new
+      @kvstores = Hash(String, Any).new
+      @defaults = Hash(String, Any).new
     end
 
     # Sets the default values with `Hash` data
@@ -90,7 +90,7 @@ module Totem
     # totem.set_default("user.name", "foobar")
     # ```
     def set_default(key : String, value : T) forall T
-      set_config_from(@defaults, key, value)
+      set_value_from(@defaults, key, value)
     end
 
     # Alias to `set` method.
@@ -141,7 +141,7 @@ module Totem
     # totem.set("user.name", "foobar")
     # ```
     def set(key : String, value : T) forall T
-      set_config_from(@overrides, key, value)
+      set_value_from(@overrides, key, value)
     end
 
     # Gets any value by given key
@@ -258,12 +258,23 @@ module Totem
     # - `endpoint`: the url of endporint.
     # - `provider`: The name of provider, ignore it if endpoint's scheme is same as provider.
     #
-    # #### Add redis
+    # #### Redis
+    #
+    # You can get value access the key:
     #
     # ```
     # totem.add_remote(provider: "redis", endpoint: "redis://user:pass@localhost:6379/1")
     # # or
     # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1")
+    #
+    # totem.get("user:id") # => "123"
+    # ```
+    #
+    # You can get value from raw json access the path
+    # ```
+    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:totem.json")
+    #
+    # totem.get("user:id") # => "123"
     # ```
     def add_remote(**options)
       provider = options[:provider]?
@@ -272,7 +283,13 @@ module Totem
       provider = URI.parse(endpoint.not_nil!).scheme unless provider
       if (name = provider) && RemoteProviders.has_key?(name)
         @logger.info("Adding #{name}:#{endpoint} to remote config list")
-        @remote_provider = RemoteProviders.connect(name, **options)
+
+        @remote_provider = RemoteProviders.connect(name, self, **options)
+        if data = RemoteProviders[name].read
+          data.each do |key, value|
+            set_value_from(@kvstores, key, value)
+          end
+        end
       else
         raise UnsupportedRemoteProviderError.new("Unsupport remote provider: #{provider}")
       end
@@ -452,7 +469,7 @@ module Totem
       return unless data = ConfigTypes[type].read(raw)
 
       data.each do |key, value|
-        set_config_from(@config, key, value)
+        set_value_from(@config, key, value)
       end
     end
 
@@ -496,6 +513,16 @@ module Totem
       settings
     end
 
+    def set_value_from(source : Hash(String, Totem::Any), key : String, value : T) forall T
+      key = real_key(key.downcase)
+
+      paths = key.split(@key_delimiter)
+      last_key = paths.last.downcase
+
+      deep_hash = deep_search(source, paths[0..-2])
+      deep_hash[last_key] = Any.new(value)
+    end
+
     private def find(key : String) : Any?
       paths = key.split(@key_delimiter)
       nested = paths.size > 1
@@ -529,6 +556,10 @@ module Totem
       # return if nested && shadow_path?(paths, @config).empty?
 
       # key/value store
+      if value = has_value?(@kvstores, paths)
+        return value
+      end
+
       if (provider = @remote_provider) && (value = provider.get(key))
         return value
       end
@@ -631,16 +662,6 @@ module Totem
         @logger.debug("Found: #{file}")
         file
       end
-    end
-
-    private def set_config_from(source : Hash(String, Totem::Any), key : String, value : T) forall T
-      key = real_key(key.downcase)
-
-      paths = key.split(@key_delimiter)
-      last_key = paths.last.downcase
-
-      deep_hash = deep_search(source, paths[0..-2])
-      deep_hash[last_key] = Any.new(value)
     end
 
     private def real_key(key : String) : String
