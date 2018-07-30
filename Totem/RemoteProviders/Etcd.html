@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
-  <title>Totem::RemoteProviders::Redis - github.com/icyleaf/totem</title>
+  <title>Totem::RemoteProviders::Etcd - github.com/icyleaf/totem</title>
 </head>
 <body>
 
@@ -146,12 +146,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/icyleaf/totem/Totem/RemoteProviders/Etcd" data-name="totem::remoteproviders::etcd">
+  <li class=" current" data-id="github.com/icyleaf/totem/Totem/RemoteProviders/Etcd" data-name="totem::remoteproviders::etcd">
       <a href="../../Totem/RemoteProviders/Etcd.html">Etcd</a>
       
     </li>
   
-  <li class=" current" data-id="github.com/icyleaf/totem/Totem/RemoteProviders/Redis" data-name="totem::remoteproviders::redis">
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/RemoteProviders/Redis" data-name="totem::remoteproviders::redis">
       <a href="../../Totem/RemoteProviders/Redis.html">Redis</a>
       
     </li>
@@ -205,12 +205,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Totem::RemoteProviders::Redis
+  <span class="kind">class</span> Totem::RemoteProviders::Etcd
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Totem/RemoteProviders/Redis.html">Totem::RemoteProviders::Redis</a></li><li class="superclass"><a href="../../Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Totem/RemoteProviders/Etcd.html">Totem::RemoteProviders::Etcd</a></li><li class="superclass"><a href="../../Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -231,7 +231,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L5" target="_blank">totem/remote_providers/redis.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/etcd.cr#L5" target="_blank">totem/remote_providers/etcd.cr</a>
     
     <br/>
   
@@ -263,22 +263,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get_hash%28key%3AString%29-instance-method" class="signature"><strong>#get_hash</strong>(key : String)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#get_set%28key%3AString%29-instance-method" class="signature"><strong>#get_set</strong>(key : String)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#get_str%28key%3AString%29-instance-method" class="signature"><strong>#get_str</strong>(key : String)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#get_zset%28key%3AString%29-instance-method" class="signature"><strong>#get_zset</strong>(key : String)</a>
+        <a href="#get%3F%28key%29-instance-method" class="signature"><strong>#get?</strong>(key)</a>
         
       </li>
     
@@ -373,7 +358,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/etcd.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -396,71 +381,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/etcd.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="get_hash(key:String)-instance-method">
+    <div class="entry-detail" id="get?(key)-instance-method">
       <div class="signature">
         
-        def <strong>get_hash</strong>(key : String)
+        def <strong>get?</strong>(key)
 
-        <a class="method-permalink" href="#get_hash%28key%3AString%29-instance-method">#</a>
+        <a class="method-permalink" href="#get%3F%28key%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L44" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="get_set(key:String)-instance-method">
-      <div class="signature">
-        
-        def <strong>get_set</strong>(key : String)
-
-        <a class="method-permalink" href="#get_set%28key%3AString%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L55" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="get_str(key:String)-instance-method">
-      <div class="signature">
-        
-        def <strong>get_str</strong>(key : String)
-
-        <a class="method-permalink" href="#get_str%28key%3AString%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L38" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="get_zset(key:String)-instance-method">
-      <div class="signature">
-        
-        def <strong>get_zset</strong>(key : String)
-
-        <a class="method-permalink" href="#get_zset%28key%3AString%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/etcd.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -476,7 +413,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/redis.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2601933b4bbec4102df8c359d885d091e6e5abea/src/totem/remote_providers/etcd.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
