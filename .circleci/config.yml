@@ -3,6 +3,11 @@ jobs:
   build:
     docker:
       - image: crystallang/crystal
+      - image: redis:alpine
+      - image: appcelerator/etcd
+        command:
+          - --listen-client-urls=http://localhost:2379
+          - --advertise-client-urls=http://localhost:2379
     environment:
       DOCS_PATH: "docs"
       GIT_USER: "icyleaf"

@@ -1,4 +1,5 @@
 require "logger"
+require "uri"
 require "./utils"
 
 module Totem
@@ -48,20 +49,22 @@ module Totem
     property config_name
     property config_type
     property key_delimiter
-
     getter env_prefix : String?
 
-    @aliases = Hash(String, String).new
-    @overrides = Hash(String, Any).new
-    @config = Hash(String, Any).new
-    @env = Hash(String, String).new
-    @defaults = Hash(String, Any).new
+    @remote_provider : RemoteProviders::Adapter?
 
     def initialize(@config_name = "config", @config_type : String? = nil,
                    @config_paths : Array(String) = [] of String, @key_delimiter = ".")
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @debugging = false
       @automatic_env = false
+
+      @aliases = Hash(String, String).new
+      @overrides = Hash(String, Any).new
+      @config = Hash(String, Any).new
+      @env = Hash(String, String).new
+      @kvstores = Hash(String, Any).new
+      @defaults = Hash(String, Any).new
     end
 
     # Sets the default values with `Hash` data
@@ -87,7 +90,7 @@ module Totem
     # totem.set_default("user.name", "foobar")
     # ```
     def set_default(key : String, value : T) forall T
-      set_config_from(@defaults, key, value)
+      set_value_from(@defaults, key, value)
     end
 
     # Alias to `set` method.
@@ -138,14 +141,18 @@ module Totem
     # totem.set("user.name", "foobar")
     # ```
     def set(key : String, value : T) forall T
-      set_config_from(@overrides, key, value)
+      set_value_from(@overrides, key, value)
     end
 
     # Gets any value by given key
     #
     # The behavior of returning the value associated with the first
     # place from where it is set. following order:
-    # override, flag, env, config file, default
+    # - override
+    # - env
+    # - config file
+    # - key/value store
+    # - default
     #
     # > Case-insensitive for a key.
     #
@@ -244,6 +251,53 @@ module Totem
       @automatic_env = true
     end
 
+    # Add a remote provider
+    #
+    # Two arguments must passed:
+    #
+    # - `endpoint`: the url of endporint.
+    # - `provider`: The name of provider, ignore it if endpoint's scheme is same as provider.
+    #
+    # #### Redis
+    #
+    # You can get value access the key:
+    #
+    # ```
+    # totem.add_remote(provider: "redis", endpoint: "redis://user:pass@localhost:6379/1")
+    # # Or make it shorter
+    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1")
+    #
+    # totem.get("user:id") # => "123"
+    # ```
+    #
+    # You can get value from raw json access the path
+    #
+    # ```
+    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:production.json")
+    # totem.get("user:id") # => "123"
+    # ```
+    def add_remote(provider : String? = nil, **options)
+      raise RemoteProviderError.new("Missing the endpoint") unless endpoint = options[:endpoint]?
+
+      provider = URI.parse(endpoint.not_nil!).scheme unless provider
+      if (name = provider) && RemoteProviders.has_key?(name)
+        @logger.info("Adding #{name}:#{endpoint} to remote config list")
+        @remote_provider = RemoteProviders.connect(name, **options)
+        kvstores = RemoteProviders[name].read(@config_type)
+        if kvstores.nil? && (path = options[:path]?)
+          raise RemoteProviderError.new("Can not read config with path: #{path}, make sure sets config_type before this call or named path with file extension.")
+        end
+
+        if kvstores
+          kvstores.not_nil!.each do |key, value|
+            set_value_from(@kvstores, key, value)
+          end
+        end
+      else
+        raise UnsupportedRemoteProviderError.new("Unsupport remote provider: #{provider}")
+      end
+    end
+
     # Load configuration file from disk, searching in the defined paths.
     #
     # ```
@@ -325,7 +379,7 @@ module Totem
       end
 
       unless ConfigTypes.has_keys?(extname)
-        raise UnsupportedConfigError.new("Unsport config type: #{extname}")
+        raise UnsupportedConfigError.new("Unsupport config type: #{extname}")
       end
 
       if !force && File.exists?(file)
@@ -412,13 +466,13 @@ module Totem
     # - env
     def parse(raw : String | IO, config_type = @config_type)
       unless (type = config_type) && ConfigTypes.has_keys?(type)
-        raise UnsupportedConfigError.new("Unsport config type: #{type}")
+        raise UnsupportedConfigError.new("Unsupport config type: #{type}")
       end
 
       return unless data = ConfigTypes[type].read(raw)
 
       data.each do |key, value|
-        set_config_from(@config, key, value)
+        set_value_from(@config, key, value)
       end
     end
 
@@ -462,6 +516,16 @@ module Totem
       settings
     end
 
+    def set_value_from(source : Hash(String, Totem::Any), key : String, value : T) forall T
+      key = real_key(key.downcase)
+
+      paths = key.split(@key_delimiter)
+      last_key = paths.last.downcase
+
+      deep_hash = deep_search(source, paths[0..-2])
+      deep_hash[last_key] = Any.new(value)
+    end
+
     private def find(key : String) : Any?
       paths = key.split(@key_delimiter)
       nested = paths.size > 1
@@ -493,6 +557,15 @@ module Totem
         return value
       end
       # return if nested && shadow_path?(paths, @config).empty?
+
+      # key/value store
+      if value = has_value?(@kvstores, paths)
+        return value
+      end
+
+      if (provider = @remote_provider) && (value = provider.get(key))
+        return value
+      end
 
       # Default
       if value = has_value?(@defaults, paths)
@@ -594,16 +667,6 @@ module Totem
       end
     end
 
-    private def set_config_from(source : Hash(String, Totem::Any), key : String, value : T) forall T
-      key = real_key(key.downcase)
-
-      paths = key.split(@key_delimiter)
-      last_key = paths.last.downcase
-
-      deep_hash = deep_search(source, paths[0..-2])
-      deep_hash[last_key] = Any.new(value)
-    end
-
     private def real_key(key : String) : String
       key = key.downcase
       if @aliases.has_key?(key)
@@ -639,6 +702,7 @@ module Totem
         io << " @overrides=" << @overrides << "," << newline
         io << " @config=" << @config << "," << newline
         io << " @env=" << @env << "," << newline
+        io << " @kvstores=" << @kvstores << "," << newline
         io << " @defaults=" << @defaults << ">"
       end
     end
