@@ -18,5 +18,8 @@ development_dependencies:
   redis:
     github: stefanwille/crystal-redis
     version: ~> 2.0.0
+  etcd:
+    github: icyleaf/etcd-crystal
+    version: ~> 0.2.1
 
 license: MIT
