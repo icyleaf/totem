@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: crystallang/crystal
+      - image: redis:alpine
     environment:
       DOCS_PATH: "docs"
       GIT_USER: "icyleaf"
