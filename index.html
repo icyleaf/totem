@@ -215,7 +215,7 @@
 
 <p>&lt;!-- TOC --></p>
 
-<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li><li><a href="#write-custom-adapter" target="_blank">Write custom adapter</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
+<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#working-with-remote-providers" target="_blank">Working with remote providers</a></li><li><a href="#use-redis" target="_blank">Use redis</a></li><li><a href="#use-etcd" target="_blank">Use etcd</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li><li><a href="#write-custom-adapter" target="_blank">Write custom adapter</a></li><li><a href="#write-custom-remote-provider" target="_blank">Write custom remote provider</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
 
 <p>&lt;!-- /TOC --></p>
 
@@ -225,14 +225,14 @@
 
 <p>Totem has following features:</p>
 
-<ul><li>Load and parse a configuration file or string in JSON, YAML, dotenv formats.</li><li>Reading from environment variables.</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
+<ul><li>Reading from JSON, YAML, dotenv formats config files or raw string.</li><li>Reading from environment variables.</li><li>Reading from remote key-value store systems(redis/etcd).</li><li>Provide a mechanism to set default values for your different configuration options.</li><li>Provide an alias system to easily rename parameters without breaking existing code.</li><li>Write configuration to file with JSON, YAML formats.</li></ul>
 
-<p>And we keep it minimize and require what you want with adapter! <strong>No more dependenices what you do not need</strong>.
+<p>And we keep it minimize and require what you want with adapter and remote provider! <strong>No more dependenices what you do not need</strong>.
 Only JSON and YAML adapters were auto requires.</p>
 
 <p>Uses the following precedence order. Each item takes precedence over the item below it:</p>
 
-<ul><li>alias</li><li>override, explicit call to <code>set</code></li><li>env</li><li>config</li><li>default</li></ul>
+<ul><li>alias</li><li>override, explicit call to <code>set</code></li><li>env</li><li>config</li><li>kvstores</li><li>default</li></ul>
 
 <p>Totem configuration keys are case insensitive.</p>
 
@@ -334,7 +334,8 @@ totem.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot
 
 <blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter.</blockquote>
 
-<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem/config_types/env&quot;</span>    <span class="c"># Make sure you require</span>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
+<span class="k">require</span> <span class="s">&quot;totem/config_types/env&quot;</span>    <span class="c"># Make sure you require</span>
 
 raw <span class="o">=</span> <span class="s">&lt;&lt;-EOF
 # COMMENTS=work
@@ -430,6 +431,53 @@ totem.get(<span class="s">&quot;name&quot;</span>).as_s      <span class="c"># =
 totem.get(<span class="s">&quot;id&quot;</span>).as_i    <span class="c"># =&gt; 123</span>
 totem.get(<span class="s">&quot;food&quot;</span>).as_s  <span class="c"># =&gt; &quot;Pinapple&quot;</span>
 totem.get(<span class="s">&quot;name&quot;</span>).as_s  <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
+
+<h3>Working with remote providers</h3>
+
+<p>Totem retrieve configuration from Key-Value store, which means that you can get your configuration values on the air.
+Avaliable providers is <code>redis</code> and <code>etcd</code>.</p>
+
+<h4>Use redis</h4>
+
+<p>It dependency <a href="https://github.com/stefanwille/crystal-redis" target="_blank">redis</a> shard. Install is before use.</p>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
+<span class="k">require</span> <span class="s">&quot;totem/remote_providers/redis&quot;</span>
+
+totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
+totem.add_remote(provider: <span class="s">&quot;redis&quot;</span>, endpoint: <span class="s">&quot;redis://localhost:6379/0&quot;</span>)
+
+totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
+totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
+
+<p>You can also get raw data from one key with <code>path</code>:</p>
+
+<pre><code class="language-crystal">totem.config_type <span class="o">=</span> <span class="s">&quot;json&quot;</span>  <span class="c"># There is no file extension in a stream data, supported extensions are all registed config types in Totem.</span>
+totem.add_remote(provider: <span class="s">&quot;redis&quot;</span>, endpoint: <span class="s">&quot;redis://localhost:6379/0&quot;</span>, path: <span class="s">&quot;config:development&quot;</span>)
+
+totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
+totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
+
+<h4>Use etcd</h4>
+
+<p>It dependency <a href="https://github.com/icyleaf/etcd-crystal" target="_blank">etcd-crystal</a> shard. Install is before use.</p>
+
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
+<span class="k">require</span> <span class="s">&quot;totem/remote_providers/etcd&quot;</span>
+
+totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
+totem.add_remote(provider: <span class="s">&quot;etcd&quot;</span>, endpoint: <span class="s">&quot;http://localhost:2379&quot;</span>)
+
+totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
+totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
+
+<p>You can also get raw data from one key with <code>path</code>:</p>
+
+<pre><code class="language-crystal">totem.config_type <span class="o">=</span> <span class="s">&quot;yaml&quot;</span>  <span class="c"># There is no file extension in a stream data, supported extensions are all registed config types in Totem.</span>
+totem.add_remote(provider: <span class="s">&quot;etcd&quot;</span>, endpoint: <span class="s">&quot;http://localhost:2379&quot;</span>, path: <span class="s">&quot;/config/development.yaml&quot;</span>)
+
+totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
+totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
 
 <h3>Iterating configuration</h3>
 
@@ -531,6 +579,11 @@ totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_alias(<span class="s">&quot;cnf&quot;</span>, <span class="s">&quot;ini&quot;</span>)</code></pre>
 
 <p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types" target="_blank">built-in adapters</a>.</p>
+
+<h3>Write custom remote provider</h3>
+
+<p>Creating the custom remote provider by integration <code><a href="Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></code> abstract class. Here has two methods must be implement:
+<code>read</code> and <code>get</code>, please reivew the <a href="https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers" target="_blank">built-in remote providers</a>.</p>
 
 <h2>Q & A</h2>
 
