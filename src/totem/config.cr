@@ -276,14 +276,12 @@ module Totem
     # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:production.json")
     # totem.get("user:id") # => "123"
     # ```
-    def add_remote(**options)
-      provider = options[:provider]?
+    def add_remote(provider : String? = nil, **options)
       raise RemoteProviderError.new("Missing the endpoint") unless endpoint = options[:endpoint]?
 
       provider = URI.parse(endpoint.not_nil!).scheme unless provider
       if (name = provider) && RemoteProviders.has_key?(name)
         @logger.info("Adding #{name}:#{endpoint} to remote config list")
-
         @remote_provider = RemoteProviders.connect(name, **options)
         kvstores = RemoteProviders[name].read(@config_type)
         if kvstores.nil? && (path = options[:path]?)
