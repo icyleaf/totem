@@ -116,6 +116,11 @@
       
     </li>
   
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/RemoteProviderError" data-name="totem::exception::remoteprovidererror">
+      <a href="../../Totem/Exception/RemoteProviderError.html">RemoteProviderError</a>
+      
+    </li>
+  
   <li class=" " data-id="github.com/icyleaf/totem/Totem/Exception/UnsupportedConfigError" data-name="totem::exception::unsupportedconfigerror">
       <a href="../../Totem/Exception/UnsupportedConfigError.html">UnsupportedConfigError</a>
       
@@ -221,7 +226,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L5" target="_blank">totem/remote_providers/redis.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L5" target="_blank">totem/remote_providers/redis.cr</a>
     
     <br/>
   
@@ -234,7 +239,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28endpoint%3AString%2Cconfig%3AConfig%2Cpath%3AString%3F%3Dnil%29-class-method" class="signature"><strong>.new</strong>(endpoint : String, config : Config, path : String? = <span class="n">nil</span>)</a>
+        <a href="#new%28endpoint%3AString%2Cpath%3AString%3F%3Dnil%29-class-method" class="signature"><strong>.new</strong>(endpoint : String, path : String? = <span class="n">nil</span>)</a>
         
       </li>
     
@@ -273,7 +278,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#read-instance-method" class="signature"><strong>#read</strong></a>
+        <a href="#read%28config_type%3AString%3F%3Dnil%29-instance-method" class="signature"><strong>#read</strong>(config_type : String? = <span class="n">nil</span>)</a>
         
       </li>
     
@@ -295,8 +300,8 @@
     get</a>, 
     
   
-    <a href="../../Totem/RemoteProviders/Adapter.html#read%3AHash%28String%2CTotem%3A%3AAny%3A%3AType%29%3F-instance-method" class="tooltip">
-      <span>read : Hash(String, Totem::Any::Type)?</span>
+    <a href="../../Totem/RemoteProviders/Adapter.html#read%28config_type%3AString%3F%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%3A%3AType%29%3F-instance-method" class="tooltip">
+      <span>read(config_type : String? = <span class="n">nil</span>) : Hash(String, Totem::Any::Type)?</span>
     read</a>
     
   
@@ -352,18 +357,18 @@
 
   <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="new(endpoint:String,config:Config,path:String?=nil)-class-method">
+    <div class="entry-detail" id="new(endpoint:String,path:String?=nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(endpoint : String, config : <a href="../../Totem/Config.html">Config</a>, path : String? = <span class="n">nil</span>)
+        def self.<strong>new</strong>(endpoint : String, path : String? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#new%28endpoint%3AString%2Cconfig%3AConfig%2Cpath%3AString%3F%3Dnil%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28endpoint%3AString%2Cpath%3AString%3F%3Dnil%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -386,7 +391,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -402,7 +407,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -418,7 +423,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -434,7 +439,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -450,23 +455,23 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="read-instance-method">
+    <div class="entry-detail" id="read(config_type:String?=nil)-instance-method">
       <div class="signature">
         
-        def <strong>read</strong>
+        def <strong>read</strong>(config_type : String? = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#read-instance-method">#</a>
+        <a class="method-permalink" href="#read%28config_type%3AString%3F%3Dnil%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/44edb71f90d50eaeede7c4fbd8ffe1b38ff40ec5/src/totem/remote_providers/redis.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/2145a3f0dbe49a58764f6aa610f9fa0b1709f1d8/src/totem/remote_providers/redis.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
