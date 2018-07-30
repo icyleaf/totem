@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
-  <title>Totem::Utils::FileHelper - github.com/icyleaf/totem</title>
+  <title>Totem::RemoteConfigs::Provider - github.com/icyleaf/totem</title>
 </head>
 <body>
 
@@ -141,12 +141,12 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/icyleaf/totem/Totem/RemoteConfigs" data-name="totem::remoteconfigs">
+  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/RemoteConfigs" data-name="totem::remoteconfigs">
       <a href="../../Totem/RemoteConfigs.html">RemoteConfigs</a>
       
         <ul>
   
-  <li class=" " data-id="github.com/icyleaf/totem/Totem/RemoteConfigs/Provider" data-name="totem::remoteconfigs::provider">
+  <li class=" current" data-id="github.com/icyleaf/totem/Totem/RemoteConfigs/Provider" data-name="totem::remoteconfigs::provider">
       <a href="../../Totem/RemoteConfigs/Provider.html">Provider</a>
       
     </li>
@@ -161,7 +161,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/Utils" data-name="totem::utils">
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Utils" data-name="totem::utils">
       <a href="../../Totem/Utils.html">Utils</a>
       
         <ul>
@@ -171,7 +171,7 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/icyleaf/totem/Totem/Utils/FileHelper" data-name="totem::utils::filehelper">
+  <li class=" " data-id="github.com/icyleaf/totem/Totem/Utils/FileHelper" data-name="totem::utils::filehelper">
       <a href="../../Totem/Utils/FileHelper.html">FileHelper</a>
       
     </li>
@@ -205,11 +205,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Totem::Utils::FileHelper
+  <span class="kind">abstract class</span> Totem::RemoteConfigs::Provider
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Totem/RemoteConfigs/Provider.html">Totem::RemoteConfigs::Provider</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -222,13 +223,14 @@
 
 
 
-
-  <h2>Direct including types</h2>
+  <h2>Direct Known Subclasses</h2>
   <ul class="other-types-list">
   
-    <li class="other-type"><a href="../../Totem/Config.html">Totem::Config</a></li>
+    <li class="other-type"><a href="../../Totem/RemoteConfigs/Redis.html">Totem::RemoteConfigs::Redis</a></li>
   
   </ul>
+
+
 
 
 
@@ -236,7 +238,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/utils.cr#L3" target="_blank">totem/utils.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L29" target="_blank">totem/remote_configs.cr</a>
     
     <br/>
   
@@ -253,7 +255,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#config_type%28file%3AString%29-instance-method" class="signature"><strong>#config_type</strong>(file : String)</a>
+        <a href="#get%28key%3AString%29%3AAny-instance-method" class="signature"><strong>#get</strong>(key : String) : Any</a>
         
       </li>
     
@@ -265,6 +267,44 @@
 
 <div class="methods-inherited">
   
+    
+
+  <h3>Instance methods inherited from class <code>Reference</code></h3>
+  
+  
+    <a href="../../Reference.html#%3D%3D%28other%3ATotem%3A%3AAny%29-instance-method" class="tooltip">
+      <span>==(other : Totem::Any)</span>
+    ==</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+  <h3>Instance methods inherited from class <code>Object</code></h3>
+  
+  
+    <a href="../../Object.html#%3D%3D%3D%28other%3ATotem%3A%3AAny%29-instance-method" class="tooltip">
+      <span>===(other : Totem::Any)</span>
+    ===</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
 </div>
 
 
@@ -274,18 +314,18 @@
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="config_type(file:String)-instance-method">
+    <div class="entry-detail" id="get(key:String):Any-instance-method">
       <div class="signature">
-        
-        def <strong>config_type</strong>(file : String)
+        abstract 
+        def <strong>get</strong>(key : String) : <a href="../../Totem/Any.html">Any</a>
 
-        <a class="method-permalink" href="#config_type%28file%3AString%29-instance-method">#</a>
+        <a class="method-permalink" href="#get%28key%3AString%29%3AAny-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/utils.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>

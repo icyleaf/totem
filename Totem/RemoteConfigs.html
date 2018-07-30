@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
-  <title>Totem::Exception - github.com/icyleaf/totem</title>
+  <title>Totem::RemoteConfigs - github.com/icyleaf/totem</title>
 </head>
 <body>
 
@@ -106,7 +106,7 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/Exception" data-name="totem::exception">
+  <li class="parent " data-id="github.com/icyleaf/totem/Totem/Exception" data-name="totem::exception">
       <a href="../Totem/Exception.html">Exception</a>
       
         <ul>
@@ -141,7 +141,7 @@
       
     </li>
   
-  <li class="parent " data-id="github.com/icyleaf/totem/Totem/RemoteConfigs" data-name="totem::remoteconfigs">
+  <li class="parent open current" data-id="github.com/icyleaf/totem/Totem/RemoteConfigs" data-name="totem::remoteconfigs">
       <a href="../Totem/RemoteConfigs.html">RemoteConfigs</a>
       
         <ul>
@@ -205,7 +205,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Totem::Exception
+  <span class="kind">module</span> Totem::RemoteConfigs
 
 </h1>
 
@@ -229,7 +229,12 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/exception.cr#L2" target="_blank">totem/exception.cr</a>
+      <a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L2" target="_blank">totem/remote_configs.cr</a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs/redis.cr#L4" target="_blank">totem/remote_configs/redis.cr</a>
     
     <br/>
   
@@ -239,6 +244,36 @@
 
 
 
+
+  <h2>Class Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%5B%5D%28name%3AString%29-class-method" class="signature"><strong>.[]</strong>(name : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method" class="signature"><strong>.connect</strong>(name : String, **options)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#has_key%3F%28key%29-class-method" class="signature"><strong>.has_key?</strong>(key)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#keys-class-method" class="signature"><strong>.keys</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#register_provider%28name%3AString%2Cadapter%3AProvider.class%29-class-method" class="signature"><strong>.register_provider</strong>(name : String, adapter : Provider.class)</a>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -252,6 +287,89 @@
 
 
 
+
+  <h2>Class Method Detail</h2>
+  
+    <div class="entry-detail" id="[](name:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>[]</strong>(name : String)
+
+        <a class="method-permalink" href="#%5B%5D%28name%3AString%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="connect(name:String,**options)-class-method">
+      <div class="signature">
+        
+        def self.<strong>connect</strong>(name : String, **options)
+
+        <a class="method-permalink" href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L23" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="has_key?(key)-class-method">
+      <div class="signature">
+        
+        def self.<strong>has_key?</strong>(key)
+
+        <a class="method-permalink" href="#has_key%3F%28key%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="keys-class-method">
+      <div class="signature">
+        
+        def self.<strong>keys</strong>
+
+        <a class="method-permalink" href="#keys-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="register_provider(name:String,adapter:Provider.class)-class-method">
+      <div class="signature">
+        
+        def self.<strong>register_provider</strong>(name : String, adapter : Provider.class)
+
+        <a class="method-permalink" href="#register_provider%28name%3AString%2Cadapter%3AProvider.class%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/517369c8624926dc5a6980bbb5e83aefa5cdc4e3/src/totem/remote_configs.cr#L5" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 
