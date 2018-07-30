@@ -22,10 +22,14 @@ Crystal configuration with spirit. Inspired from Go's [viper](https://github.com
   - [Set Alias and using alias](#set-alias-and-using-alias)
   - [Working with nested key](#working-with-nested-key)
   - [Working with Envoriment variables](#working-with-envoriment-variables)
+  - [Working with remote providers](#working-with-remote-providers)
+    - [Use redis](#use-redis)
+    - [Use etcd](#use-etcd)
   - [Iterating configuration](#iterating-configuration)
   - [Serialization](#serialization)
   - [Storing configuration to file](#storing-configuration-to-file)
   - [Write custom adapter](#write-custom-adapter)
+  - [Write custom remote provider](#write-custom-remote-provider)
 - [Q & A](#q--a)
   - [How to debug?](#how-to-debug)
 - [Help and Discussion](#help-and-discussion)
@@ -42,13 +46,14 @@ Configuration file formats is always the problem, you want to focus on building 
 
 Totem has following features:
 
-- Load and parse a configuration file or string in JSON, YAML, dotenv formats.
+- Reading from JSON, YAML, dotenv formats config files or raw string.
 - Reading from environment variables.
+- Reading from remote key-value store systems(redis/etcd).
 - Provide a mechanism to set default values for your different configuration options.
 - Provide an alias system to easily rename parameters without breaking existing code.
 - Write configuration to file with JSON, YAML formats.
 
-And we keep it minimize and require what you want with adapter! **No more dependenices what you do not need**.
+And we keep it minimize and require what you want with adapter and remote provider! **No more dependenices what you do not need**.
 Only JSON and YAML adapters were auto requires.
 
 Uses the following precedence order. Each item takes precedence over the item below it:
@@ -57,6 +62,7 @@ Uses the following precedence order. Each item takes precedence over the item be
 - override, explicit call to `set`
 - env
 - config
+- kvstores
 - default
 
 Totem configuration keys are case insensitive.
@@ -170,6 +176,7 @@ Load dotenv string
 > Add [poncho](https://github.com/icyleaf/poncho) to `shards.yml` and require the adapter.
 
 ```crystal
+require "totem"
 require "totem/config_types/env"    # Make sure you require
 
 raw = <<-EOF
@@ -278,6 +285,61 @@ totem.automative_env(prefix: "totem")
 totem.get("id").as_i    # => 123
 totem.get("food").as_s  # => "Pinapple"
 totem.get("name").as_s  # => "Polly"
+```
+
+### Working with remote providers
+
+Totem retrieve configuration from Key-Value store, which means that you can get your configuration values on the air.
+Avaliable providers is `redis` and `etcd`.
+
+#### Use redis
+
+It dependency [redis](https://github.com/stefanwille/crystal-redis) shard. Install is before use.
+
+```crystal
+require "totem"
+require "totem/remote_providers/redis"
+
+totem = Totem.new
+totem.add_remote(provider: "redis", endpoint: "redis://localhost:6379/0")
+
+totem.get("user:name")      # => "foo"
+totem.get("user:id").as_i   # => 123
+```
+
+You can also get raw data from one key with `path`:
+
+```crystal
+totem.config_type = "json"  # There is no file extension in a stream data, supported extensions are all registed config types in Totem.
+totem.add_remote(provider: "redis", endpoint: "redis://localhost:6379/0", path: "config:development")
+
+totem.get("user:name")      # => "foo"
+totem.get("user:id").as_i   # => 123
+```
+
+#### Use etcd
+
+It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard. Install is before use.
+
+```crystal
+require "totem"
+require "totem/remote_providers/etcd"
+
+totem = Totem.new
+totem.add_remote(provider: "etcd", endpoint: "http://localhost:2379")
+
+totem.get("user:name")      # => "foo"
+totem.get("user:id").as_i   # => 123
+```
+
+You can also get raw data from one key with `path`:
+
+```crystal
+totem.config_type = "yaml"  # There is no file extension in a stream data, supported extensions are all registed config types in Totem.
+totem.add_remote(provider: "etcd", endpoint: "http://localhost:2379", path: "/config/development.yaml")
+
+totem.get("user:name")      # => "foo"
+totem.get("user:id").as_i   # => 123
 ```
 
 ### Iterating configuration
@@ -390,6 +452,11 @@ Totem::ConfigTypes.register_alias("cnf", "ini")
 ```
 
 More examples to review [built-in adapters](https://github.com/icyleaf/totem/blob/master/src/totem/config_types).
+
+### Write custom remote provider
+
+Creating the custom remote provider by integration `Totem::RemoteProviders::Adapter` abstract class. Here has two methods must be implement:
+`read` and `get`, please reivew the [built-in remote providers](https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers).
 
 ## Q & A
 
