@@ -3,13 +3,13 @@ require "json"
 
 module Totem::RemoteProviders
   class Redis < Adapter
-    def initialize(endpoint : String, @config : Config, @path : String? = nil)
+    def initialize(endpoint : String, @path : String? = nil)
       @client = ::Redis.new(url: endpoint)
     end
 
-    def read
+    def read(config_type : String? = nil)
       if (path = @path) && (value = get_str(path))
-        config_type = @config.config_type
+        return if value.nil? || value.empty?
         config_type = Utils.config_type(path) unless config_type
         if (name = config_type) && ConfigTypes.has_keys?(name)
           return ConfigTypes[name].read(value)

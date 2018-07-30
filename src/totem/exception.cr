@@ -11,6 +11,8 @@ module Totem
 
     class UnsupportedRemoteProviderError < Error; end
 
+    class RemoteProviderError < Error; end
+
     class MappingError < Error; end
   end
 

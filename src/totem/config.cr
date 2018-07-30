@@ -264,29 +264,34 @@ module Totem
     #
     # ```
     # totem.add_remote(provider: "redis", endpoint: "redis://user:pass@localhost:6379/1")
-    # # or
+    # # Or make it shorter
     # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1")
     #
     # totem.get("user:id") # => "123"
     # ```
     #
     # You can get value from raw json access the path
-    # ```
-    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:totem.json")
     #
+    # ```
+    # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:production.json")
     # totem.get("user:id") # => "123"
     # ```
     def add_remote(**options)
       provider = options[:provider]?
-      raise Error.new("Missing the endpoint of remote provider") unless endpoint = options[:endpoint]?
+      raise RemoteProviderError.new("Missing the endpoint") unless endpoint = options[:endpoint]?
 
       provider = URI.parse(endpoint.not_nil!).scheme unless provider
       if (name = provider) && RemoteProviders.has_key?(name)
         @logger.info("Adding #{name}:#{endpoint} to remote config list")
 
-        @remote_provider = RemoteProviders.connect(name, self, **options)
-        if data = RemoteProviders[name].read
-          data.each do |key, value|
+        @remote_provider = RemoteProviders.connect(name, **options)
+        kvstores = RemoteProviders[name].read(@config_type)
+        if kvstores.nil? && (path = options[:path]?)
+          raise RemoteProviderError.new("Can not read config with path: #{path}, make sure sets config_type before this call or named path with file extension.")
+        end
+
+        if kvstores
+          kvstores.not_nil!.each do |key, value|
             set_value_from(@kvstores, key, value)
           end
         end
@@ -699,6 +704,7 @@ module Totem
         io << " @overrides=" << @overrides << "," << newline
         io << " @config=" << @config << "," << newline
         io << " @env=" << @env << "," << newline
+        io << " @kvstores=" << @kvstores << "," << newline
         io << " @defaults=" << @defaults << ">"
       end
     end
