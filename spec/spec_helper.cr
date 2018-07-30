@@ -3,6 +3,7 @@ require "tempfile"
 require "file_utils"
 require "../src/totem"
 require "../src/totem/config_types/*"
+require "../src/totem/remote_providers/*"
 
 def fixture_path
   path = File.expand_path("../fixtures/", __FILE__)

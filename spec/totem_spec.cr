@@ -89,4 +89,6 @@ describe Totem do
       t.get("key").as_s.should eq "bar"
     end
   end
+
+  # More to see config_spec.cr
 end
