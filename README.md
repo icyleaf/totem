@@ -8,40 +8,6 @@
 
 Crystal configuration with spirit. Inspired from Go's [viper](https://github.com/spf13/viper). Totem Icon by lastspark from [Noun Project](https://thenounproject.com).
 
-<!-- TOC -->
-
-- [What is Totem?](#what-is-totem)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-  - [Operating configuration](#operating-configuration)
-  - [Loading configuration](#loading-configuration)
-    - [From raw string](#from-raw-string)
-    - [From file](#from-file)
-- [Usage](#usage)
-  - [Load configuration with multiple paths](#load-configuration-with-multiple-paths)
-  - [Set Alias and using alias](#set-alias-and-using-alias)
-  - [Working with nested key](#working-with-nested-key)
-  - [Working with Envoriment variables](#working-with-envoriment-variables)
-  - [Working with remote providers](#working-with-remote-providers)
-    - [Use redis](#use-redis)
-    - [Use etcd](#use-etcd)
-  - [Iterating configuration](#iterating-configuration)
-  - [Serialization](#serialization)
-  - [Storing configuration to file](#storing-configuration-to-file)
-  - [Write custom adapter](#write-custom-adapter)
-  - [Write custom remote provider](#write-custom-remote-provider)
-- [Q & A](#q--a)
-  - [How to debug?](#how-to-debug)
-- [Help and Discussion](#help-and-discussion)
-- [Donate](#donate)
-- [How to Contribute](#how-to-contribute)
-- [You may also like](#you-may-also-like)
-- [License](#license)
-
-<!-- /TOC -->
-
-## What is Totem?
-
 Configuration file formats is always the problem, you want to focus on building awesome things. Totem is here to help with that.
 
 Totem has following features:
@@ -66,6 +32,38 @@ Uses the following precedence order. Each item takes precedence over the item be
 - default
 
 Totem configuration keys are case insensitive.
+
+<!-- TOC -->
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+  - [Operating configuration](#operating-configuration)
+  - [Loading configuration](#loading-configuration)
+    - [From raw string](#from-raw-string)
+    - [From file](#from-file)
+- [Usage](#usage)
+  - [Load configuration with multiple paths](#load-configuration-with-multiple-paths)
+  - [Set Alias and using alias](#set-alias-and-using-alias)
+  - [Working with nested key](#working-with-nested-key)
+  - [Working with envoriment variables](#working-with-envoriment-variables)
+  - [Working with remote providers](#working-with-remote-providers)
+    - [Use redis](#use-redis)
+    - [Use etcd](#use-etcd)
+  - [Iterating configuration](#iterating-configuration)
+  - [Serialization](#serialization)
+  - [Storing configuration to file](#storing-configuration-to-file)
+- [Advanced Usage](#advanced-usage)
+  - [Custom adapter](#custom-adapter)
+  - [Write custom remote provider](#write-custom-remote-provider)
+- [Q & A](#q--a)
+  - [How to debug?](#how-to-debug)
+- [Help and Discussion](#help-and-discussion)
+- [Donate](#donate)
+- [How to Contribute](#how-to-contribute)
+- [You may also like](#you-may-also-like)
+- [License](#license)
+
+<!-- /TOC -->
 
 ## Installation
 
@@ -253,7 +251,7 @@ totem.bind_env("profile.user.nickname", "PROFILE_USER_NICKNAME")
 totem.get("profile.user.age")
 ```
 
-### Working with Envoriment variables
+### Working with envoriment variables
 
 Totem has full support for environment variables, example:
 
@@ -421,7 +419,9 @@ totem.set("eyes", "blue")
 totem.store!("profile.json")
 ```
 
-### Write custom adapter
+## Advanced Usage
+
+### Write a config adapter
 
 Creating the custom adapter by integration `Totem::ConfigTypes::Adapter` abstract class. Here has two methods must be implement:
 `read` and `write`. For example, let us write a INI adapter:
@@ -453,7 +453,7 @@ Totem::ConfigTypes.register_alias("cnf", "ini")
 
 More examples to review [built-in adapters](https://github.com/icyleaf/totem/blob/master/src/totem/config_types).
 
-### Write custom remote provider
+### Write a remote provider
 
 Creating the custom remote provider by integration `Totem::RemoteProviders::Adapter` abstract class. Here has two methods must be implement:
 `read` and `get`, please reivew the [built-in remote providers](https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers).
