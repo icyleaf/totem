@@ -1,4 +1,3 @@
-require "./totem/ext/*"
 require "./totem/*"
 
 module Totem

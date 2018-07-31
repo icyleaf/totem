@@ -673,101 +673,101 @@ describe Totem::Config do
       t.get("profile").as_h["user"].as_h["name"].should eq "foo"
       t.get("profile").as_h["user"].as_h["age"].should eq "20"
     end
+  end
 
-    describe "remote providers" do
-      describe "with reds" do
-        it "should gets use key" do
-          with_redis do |endpoint|
-            t = Totem::Config.new
-            t.add_remote provider: "redis", endpoint: endpoint
-            t.get("name").should eq "foo"
-            t.get("config_development.json").should eq json_raw
-            t.get("config_development").should eq json_raw
-          end
-        end
-
-        it "should gets use path with extname" do
-          with_redis do |endpoint|
-            t = Totem::Config.new
-            t.add_remote endpoint: endpoint, path: "config_development.json"
-            json_spec_group t
-          end
-        end
-
-        it "should gets use path without extname" do
-          with_redis do |endpoint|
-            t = Totem::Config.new
-            t.config_type = "json"
-            t.add_remote endpoint: endpoint, path: "config_development"
-            json_spec_group t
-          end
-        end
-
-        it "throws an exception use path without extname and config_type" do
-          with_redis do |endpoint|
-            t = Totem::Config.new
-            expect_raises Totem::RemoteProviderError do
-              t.add_remote provider: "redis", endpoint: endpoint, path: "config_development"
-            end
-          end
+  describe "remote providers" do
+    describe "with reds" do
+      it "should gets use key" do
+        with_redis do |endpoint|
+          t = Totem::Config.new
+          t.add_remote provider: "redis", endpoint: endpoint
+          t.get("name").should eq "foo"
+          t.get("config_development.json").should eq json_raw
+          t.get("config_development").should eq json_raw
         end
       end
 
-      describe "with etcd" do
-        it "should gets use key" do
-          with_etcd do |endpoint|
-            t = Totem::Config.new
-            t.add_remote provider: "etcd", endpoint: endpoint
-            t.get("/name").should eq "foo"
-            t.get("name").should eq "foo"
-            t.get("config/development.json").should eq json_raw
-            t.get("config/development").should eq json_raw
+      it "should gets use path with extname" do
+        with_redis do |endpoint|
+          t = Totem::Config.new
+          t.add_remote endpoint: endpoint, path: "config_development.json"
+          json_spec_group t
+        end
+      end
+
+      it "should gets use path without extname" do
+        with_redis do |endpoint|
+          t = Totem::Config.new
+          t.config_type = "json"
+          t.add_remote endpoint: endpoint, path: "config_development"
+          json_spec_group t
+        end
+      end
+
+      it "throws an exception use path without extname and config_type" do
+        with_redis do |endpoint|
+          t = Totem::Config.new
+          expect_raises Totem::RemoteProviderError do
+            t.add_remote provider: "redis", endpoint: endpoint, path: "config_development"
           end
         end
+      end
+    end
 
-        it "should gets use path with extname" do
-          with_etcd do |endpoint|
-            t = Totem::Config.new
-            t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development.json"
-            json_spec_group t
-          end
+    describe "with etcd" do
+      it "should gets use key" do
+        with_etcd do |endpoint|
+          t = Totem::Config.new
+          t.add_remote provider: "etcd", endpoint: endpoint
+          t.get("/name").should eq "foo"
+          t.get("name").should eq "foo"
+          t.get("config/development.json").should eq json_raw
+          t.get("config/development").should eq json_raw
         end
+      end
 
-        it "should gets use path without extname" do
-          with_etcd do |endpoint|
-            t = Totem::Config.new
-            t.config_type = "json"
+      it "should gets use path with extname" do
+        with_etcd do |endpoint|
+          t = Totem::Config.new
+          t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development.json"
+          json_spec_group t
+        end
+      end
+
+      it "should gets use path without extname" do
+        with_etcd do |endpoint|
+          t = Totem::Config.new
+          t.config_type = "json"
+          t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
+          json_spec_group t
+        end
+      end
+
+      it "throws an exception use path without extname and config_type" do
+        with_etcd do |endpoint|
+          t = Totem::Config.new
+          expect_raises Totem::RemoteProviderError do
             t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
-            json_spec_group t
-          end
-        end
-
-        it "throws an exception use path without extname and config_type" do
-          with_etcd do |endpoint|
-            t = Totem::Config.new
-            expect_raises Totem::RemoteProviderError do
-              t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
-            end
           end
         end
       end
+    end
 
-      it "throws an exception when unmatched provider name" do
-        t = Totem::Config.new
-        expect_raises Totem::UnsupportedRemoteProviderError do
-          t.add_remote endpoint: "asdfasdf"
-        end
+    it "throws an exception when unmatched provider name" do
+      t = Totem::Config.new
+      expect_raises Totem::UnsupportedRemoteProviderError do
+        t.add_remote endpoint: "asdfasdf"
+      end
+    end
+
+    it "throws an exception when missing endpoint" do
+      t = Totem::Config.new
+      expect_raises Totem::RemoteProviderError do
+        t.add_remote
       end
 
-      it "throws an exception when missing endpoint" do
-        t = Totem::Config.new
-        expect_raises Totem::RemoteProviderError do
-          t.add_remote
-        end
-
-        expect_raises Totem::RemoteProviderError do
-          t.add_remote
-        end
+      expect_raises Totem::RemoteProviderError do
+        t.add_remote
       end
     end
   end

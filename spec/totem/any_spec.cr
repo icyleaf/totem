@@ -208,3 +208,31 @@ describe Totem::Any do
     any2.as_a[0].as_a.should_not be any.as_a[0].as_a
   end
 end
+
+describe JSON::Any do
+  describe "#to_json" do
+    json = JSON.parse load_fixture("config.json")
+    json.to_yaml.should eq %Q{---\nid: "0001"\ntype: donut\nname: Cake\ngluten_free: false\nppu: 0.55\nduty_free: "no"\nbatters:\n  batter:\n  - type: Regular\n  - type: Chocolate\n  - type: Blueberry\n  - type: Devil's Food\n}
+  end
+end
+
+describe YAML::Any do
+  describe "#to_json" do
+    yaml = YAML.parse load_fixture("config.yaml")
+    yaml.to_json.should eq %Q{{"Hacker":true,"name":"steve","hobbies":["skateboarding","snowboarding","go"],"clothing":{"jacket":"leather","trousers":"denim","pants":{"size":"large"}},"gender":true,"age":35,"eyes":"brown"}}
+  end
+end
+
+describe Slice do
+  describe "#to_json" do
+    Slice(UInt8).empty.to_json.should eq "[]"
+    Slice.new(3) { |i| i + 10 }.to_json.should eq "[10,11,12]"
+  end
+end
+
+describe Char do
+  describe "#to_json" do
+    '1'.to_json.should eq %Q{"1"}
+    't'.to_json.should eq %Q{"t"}
+  end
+end

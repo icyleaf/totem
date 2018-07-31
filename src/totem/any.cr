@@ -292,12 +292,20 @@ struct YAML::Any
   def ==(other : Totem::Any)
     self == other.raw
   end
+
+  def to_json(json : JSON::Builder)
+    @raw.to_json(json)
+  end
 end
 
 # :nodoc:
 struct JSON::Any
   def ==(other : Totem::Any)
     self == other.raw
+  end
+
+  def to_yaml(yaml : YAML::Nodes::Builder)
+    @raw.to_yaml(yaml)
   end
 end
 
@@ -307,5 +315,25 @@ class Regex
     value = self === other.raw
     $~ = $~
     value
+  end
+end
+
+# :nodoc:
+struct Slice
+  # :nodoc:
+  def to_json(json : JSON::Builder)
+    json.array do
+      to_a.each do |v|
+        v.to_json(json)
+      end
+    end
+  end
+end
+
+# :nodoc:
+struct Char
+  # :nodoc:
+  def to_json(json : JSON::Builder)
+    json.string(self)
   end
 end
