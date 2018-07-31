@@ -213,14 +213,6 @@
 
 <p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper" target="_blank">viper</a>. Totem Icon by lastspark from <a href="https://thenounproject.com" target="_blank">Noun Project</a>.</p>
 
-<p>&lt;!-- TOC --></p>
-
-<ul><li><a href="#what-is-totem" target="_blank">What is Totem?</a></li><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with Envoriment variables</a></li><li><a href="#working-with-remote-providers" target="_blank">Working with remote providers</a></li><li><a href="#use-redis" target="_blank">Use redis</a></li><li><a href="#use-etcd" target="_blank">Use etcd</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li><li><a href="#write-custom-adapter" target="_blank">Write custom adapter</a></li><li><a href="#write-custom-remote-provider" target="_blank">Write custom remote provider</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
-
-<p>&lt;!-- /TOC --></p>
-
-<h2>What is Totem?</h2>
-
 <p>Configuration file formats is always the problem, you want to focus on building awesome things. Totem is here to help with that.</p>
 
 <p>Totem has following features:</p>
@@ -235,6 +227,12 @@ Only JSON and YAML adapters were auto requires.</p>
 <ul><li>alias</li><li>override, explicit call to <code>set</code></li><li>env</li><li>config</li><li>kvstores</li><li>default</li></ul>
 
 <p>Totem configuration keys are case insensitive.</p>
+
+<p>&lt;!-- TOC --></p>
+
+<ul><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-envoriment-variables" target="_blank">Working with envoriment variables</a></li><li><a href="#working-with-remote-providers" target="_blank">Working with remote providers</a></li><li><a href="#use-redis" target="_blank">Use redis</a></li><li><a href="#use-etcd" target="_blank">Use etcd</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li></ul><li><a href="#advanced-usage" target="_blank">Advanced Usage</a></li><ul><li><a href="#custom-adapter" target="_blank">Custom adapter</a></li><li><a href="#write-custom-remote-provider" target="_blank">Write custom remote provider</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
+
+<p>&lt;!-- /TOC --></p>
 
 <h2>Installation</h2>
 
@@ -402,7 +400,7 @@ totem.<span class="k">alias</span>(<span class="s">&quot;username&quot;</span>, 
 totem.bind_env(<span class="s">&quot;profile.user.nickname&quot;</span>, <span class="s">&quot;PROFILE_USER_NICKNAME&quot;</span>)
 totem.get(<span class="s">&quot;profile.user.age&quot;</span>)</code></pre>
 
-<h3>Working with Envoriment variables</h3>
+<h3>Working with envoriment variables</h3>
 
 <p>Totem has full support for environment variables, example:</p>
 
@@ -550,7 +548,9 @@ totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Fre
 totem.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
 totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
-<h3>Write custom adapter</h3>
+<h2>Advanced Usage</h2>
+
+<h3>Write a config adapter</h3>
 
 <p>Creating the custom adapter by integration <code><a href="Totem/ConfigTypes/Adapter.html">Totem::ConfigTypes::Adapter</a></code> abstract class. Here has two methods must be implement:
 <code>read</code> and <code>write</code>. For example, let us write a INI adapter:</p>
@@ -580,7 +580,7 @@ totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
 <p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types" target="_blank">built-in adapters</a>.</p>
 
-<h3>Write custom remote provider</h3>
+<h3>Write a remote provider</h3>
 
 <p>Creating the custom remote provider by integration <code><a href="Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></code> abstract class. Here has two methods must be implement:
 <code>read</code> and <code>get</code>, please reivew the <a href="https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers" target="_blank">built-in remote providers</a>.</p>
