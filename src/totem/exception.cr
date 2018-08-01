@@ -8,6 +8,12 @@ module Totem
     class NotFoundConfigKeyError < Error; end
 
     class UnsupportedConfigError < Error; end
+
+    class UnsupportedRemoteProviderError < Error; end
+
+    class RemoteProviderError < Error; end
+
+    class MappingError < Error; end
   end
 
   {% for cls in Exception.constants %}

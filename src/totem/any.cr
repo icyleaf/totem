@@ -1,3 +1,5 @@
+require "popcorn"
+
 module Totem
   # `Totem::Any` is a convenient wrapper around all possible types(`Totem::Any::Type`) and
   # can be used for traversing dynamic or unkown types.
@@ -21,73 +23,36 @@ module Totem
       end
     end
 
-    def as_i? : Int32?
-      as_i if [Int32, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_i?
+      Popcorn.to_int?(@raw)
     end
 
-    def as_i : Int32
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_i
-      when String
-        object.to_i
-      else
-        object.as(Int).to_i
-      end
+    def as_i
+      Popcorn.to_int(@raw)
     end
 
-    def as_i64? : Int64?
-      as_i64 if [Int64, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_i64?
+      Popcorn.to_int64?(@raw)
     end
 
-    def as_i64 : Int64
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_i64
-      when String
-        object.to_i64
-      else
-        object.as(Int).to_i64
-      end
+    def as_i64
+      Popcorn.to_int64(@raw)
     end
 
-    def as_f? : Float64?
-      as_f if [Float64, String, YAML::Any, JSON::Any].includes?(@raw.class)
+    def as_f?
+      Popcorn.to_float?(@raw)
     end
 
-    def as_f : Float64
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_f
-      when String
-        object.to_f
-      else
-        object.as(Float).to_f
-      end
+    def as_f
+      Popcorn.to_float(@raw)
     end
 
-    def as_bool?(strict = true) : Bool?
-      case object = @raw
-      when Bool, JSON::Any
-        as_bool(strict)
-      else
-        object.to_s.to_bool(strict)
-      end
+    def as_bool?
+      Popcorn.to_bool?(@raw)
     end
 
-    def as_bool(strict = true) : Bool
-      case object = @raw
-      when JSON::Any, YAML::Any
-        value = object.to_s.to_bool(strict)
-        raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
-        value
-      when String
-        value = object.to_bool(strict)
-        raise TypeCastError.new("cast from #{object.class} to Bool failed. at #{__FILE__}:#{__LINE__}") if value.nil?
-        value
-      else
-        object.as(Bool)
-      end
+    def as_bool
+      Popcorn.to_bool(@raw)
     end
 
     def as_nil : Nil
@@ -100,7 +65,9 @@ module Totem
     end
 
     def as_h? : Hash(String, Any)?
-      as_h if @raw.is_a?(Hash) || @raw.is_a?(JSON::Any) || @raw.is_a?(YAML::Any)
+      as_h if @raw.is_a?(Hash) ||
+              (@raw.is_a?(JSON::Any) && @raw.as(JSON::Any).as_h?) ||
+              (@raw.is_a?(YAML::Any) && @raw.as(YAML::Any).as_h?)
     end
 
     def as_h : Hash(String, Any)
@@ -114,12 +81,14 @@ module Totem
           end
         end
       else
-        raise Error.new("Cant convert Hash")
+        Popcorn.raise_error!(object.class.to_s, "Hash")
       end
     end
 
     def as_a? : Array(Any)?
-      as_a if @raw.is_a?(Array) || @raw.is_a?(JSON::Any) || @raw.is_a?(YAML::Any)
+      as_a if @raw.is_a?(Array) ||
+              (@raw.is_a?(JSON::Any) && @raw.as(JSON::Any).as_a?) ||
+              (@raw.is_a?(YAML::Any) && @raw.as(YAML::Any).as_a?)
     end
 
     def as_a : Array(Any)
@@ -129,7 +98,7 @@ module Totem
       when YAML::Any, JSON::Any
         object.as_a.map { |value| Any.new(value) }
       else
-        raise Error.new("Cant convert Array")
+        Popcorn.raise_error!(object.class.to_s, "Array")
       end
     end
 
@@ -232,6 +201,31 @@ module Totem
     def_hash raw
 
     # :nodoc:
+    def pretty_print(pp)
+      @raw.pretty_print(pp)
+    end
+
+    # Returns `true` if both `self` and *other*'s raw object are equal.
+    def ==(other : Totem::Any)
+      raw == other.raw
+    end
+
+    # Returns `true` if the raw object is equal to *other*.
+    def ==(other)
+      raw == other
+    end
+
+    # :nodoc:
+    def inspect(io)
+      @raw.inspect(io)
+    end
+
+    # :nodoc:
+    def to_s(io)
+      @raw.to_s(io)
+    end
+
+    # :nodoc:
     def to_yaml(yaml : YAML::Nodes::Builder)
       @raw.to_yaml(yaml)
     end
@@ -255,5 +249,91 @@ module Totem
     def pretty_print(pp)
       @raw.pretty_print(pp)
     end
+  end
+end
+
+# :nodoc:
+class Object
+  def ===(other : Totem::Any)
+    self === other.raw
+  end
+end
+
+# :nodoc:
+struct Value
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Reference
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Array
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+class Hash
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+end
+
+# :nodoc:
+struct YAML::Any
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+
+  def to_json(json : JSON::Builder)
+    @raw.to_json(json)
+  end
+end
+
+# :nodoc:
+struct JSON::Any
+  def ==(other : Totem::Any)
+    self == other.raw
+  end
+
+  def to_yaml(yaml : YAML::Nodes::Builder)
+    @raw.to_yaml(yaml)
+  end
+end
+
+# :nodoc:
+class Regex
+  def ===(other : Totem::Any)
+    value = self === other.raw
+    $~ = $~
+    value
+  end
+end
+
+# :nodoc:
+struct Slice
+  # :nodoc:
+  def to_json(json : JSON::Builder)
+    json.array do
+      to_a.each do |v|
+        v.to_json(json)
+      end
+    end
+  end
+end
+
+# :nodoc:
+struct Char
+  # :nodoc:
+  def to_json(json : JSON::Builder)
+    json.string(self)
   end
 end

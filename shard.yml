@@ -1,5 +1,5 @@
 name: totem
-version: 0.1.0
+version: 0.4.0
 
 authors:
   - icyleaf <icyleaf.cn@gmail.com>
@@ -7,8 +7,19 @@ authors:
 crystal: 0.25.1
 
 dependencies:
+  popcorn:
+    github: icyleaf/popcorn
+    version: ~> 0.1.1
+
+development_dependencies:
   poncho:
     github: icyleaf/poncho
-    branch: master
+    version: ~> 0.1.0
+  redis:
+    github: stefanwille/crystal-redis
+    version: ~> 2.0.0
+  etcd:
+    github: icyleaf/etcd-crystal
+    version: ~> 0.2.1
 
 license: MIT

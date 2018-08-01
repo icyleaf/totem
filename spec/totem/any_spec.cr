@@ -17,7 +17,20 @@ describe Totem::Any do
       Totem::Any.new(true).as_bool?.should be_true
       Totem::Any.new(false).as_bool.should be_false
       Totem::Any.new(false).as_bool?.should be_false
-      Totem::Any.new("true").as_bool.should be_true
+      Totem::Any.new(1).as_bool.should be_true
+      Totem::Any.new(0).as_bool.should be_false
+      Totem::Any.new("TRUE").as_bool.should be_true
+      Totem::Any.new("t").as_bool.should be_true
+      Totem::Any.new("yes").as_bool.should be_true
+      Totem::Any.new("Y").as_bool.should be_true
+      Totem::Any.new("on").as_bool.should be_true
+      Totem::Any.new("1").as_bool.should be_true
+      Totem::Any.new("FALSE").as_bool.should be_false
+      Totem::Any.new("f").as_bool.should be_false
+      Totem::Any.new("no").as_bool.should be_false
+      Totem::Any.new("N").as_bool.should be_false
+      Totem::Any.new("off").as_bool.should be_false
+      Totem::Any.new("0").as_bool.should be_false
 
       json = JSON.parse(%Q{[true, false]})
       Totem::Any.new(json).as_a.first.as_bool.should eq true
@@ -30,10 +43,14 @@ describe Totem::Any do
       Totem::Any.new(yaml).as_a.first.as_bool?.should eq true
       Totem::Any.new(yaml).as_a.last.as_bool.should eq false
       Totem::Any.new(yaml).as_a.last.as_bool?.should eq false
+      Totem::Any.new(yaml).as_a[1].as_bool.should be_true
 
-      Totem::Any.new(yaml).as_a[1].as_bool?.should be_nil
       expect_raises TypeCastError do
-        Totem::Any.new(yaml).as_a[1].as_bool
+        Totem::Any.new(json).as_bool
+      end
+
+      expect_raises TypeCastError do
+        Totem::Any.new(yaml).as_bool
       end
     end
 
@@ -42,7 +59,7 @@ describe Totem::Any do
       Totem::Any.new(123).as_i?.should eq 123
       Totem::Any.new(123456789123456).as_i64.should eq 123456789123456
       Totem::Any.new(123456789123456).as_i64?.should eq 123456789123456
-      Totem::Any.new(true).as_i?.should be_nil
+      Totem::Any.new(true).as_i?.should eq 1
 
       json = JSON.parse(%Q{[123, 123456789123456]})
       Totem::Any.new(json).as_a.first.as_i.should eq 123
@@ -166,6 +183,19 @@ describe Totem::Any do
     end
   end
 
+  it "should equals" do
+    Totem::Any.new(nil).should eq nil
+    Totem::Any.new(true).should eq true
+    Totem::Any.new("foo").should eq "foo"
+    Totem::Any.new(123).should eq 123
+    Totem::Any.new(123_i64).should eq 123_i64
+    Totem::Any.new(123.45).should eq 123.45
+    Totem::Any.new([1, 2, 3]).should eq([1, 2, 3])
+    Totem::Any.new({"foo" => "bar"}).should eq({"foo" => "bar"})
+    Totem::Any.new(JSON::Any.new(raw: "foo")).should eq JSON::Any.new(raw: "foo")
+    Totem::Any.new(YAML::Any.new(raw: "foo")).should eq YAML::Any.new(raw: "foo")
+  end
+
   it "dups" do
     any = Totem::Any.new([1, 2, 3])
     any2 = any.dup
@@ -176,5 +206,33 @@ describe Totem::Any do
     any = Totem::Any.new([[1], 2, 3])
     any2 = any.clone
     any2.as_a[0].as_a.should_not be any.as_a[0].as_a
+  end
+end
+
+describe JSON::Any do
+  describe "#to_json" do
+    json = JSON.parse load_fixture("config.json")
+    json.to_yaml.should eq %Q{---\nid: "0001"\ntype: donut\nname: Cake\ngluten_free: false\nppu: 0.55\nduty_free: "no"\nbatters:\n  batter:\n  - type: Regular\n  - type: Chocolate\n  - type: Blueberry\n  - type: Devil's Food\n}
+  end
+end
+
+describe YAML::Any do
+  describe "#to_json" do
+    yaml = YAML.parse load_fixture("config.yaml")
+    yaml.to_json.should eq %Q{{"Hacker":true,"name":"steve","hobbies":["skateboarding","snowboarding","go"],"clothing":{"jacket":"leather","trousers":"denim","pants":{"size":"large"}},"gender":true,"age":35,"eyes":"brown"}}
+  end
+end
+
+describe Slice do
+  describe "#to_json" do
+    Slice(UInt8).empty.to_json.should eq "[]"
+    Slice.new(3) { |i| i + 10 }.to_json.should eq "[10,11,12]"
+  end
+end
+
+describe Char do
+  describe "#to_json" do
+    '1'.to_json.should eq %Q{"1"}
+    't'.to_json.should eq %Q{"t"}
   end
 end

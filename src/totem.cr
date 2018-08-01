@@ -1,27 +1,27 @@
-require "./totem/**"
+require "./totem/*"
 
 module Totem
-  def self.new(config_name = "config", config_type : String? = nil, config_paths : Array(String) = [] of String)
-    Config.new(config_name, config_type, config_paths)
+  def self.new(config_name = "config", config_type : String? = nil, config_paths : Array(String) = [] of String, key_delimiter : String? = ".")
+    Config.new(config_name, config_type, config_paths, key_delimiter: key_delimiter)
   end
 
-  def self.from_file(file : String, paths : Array(String)? = nil)
-    Config.from_file(file, paths)
+  def self.from_file(file : String, paths : Array(String)? = nil, key_delimiter : String? = ".")
+    Config.from_file(file, paths, key_delimiter)
   end
 
-  def self.parse(raw : String, type : String)
-    Config.parse(raw, type)
+  def self.parse(raw : String, type : String, key_delimiter : String? = ".")
+    Config.parse(raw, type, key_delimiter)
   end
 
-  def self.from_json(raw : String)
-    Config.parse(raw, "json")
+  def self.from_json(raw : String, key_delimiter : String? = ".")
+    parse(raw, "json", key_delimiter)
   end
 
-  def self.from_yaml(raw : String)
-    Config.parse(raw, "yaml")
+  def self.from_yaml(raw : String, key_delimiter : String? = ".")
+    parse(raw, "yaml", key_delimiter)
   end
 
-  def self.from_env(raw : String)
-    Config.parse(raw, "env")
+  def self.from_env(raw : String, key_delimiter : String? = ".")
+    parse(raw, "env", key_delimiter)
   end
 end
