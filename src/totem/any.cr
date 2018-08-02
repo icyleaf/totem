@@ -253,6 +253,19 @@ module Totem
 end
 
 # :nodoc:
+
+module Popcorn::Cast
+  def to_int?(raw : T) forall T
+    return super(raw) if T != Totem::Any
+    raw.as_i?
+  end
+
+  def to_float?(raw : Any)
+    raw.as_f?
+  end
+end
+
+# :nodoc:
 class Object
   def ===(other : Totem::Any)
     self === other.raw
