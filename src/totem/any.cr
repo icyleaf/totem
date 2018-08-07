@@ -102,7 +102,7 @@ module Totem
       end
     end
 
-    def [](key : Int32) : Any
+    def [](key : Int) : Any
       object = @raw
       if object.is_a?(Array)
         object[key]
@@ -128,7 +128,7 @@ module Totem
       end
     end
 
-    def []?(key : Int32) : Any?
+    def []?(key : Int) : Any?
       object = @raw
       if object.is_a?(Array)
         object[key]?
