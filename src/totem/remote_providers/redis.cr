@@ -80,11 +80,11 @@ module Totem::RemoteProviders
 
     private def casting(value : ::Redis::RedisValue)
       case value
-      when Int32 then value.as(Int32)
-      when Int64 then value.as(Int64)
+      when Int32  then value.as(Int32)
+      when Int64  then value.as(Int64)
       when String then value.as(String)
-      when Array then casting(value)
-      else            nil
+      when Array  then casting(value)
+      else             nil
       end
     end
   end

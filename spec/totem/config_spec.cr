@@ -309,7 +309,7 @@ describe Totem::Config do
       it "should gets" do
         hash = {
           "name" => "elian",
-          "age" => 20
+          "age"  => 20,
         }
 
         ENV["TOTEM_AGE"] = "40"
@@ -332,7 +332,7 @@ describe Totem::Config do
       it "should iterates" do
         hash = {
           "name" => "elian",
-          "age" => 20
+          "age"  => 20,
         }
 
         t = Totem::Config.parse hash.to_yaml, "yaml"
@@ -351,7 +351,7 @@ describe Totem::Config do
       it "should iterates" do
         hash = {
           "name" => "elian",
-          "age" => 20
+          "age"  => 20,
         }
 
         t = Totem::Config.parse hash.to_yaml, "yaml"
@@ -359,14 +359,13 @@ describe Totem::Config do
         t.set_default("age", 35)
         t.set("name", "bar")
 
-        hash["name"]  = "bar"
+        hash["name"] = "bar"
 
         t.each do |key, value|
           hash[key].should eq value.raw
         end
       end
     end
-
 
     describe "#set_default" do
       it "should sets" do
@@ -397,7 +396,7 @@ describe Totem::Config do
     describe "#set_defaults" do
       it "should sets with hash" do
         t = Totem::Config.new
-        t.set_defaults({"str" => "foo", "int" => 123, "array" => [1,"2",3], "hash" => {"a" => "b", "c" => "d"}})
+        t.set_defaults({"str" => "foo", "int" => 123, "array" => [1, "2", 3], "hash" => {"a" => "b", "c" => "d"}})
 
         t.get("str").raw.should eq "foo"
         t.get("int").raw.should eq 123
@@ -424,10 +423,9 @@ describe Totem::Config do
     describe "#bind_env" do
       it "should gets without env prefix" do
         with_env({
-          "TOTEM_NAME" => "foo",
-          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value"
+          "TOTEM_NAME"                  => "foo",
+          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value",
         }) do
-
           t = Totem::Config.new
           t.bind_env("TOTEM_NAME")
           t.bind_env("key", "TOTEM_SUPER_DEEP_NESTED_KEY")
@@ -439,10 +437,9 @@ describe Totem::Config do
 
       it "should gets with env prefix" do
         with_env({
-          "TOTEM_NAME" => "foo",
-          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value"
+          "TOTEM_NAME"                  => "foo",
+          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value",
         }) do
-
           t = Totem::Config.new
           t.env_prefix = "totem"
           t.bind_env("name")
@@ -457,10 +454,9 @@ describe Totem::Config do
     describe "#automatic_env" do
       it "should gets without env prefix" do
         with_env({
-          "TOTEM_NAME" => "foo",
-          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value"
+          "TOTEM_NAME"                  => "foo",
+          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value",
         }) do
-
           t = Totem::Config.new
           t.automatic_env
 
@@ -471,10 +467,9 @@ describe Totem::Config do
 
       it "should gets with env prefix" do
         with_env({
-          "TOTEM_NAME" => "foo",
-          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value"
+          "TOTEM_NAME"                  => "foo",
+          "TOTEM_SUPER_DEEP_NESTED_KEY" => "value",
         }) do
-
           t = Totem::Config.new
           t.automatic_env("totem")
 
