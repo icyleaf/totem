@@ -81,7 +81,7 @@ module Totem
           end
         end
       else
-        Popcorn.raise_error!(object.class.to_s, "Hash")
+        Popcorn.cast_error!(object.class.to_s, "Hash")
       end
     end
 
@@ -98,7 +98,7 @@ module Totem
       when YAML::Any, JSON::Any
         object.as_a.map { |value| Any.new(value) }
       else
-        Popcorn.raise_error!(object.class.to_s, "Array")
+        Popcorn.cast_error!(object.class.to_s, "Array")
       end
     end
 
@@ -111,7 +111,7 @@ module Totem
       elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_a?
         as_a[key]
       else
-        raise Error.new("Expected Array for #[](index : Int), not #{object.class}")
+        raise Error.new("Expected Array for #[](index : Totem::Any), not #{object.class}")
       end
     end
 
@@ -137,7 +137,7 @@ module Totem
       elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_a?
         as_a[key]?
       else
-        raise Error.new("Expected Array for #[](index : Int), not #{object.class}")
+        raise Error.new("Expected Array for #[](index : Totem::Any), not #{object.class}")
       end
     end
 
@@ -250,6 +250,148 @@ module Totem
       @raw.pretty_print(pp)
     end
   end
+end
+
+# :nodoc:
+module Popcorn::Cast
+  # Alias to `to_int32?`
+  def to_int?(raw : Totem::Any)
+    to_int32?(raw)
+  end
+
+  # Returns the `Int32` or `Nil` value represented by given data type.
+  def to_int32?(raw : Totem::Any)
+    value = find(raw)
+    to_int32?(value) unless value.nil?
+  end
+
+  # Returns the `Int8` or `Nil` value represented by given data type.
+  def to_int8?(raw : Totem::Any)
+    value = find(raw)
+    to_int8?(value) unless value.nil?
+  end
+
+  # Returns the `Int16` or `Nil` value represented by given data type.
+  def to_int16?(raw : Totem::Any)
+    value = find(raw)
+    to_int16?(value) unless value.nil?
+  end
+
+  # Returns the `Int64` or `Nil` value represented by given data type.
+  def to_int64?(raw : Totem::Any)
+    value = find(raw)
+    to_int64?(value) unless value.nil?
+  end
+
+  # Returns the `UInt32` or `Nil` value represented by given data type.
+  def to_uint?(raw : Totem::Any)
+    to_uint32?(raw)
+  end
+
+  # Alias to `to_uint?`
+  def to_uint32?(raw : Totem::Any)
+    value = find(raw)
+    to_uint32?(value) unless value.nil?
+  end
+
+  # Returns the `Int8` or `Nil` value represented by given data type.
+  def to_uint8?(raw : Totem::Any)
+    value = find(raw)
+    to_uint8?(value) unless value.nil?
+  end
+
+  # Returns the `UInt16` or `Nil` value represented by given data type.
+  def to_uint16?(raw : Totem::Any)
+    value = find(raw)
+    to_uint16?(value) unless value.nil?
+  end
+
+  # Returns the `UInt64` or `Nil` value represented by given data type.
+  def to_uint64?(raw : Totem::Any)
+    value = find(raw)
+    to_uint64?(value) unless value.nil?
+  end
+
+  # Returns the `Float64` or `Nil` value represented by given data type.
+  def to_float?(raw : Totem::Any)
+    to_float64?(raw)
+  end
+
+  # Alias to `to_float64?`
+  def to_float64?(raw : Totem::Any)
+    value = find(raw)
+    to_float64?(value) unless value.nil?
+  end
+
+  # Returns the `Float32` or `Nil` value represented by given data type.
+  def to_float32?(raw : Totem::Any)
+    value = find(raw)
+    to_float32?(value) unless value.nil?
+  end
+
+  # Returns the `Time` or `Nil` value represented by given data type.
+  #
+  # - `location` argument applies for `Int`/`String` types
+  # - `formatters` argument applies for `String` type.
+  def to_time?(raw : Totem::Any, location : Time::Location? = nil, formatters : Array(String)? = nil)
+    value = find(raw)
+    to_time?(value, location, formatters) unless value.nil?
+  end
+
+  # Returns the `Bool` or `Nil` value represented by given data type.
+  # It accepts true, t, yes, y, on, 1, false, f, no, n, off, 0. Any other value return Nil.gst
+  def to_bool?(raw : Totem::Any)
+    value = find(raw)
+    to_bool?(value) unless value.nil?
+  end
+
+  # Returns the `Array` or `Nil` value represented by given Totem::Any type.
+  def to_array?(raw : Totem::Any, target : T.class = String) forall T
+    if data = raw.as_a?
+      data.each_with_object(Array(T).new) do |v, obj|
+        obj << cast(v.to_s, T).as(T)
+      end
+    elsif data = raw.as_h?
+      data.each_with_object(Array(T).new) do |(k, v), obj|
+        obj << cast(k.to_s, T).as(T) << cast(v.to_s, T).as(T)
+      end
+    else
+      [cast(raw.to_s, T).as(T)]
+    end
+  end
+
+  # Returns the `Hash` or `Nil` value represented by given Totem::Any type.
+  def to_hash?(raw : Totem::Any, value : T.class = String) forall T
+    return unless data = raw.as_h?
+    data.each_with_object(Hash(String, T).new) do |(k, v), obj|
+      obj[k.to_s] = cast(v, T).as(T)
+    end
+  end
+
+  private def find(raw : Totem::Any)
+    if value = raw.as_i64?
+      return value
+    end
+
+    if value = raw.as_i?
+      return value
+    end
+
+    if value = raw.as_f?
+      return value
+    end
+
+    value = raw.as_bool?
+    if !value.nil?
+      return value
+    end
+
+    if value = raw.as_s?
+      return value
+    end
+  end
+
+  Popcorn::Cast.generate!
 end
 
 # :nodoc:
