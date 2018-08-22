@@ -27,7 +27,7 @@ module Totem::RemoteProviders
 
     def get?(key)
       key = "/#{key}" unless key.starts_with?("/")
-      value = @client.get(key).value
+      @client.get(key).value
     rescue ::Etcd::KeyNotFound
       nil
     end

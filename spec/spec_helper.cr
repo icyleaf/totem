@@ -6,7 +6,7 @@ require "../src/totem/config_types/*"
 require "../src/totem/remote_providers/*"
 
 def fixture_path
-  path = File.expand_path("../fixtures/", __FILE__)
+  File.expand_path("../fixtures/", __FILE__)
 end
 
 def load_fixture(filename : String)

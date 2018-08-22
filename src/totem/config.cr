@@ -643,7 +643,7 @@ module Totem
 
     private def search_config(path : String) : String?
       @logger.debug("Searching for config in #{path}")
-      if (content_type = @config_type) && (file = config_file(path, config_type))
+      if (config_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
         ConfigTypes.keys.each do |ext|
@@ -682,7 +682,7 @@ module Totem
     end
 
     private def default_logger_formatter
-      Logger::Formatter.new do |severity, datetime, progname, message, io|
+      Logger::Formatter.new do |severity, datetime, _, message, io|
         io << severity << " " << datetime.to_s("%F %T") << " " << message
       end
     end

@@ -53,8 +53,8 @@ module Totem::RemoteProviders
     end
 
     def get_set(key : String)
-      value = @client.smembers(key)
-      value.each_with_object(Array(Any).new) do |value, obj|
+      values = @client.smembers(key)
+      values.each_with_object(Array(Any).new) do |value, obj|
         obj << handle_value(value)
       end
     rescue ::Redis::Error
