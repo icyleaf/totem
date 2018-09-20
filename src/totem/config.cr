@@ -168,19 +168,30 @@ module Totem
       raise NotFoundConfigKeyError.new("Not found config: #{key}")
     end
 
+    # Similar to `get` method but returns `Nil` if key not exists.
+    #
+    # > Case-insensitive for a key.
+    #
+    # ```
+    # totem.fetch("env")  => "development" or nil.
+    # ```
+    def fetch(key : String) : Any?
+      if value = find(key)
+        return value
+      end
+    end
+
     # Similar to `get` method but returns given value if key not exists.
     #
     # > Case-insensitive for a key.
     #
     # ```
-    # totem.fetch("env", "development")
+    # totem.fetch("env", "development") => "development"
     # ```
-    def fetch(key : String, default_value : (Any | Any::Type)? = nil) : Any?
-      if value = find(key)
+    def fetch(key : String, default_value : (Any | Any::Type)) : Any
+      if value = fetch(key)
         return value
       end
-
-      return if default_value.nil?
 
       default_value.is_a?(Any) ? default_value : Any.new(default_value)
     end

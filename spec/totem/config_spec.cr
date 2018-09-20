@@ -229,14 +229,14 @@ describe Totem::Config do
         t = Totem::Config.from_file File.join(fixture_path, "config.json")
         t.fetch("name").not_nil!.as_s.should eq "Cake"
         t.fetch("unkown").should be_nil
-        t.fetch("unkown-str", "fetch").not_nil!.as_s.should eq "fetch"
-        t.fetch("unkown-number", 123).not_nil!.as_i.should eq 123
-        t.fetch("unkown-bool", true).not_nil!.as_bool.should be_true
+        t.fetch("unkown-str", "fetch").as_s.should eq "fetch"
+        t.fetch("unkown-number", 123).as_i.should eq 123
+        t.fetch("unkown-bool", true).as_bool.should be_true
 
         t.set("super.deep.nested.key", "value")
         t.fetch("super").not_nil!.raw.should be_a Hash(String, Totem::Any)
         t.fetch("super.deep.nested.key").not_nil!.raw.should eq "value"
-        t.fetch("super.deep.nested.key.subkey", "foo").not_nil!.raw.should eq "foo"
+        t.fetch("super.deep.nested.key.subkey", "foo").raw.should eq "foo"
         t.fetch("super.deep.nested.key.subkey").should be_nil
       end
     end
