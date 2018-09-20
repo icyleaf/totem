@@ -91,7 +91,7 @@ describe Totem::Any do
     it "gets string" do
       Totem::Any.new("hello").as_s.should eq "hello"
       Totem::Any.new("hello").as_s?.should eq "hello"
-      # Totem::Any.new(true).as_s?.should be be_nil
+      Totem::Any.new(true).as_s?.should be_nil
 
       json = JSON.parse(%Q{["hello"]})
       Totem::Any.new(json).as_a.first.as_s.should eq "hello"
@@ -100,6 +100,24 @@ describe Totem::Any do
       yaml = YAML.parse(%Q{- hello})
       Totem::Any.new(yaml).as_a.first.as_s.should eq "hello"
       Totem::Any.new(yaml).as_a.first.as_s?.should eq "hello"
+    end
+
+    it "gets time" do
+      current = Time.now
+      Totem::Any.new(current).as_time.should eq current
+      Totem::Any.new(current).as_time?.should eq current
+      Totem::Any.new(true).as_time?.should be_nil
+
+      Totem::Any.new("2018-09-20 16:54:41+08:00").as_time.should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location::UTC)
+      Totem::Any.new("2018-09-20 16:54:41+08:00").as_time?(Time::Location.load("Asia/Shanghai")).should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location.load("Asia/Shanghai"))
+
+      json = JSON.parse(%Q{["2018-09-20 16:54:41+08:00"]})
+      Totem::Any.new(json).as_a.first.as_time.should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location::UTC)
+      Totem::Any.new(json).as_a.first.as_time?(Time::Location.load("Asia/Shanghai")).should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location.load("Asia/Shanghai"))
+
+      yaml = YAML.parse(%Q{- 2018-09-20 16:54:41+08:00})
+      Totem::Any.new(yaml).as_a.first.as_time.should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location.load("Asia/Shanghai"))
+      Totem::Any.new(yaml).as_a.first.as_time?(Time::Location.load("Asia/Shanghai")).should eq Time.new(2018, 9, 20, 16, 54, 41, location: Time::Location.load("Asia/Shanghai"))
     end
 
     it "gets array" do

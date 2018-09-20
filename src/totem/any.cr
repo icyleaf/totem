@@ -4,7 +4,7 @@ module Totem
   # `Totem::Any` is a convenient wrapper around all possible types(`Totem::Any::Type`) and
   # can be used for traversing dynamic or unkown types.
   struct Any
-    alias Type = String | Int32 | Int64 | Float64 | Bool | Nil | Array(Any) | Hash(String, Any) | YAML::Any | JSON::Any
+    alias Type = String | Int32 | Int64 | Float64 | Bool | Nil | Time | Array(Any) | Hash(String, Any) | YAML::Any | JSON::Any
 
     getter raw : Type
 
@@ -53,6 +53,14 @@ module Totem
 
     def as_bool
       Popcorn.to_bool(@raw)
+    end
+
+    def as_time?(timezone : Time::Location? = nil)
+      Popcorn.to_time?(@raw, timezone)
+    end
+
+    def as_time(timezone : Time::Location? = nil)
+      Popcorn.to_time(@raw, timezone)
     end
 
     def as_nil : Nil
