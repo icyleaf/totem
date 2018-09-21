@@ -573,6 +573,19 @@ describe Totem::Config do
         end
       end
     end
+
+    describe "#clear!" do
+      it "should clear everything" do
+        t = Totem::Config.parse yaml_raw, "yaml"
+        t.clear!
+
+        t.config_name.should eq "config"
+        t.config_paths.size.should eq 0
+        t.config_type.should be_nil
+        t.key_delimiter.should eq "."
+        t.env_prefix.should be_nil
+      end
+    end
   end
 
   describe "following order" do

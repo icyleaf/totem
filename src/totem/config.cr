@@ -403,6 +403,24 @@ module Totem
       end
     end
 
+    def clear!
+      @config_name = "config"
+      @config_type = nil
+      @config_paths = [] of String
+      @key_delimiter = "."
+
+      @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
+      @debugging = false
+      @automatic_env = false
+
+      @aliases = Hash(String, String).new
+      @overrides = Hash(String, Any).new
+      @config = Hash(String, Any).new
+      @env = Hash(String, String).new
+      @kvstores = Hash(String, Any).new
+      @defaults = Hash(String, Any).new
+    end
+
     # Debugging switch
     def debugging=(value : Bool)
       @logger.level = value ? Logger::DEBUG : Logger::ERROR
