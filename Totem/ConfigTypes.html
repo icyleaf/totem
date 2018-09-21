@@ -228,28 +228,28 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L3" target="_blank">
         totem/config_types.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types/json.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types/json.cr#L3" target="_blank">
         totem/config_types/json.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types/yaml.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types/yaml.cr#L3" target="_blank">
         totem/config_types/yaml.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types/env.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types/env.cr#L3" target="_blank">
         totem/config_types/env.cr
       </a>
     
@@ -268,25 +268,42 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28name%3AString%29-class-method" class="signature"><strong>.[]</strong>(name : String)</a>
         
+          <div class="summary"><p>Returns the value for the key given by <em>key</em>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#has_keys%3F%28name%3AString%29-class-method" class="signature"><strong>.has_keys?</strong>(name : String)</a>
+        
+          <div class="summary"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#keys-class-method" class="signature"><strong>.keys</strong></a>
         
+          <div class="summary"><p>Returns a new <code>Array</code> with all the keys.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#register%28adapter%3AAdapter%2Cname%3AString%2C%2Ashortcuts%29-class-method" class="signature"><strong>.register</strong>(adapter : Adapter, name : String, *shortcuts)</a>
+        
+          <div class="summary"><p>Register config type</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#register_adapter%28name%3AString%2Cadapter%3AAdapter%29-class-method" class="signature"><strong>.register_adapter</strong>(name : String, adapter : Adapter)</a>
         
+          <div class="summary"><p>Register config type with name</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#register_alias%28shortcut%3AString%2Cname%3AString%29-class-method" class="signature"><strong>.register_alias</strong>(shortcut : String, name : String)</a>
+        
+          <div class="summary"><p>Set alias for registered config type</p></div>
         
       </li>
     
@@ -315,10 +332,12 @@
         <a class="method-permalink" href="#%5B%5D%28name%3AString%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns the value for the key given by <em>key</em>.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -331,10 +350,12 @@
         <a class="method-permalink" href="#has_keys%3F%28name%3AString%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -347,10 +368,32 @@
         <a class="method-permalink" href="#keys-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns a new <code>Array</code> with all the keys.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L53" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="register(adapter:Adapter,name:String,*shortcuts)-class-method">
+      <div class="signature">
+        
+        def self.<strong>register</strong>(adapter : <a href="../Totem/ConfigTypes/Adapter.html">Adapter</a>, name : String, *shortcuts)
+
+        <a class="method-permalink" href="#register%28adapter%3AAdapter%2Cname%3AString%2C%2Ashortcuts%29-class-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Register config type</p>
+
+<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register(<span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span><span class="t">::</span><span class="t">YAML</span>.<span class="k">new</span>, <span class="s">&quot;yaml&quot;</span>, <span class="s">&quot;yml&quot;</span>)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -363,10 +406,16 @@
         <a class="method-permalink" href="#register_adapter%28name%3AString%2Cadapter%3AAdapter%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Register config type with name</p>
+
+<p><span class="flag red">DEPRECATED</span>  Use <code><a href="../Totem/ConfigTypes.html#register%28adapter%3AAdapter%2Cname%3AString%2C%2Ashortcuts%29-class-method">.register</a></code> directly instead.</p>
+
+<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_adapter(<span class="s">&quot;yaml&quot;</span>, <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span><span class="t">::</span><span class="t">YAML</span>.<span class="k">new</span>)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -379,10 +428,16 @@
         <a class="method-permalink" href="#register_alias%28shortcut%3AString%2Cname%3AString%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Set alias for registered config type</p>
+
+<p><span class="flag red">DEPRECATED</span>  Use <code><a href="../Totem/ConfigTypes.html#register%28adapter%3AAdapter%2Cname%3AString%2C%2Ashortcuts%29-class-method">.register</a></code> directly instead.</p>
+
+<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_alias(<span class="s">&quot;yml&quot;</span>, <span class="s">&quot;yaml&quot;</span>)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/config_types.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/config_types.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>

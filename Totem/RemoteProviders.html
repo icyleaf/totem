@@ -228,21 +228,21 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L3" target="_blank">
         totem/remote_providers.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers/etcd.cr#L4" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers/etcd.cr#L4" target="_blank">
         totem/remote_providers/etcd.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers/redis.cr#L4" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers/redis.cr#L4" target="_blank">
         totem/remote_providers/redis.cr
       </a>
     
@@ -261,25 +261,35 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28name%3AString%29-class-method" class="signature"><strong>.[]</strong>(name : String)</a>
         
+          <div class="summary"><p>Returns the value for the key given by <em>key</em>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method" class="signature"><strong>.connect</strong>(name : String, **options)</a>
+        
+          <div class="summary"><p>Connect remote provider with options</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#has_key%3F%28key%29-class-method" class="signature"><strong>.has_key?</strong>(key)</a>
         
+          <div class="summary"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#keys-class-method" class="signature"><strong>.keys</strong></a>
         
+          <div class="summary"><p>Returns a new <code>Array</code> with all the keys.</p></div>
+        
       </li>
     
       <li class="entry-summary">
         <a href="#register_adapter%28name%3AString%2Cadapter%3AAdapter.class%29-class-method" class="signature"><strong>.register_adapter</strong>(name : String, adapter : Adapter.class)</a>
+        
+          <div class="summary"><p>Registe remote provider with name</p></div>
         
       </li>
     
@@ -308,10 +318,12 @@
         <a class="method-permalink" href="#%5B%5D%28name%3AString%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns the value for the key given by <em>key</em>.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -324,10 +336,12 @@
         <a class="method-permalink" href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Connect remote provider with options</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -340,10 +354,12 @@
         <a class="method-permalink" href="#has_key%3F%28key%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -356,10 +372,12 @@
         <a class="method-permalink" href="#keys-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Returns a new <code>Array</code> with all the keys.</p></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -372,10 +390,14 @@
         <a class="method-permalink" href="#register_adapter%28name%3AString%2Cadapter%3AAdapter.class%29-class-method">#</a>
       </div>
       
+        <div class="doc"><p>Registe remote provider with name</p>
+
+<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_adapter(<span class="s">&quot;redis&quot;</span>, <span class="t">Totem</span><span class="t">::</span><span class="t">RemoteProvider</span><span class="t">::</span><span class="t">Redis</span>)</code></pre></div>
+      
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/a076712accb8700c8d455bd111f07db702aee476/src/totem/remote_providers.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c8bf9119f5c099a38cab8a35242a8591bdf474f8/src/totem/remote_providers.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
