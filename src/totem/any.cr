@@ -129,29 +129,19 @@ module Totem
     end
 
     def [](key : Int) : Any
-      object = @raw
-      if object.is_a?(Array)
-        object[key]
-      elsif object.is_a?(JSON::Any) && (json = object.as(JSON::Any)) && json.as_a?
-        as_a[key]
-      elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_a?
-        as_a[key]
-      else
-        raise Error.new("Expected Array for #[](index : Totem::Any), not #{object.class}")
+      if value = self.[key]?
+        return value
       end
+
+      raise Error.new("Expected Totem::Any for #[](index : Int), not #{@raw.class}")
     end
 
     def [](key : String) : Any
-      object = @raw
-      if object.is_a?(Hash)
-        object[key]
-      elsif object.is_a?(JSON::Any) && (json = object.as(JSON::Any)) && json.as_h?
-        as_h[key]
-      elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_h?
-        as_h[key]
-      else
-        raise Error.new("Expected Hash for #[](index : String), not #{object.class}")
+      if value = self.[key]?
+        return value
       end
+
+      raise Error.new("Expected Totem::Any for #[](key : String), not #{@raw.class}")
     end
 
     def []?(key : Int) : Any?
@@ -162,8 +152,6 @@ module Totem
         as_a[key]?
       elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_a?
         as_a[key]?
-      else
-        raise Error.new("Expected Array for #[](index : Totem::Any), not #{object.class}")
       end
     end
 
@@ -175,26 +163,15 @@ module Totem
         as_h[key]?
       elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_h?
         as_h[key]?
-      else
-        raise Error.new("Expected Hash for #[](index : String), not #{object.class}")
       end
     end
 
     def size : Int
-      object = @raw
-      if object.is_a?(Array) || object.is_a?(Hash)
-        object.size
-      elsif object.is_a?(JSON::Any) && (json = object.as(JSON::Any)) && json.as_h?
-        json.as_h.size
-      elsif object.is_a?(JSON::Any) && (json = object.as(JSON::Any)) && json.as_a?
-        json.as_a.size
-      elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_h?
-        yaml.as_h.size
-      elsif object.is_a?(YAML::Any) && (yaml = object.as(YAML::Any)) && yaml.as_a?
-        yaml.as_a.size
-      else
-        raise Error.new("Expected Arra, Hash for #size, not #{object.class}")
+      if (object = as_a? || as_h?)
+        return object.size
       end
+
+      raise Error.new("Expected Array, Hash, JSON::Any and YAML::Any for #size, not #{@raw.class}")
     end
 
     def dup
