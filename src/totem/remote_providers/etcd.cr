@@ -2,6 +2,9 @@ require "etcd"
 require "json"
 
 module Totem::RemoteProviders
+  # Etcd remote provider
+  #
+  # **Note**: It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard. Install it before use.
   class Etcd < Adapter
     def initialize(endpoint : String, @path : String? = nil)
       # etcd-crystal is not allow pass scheme.

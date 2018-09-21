@@ -1,4 +1,5 @@
 module Totem
+  # Config types
   module ConfigTypes
     @@adapters = {} of String => Adapter
     @@aliases = {} of String => String
@@ -27,6 +28,7 @@ module Totem
       @@aliases.fetch(name, name)
     end
 
+    # Adapter of config type
     abstract class Adapter
       abstract def read(raw : String | IO) : Hash(String, Totem::Any::Type)
       abstract def write(io : File, config : Config)

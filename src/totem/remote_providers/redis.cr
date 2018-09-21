@@ -2,6 +2,9 @@ require "redis"
 require "json"
 
 module Totem::RemoteProviders
+  # Redis remote provider
+  #
+  # **Note**: It dependency [crystal-redis](https://github.com/stefanwille/crystal-redis) shard. Install it before use.
   class Redis < Adapter
     def initialize(endpoint : String, @path : String? = nil)
       @client = ::Redis.new(url: endpoint)

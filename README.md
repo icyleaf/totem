@@ -292,7 +292,7 @@ Avaliable providers is `redis` and `etcd`.
 
 #### Use redis
 
-It dependency [redis](https://github.com/stefanwille/crystal-redis) shard. Install is before use.
+It dependency [crystal-redis](https://github.com/stefanwille/crystal-redis) shard. Install it before use.
 
 ```crystal
 require "totem"
@@ -317,7 +317,7 @@ totem.get("user:id").as_i   # => 123
 
 #### Use etcd
 
-It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard. Install is before use.
+It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard. Install it before use.
 
 ```crystal
 require "totem"

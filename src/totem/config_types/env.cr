@@ -1,6 +1,9 @@
 require "poncho"
 
 module Totem::ConfigTypes
+  # DotEnv format Config Type
+  #
+  # **Note**: It dependency [poncho](https://github.com/icyleaf/poncho) shard. Install it before use.
   class Env < Adapter
     def read(raw)
       Poncho.parse(raw).to_h

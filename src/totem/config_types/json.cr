@@ -1,6 +1,7 @@
 require "json"
 
 module Totem::ConfigTypes
+  # Builtin JSON format config type
   class JSON < Adapter
     def read(raw)
       ::JSON.parse(raw).as_h

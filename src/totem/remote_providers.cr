@@ -1,4 +1,5 @@
 module Totem
+  # Remote provider
   module RemoteProviders
     @@providers = {} of String => Adapter.class
 
@@ -25,6 +26,7 @@ module Totem
       @@instance[name] = cls.new(**options)
     end
 
+    # Adapter of remote provider
     abstract class Adapter
       abstract def read(config_type : String? = nil) : Hash(String, Totem::Any::Type)?
       abstract def get(key : String) : Any

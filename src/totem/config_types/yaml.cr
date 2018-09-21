@@ -1,6 +1,7 @@
 require "yaml"
 
 module Totem::ConfigTypes
+  # Builtin YAML format config type
   class YAML < Adapter
     def read(raw)
       data = ::YAML.parse(raw).as_h

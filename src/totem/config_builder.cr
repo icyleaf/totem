@@ -1,6 +1,7 @@
 require "json"
 
 module Totem
+  # Builder of Configuration
   module ConfigBuilder
     @@config = Totem::Config.new
 

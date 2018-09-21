@@ -110,6 +110,24 @@ module Totem
       end
     end
 
+    def as_s
+      case object = @raw
+      when YAML::Any, JSON::Any
+        object.as_s
+      else
+        object.as(String)
+      end
+    end
+
+    def as_s?
+      case object = @raw
+      when YAML::Any, JSON::Any
+        object.as_s?
+      when String
+        object.as(String)
+      end
+    end
+
     def [](key : Int) : Any
       object = @raw
       if object.is_a?(Array)
@@ -176,24 +194,6 @@ module Totem
         yaml.as_a.size
       else
         raise Error.new("Expected Arra, Hash for #size, not #{object.class}")
-      end
-    end
-
-    def as_s
-      case object = @raw
-      when YAML::Any, JSON::Any
-        object.as_s
-      else
-        object.as(String)
-      end
-    end
-
-    def as_s?
-      case object = @raw
-      when YAML::Any, JSON::Any
-        object.as_s?
-      when String
-        object.as(String)
       end
     end
 
