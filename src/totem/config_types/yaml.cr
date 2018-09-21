@@ -16,5 +16,4 @@ module Totem::ConfigTypes
   end
 end
 
-Totem::ConfigTypes.register_adapter("yaml", Totem::ConfigTypes::YAML.new)
-Totem::ConfigTypes.register_alias("yml", "yaml")
+Totem::ConfigTypes.register(Totem::ConfigTypes::YAML.new, "yaml", "yml")

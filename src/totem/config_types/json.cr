@@ -13,4 +13,4 @@ module Totem::ConfigTypes
   end
 end
 
-Totem::ConfigTypes.register_adapter("json", Totem::ConfigTypes::JSON.new)
+Totem::ConfigTypes.register(Totem::ConfigTypes::JSON.new, "json")

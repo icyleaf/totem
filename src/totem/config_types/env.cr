@@ -19,4 +19,4 @@ module Totem::ConfigTypes
   end
 end
 
-Totem::ConfigTypes.register_adapter("env", Totem::ConfigTypes::Env.new)
+Totem::ConfigTypes.register(Totem::ConfigTypes::Env.new, "env", "dotenv")
