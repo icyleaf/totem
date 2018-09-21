@@ -10,26 +10,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Separate `#fetch` method to two methods with different behavior. (see [#8](https://github.com/icyleaf/totem/issues/8))
+- Add new `#register` method instead of `#register_adapter` and `#register_alias` in `Totem::ConfigTypes`, the latters marked **DEPRECATED**.
 
 ### Added
 
-- Added `Time` format support
+- Add config builder to configure easily. (see [#7](https://github.com/icyleaf/totem/pull/7))
+- Add `Time` class support in `Totem::Config`.
+- Add `#as_f32/as_f32?` methods in `Totem::Any`.
 
 ## [0.4.0] (2018-07-31)
 
 ### Added
 
-- Added remote provider extensions.
-- Added redis/etcd to remote providers.
+- Add remote provider extensions.
+- Add redis/etcd to remote providers.
 
 ## [0.3.0] (2018-07-27)
 
 ### Added
 
-- Added adapter for configuration formats, writting and using custom adapter. (see [#3](https://github.com/icyleaf/totem/issues/3))
-- Added write to file with dotenv format.
-- Added Totem::Any equal with other class & struct.
-- Added nested key setting for the raw content of configuration formats. (see [specs](https://github.com/icyleaf/totem/blob/master/spec/totem/config_spec.cr#L609))
+- Add adapter for configuration formats, writting and using custom adapter. (see [#3](https://github.com/icyleaf/totem/issues/3))
+- Add write to file with dotenv format.
+- Add Totem::Any equal with other class & struct.
+- Add nested key setting for the raw content of configuration formats. (see [specs](https://github.com/icyleaf/totem/blob/master/spec/totem/config_spec.cr#L609))
 - Improved inspect output with `#pp` or `#pp!`.
 
 ## [0.2.1] (2018-07-26)

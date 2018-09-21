@@ -15,7 +15,15 @@ module ConfigBuilderSpec
     property clothing : Clothes
 
     build do
-      # debugging true
+      config_type "yaml"
+      config_paths ["/etc/totem", "~/.totem", "spec/fixtures"]
+    end
+  end
+
+  struct Config
+    include Totem::ConfigBuilder
+
+    build do
       config_type "yaml"
       config_paths ["/etc/totem", "~/.totem", "spec/fixtures"]
     end
@@ -23,25 +31,57 @@ module ConfigBuilderSpec
 end
 
 describe Totem::ConfigBuilder do
-  describe "configure" do
-    it "should works" do
-      profile = ConfigBuilderSpec::Profile.configure
+  describe ".configure" do
+    describe "loads" do
+      it "should works" do
+        config = ConfigBuilderSpec::Config.configure
 
-      profile.name.should eq "steve"
-      profile.hobbies.size.should eq 3
-      profile.hobbies.last.should eq "go"
-      profile.clothing.jacket.should eq "leather"
-    end
-
-    it "should works with block" do
-      profile = ConfigBuilderSpec::Profile.configure do |config|
-        config.set("name", "tavares")
+        config["name"].should eq "steve"
+        config["hobbies"].size.should eq 3
+        config["hobbies"].as_a.last.should eq "go"
+        config["clothing"].as_h["jacket"].should eq "leather"
       end
 
-      profile.name.should eq "tavares"
-      profile.hobbies.size.should eq 3
-      profile.hobbies.last.should eq "go"
-      profile.clothing.jacket.should eq "leather"
+      it "should works with given file" do
+        config = ConfigBuilderSpec::Config.configure("spec/fixtures/config.json")
+
+        config["name"].should eq "Cake"
+        config["batters"].size.should eq 1
+        config["batters"].as_h["batter"].as_a.first.as_h["type"].should eq "Regular"
+      end
+
+      it "should works with block" do
+        config = ConfigBuilderSpec::Config.configure do |c|
+          c.set("name", "tavares")
+        end
+
+        config["name"].should eq "tavares"
+        config["hobbies"].size.should eq 3
+        config["hobbies"].as_a.last.should eq "go"
+        config["clothing"].as_h["jacket"].should eq "leather"
+      end
+    end
+
+    describe "mapping" do
+      it "should works" do
+        profile = ConfigBuilderSpec::Profile.configure
+
+        profile.name.should eq "steve"
+        profile.hobbies.size.should eq 3
+        profile.hobbies.last.should eq "go"
+        profile.clothing.jacket.should eq "leather"
+      end
+
+      it "should works with block" do
+        profile = ConfigBuilderSpec::Profile.configure do |config|
+          config.set("name", "tavares")
+        end
+
+        profile.name.should eq "tavares"
+        profile.hobbies.size.should eq 3
+        profile.hobbies.last.should eq "go"
+        profile.clothing.jacket.should eq "leather"
+      end
     end
   end
 end
