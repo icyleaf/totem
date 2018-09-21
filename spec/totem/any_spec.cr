@@ -77,15 +77,21 @@ describe Totem::Any do
     it "gets float" do
       Totem::Any.new(123.45).as_f.should eq 123.45
       Totem::Any.new(123.45).as_f?.should eq 123.45
+      Totem::Any.new(123.45).as_f32.should eq 123.45_f32
+      Totem::Any.new(123.45).as_f32?.should eq 123.45_f32
       Totem::Any.new(true).as_f?.should be_nil
 
       json = JSON.parse(%Q{[123.45]})
       Totem::Any.new(json).as_a.first.as_f.should eq 123.45
       Totem::Any.new(json).as_a.first.as_f?.should eq 123.45
+      Totem::Any.new(json).as_a.first.as_f32.should eq 123.45_f32
+      Totem::Any.new(json).as_a.first.as_f32?.should eq 123.45_f32
 
       yaml = YAML.parse(%Q{- 123.45})
       Totem::Any.new(yaml).as_a.first.as_f.should eq 123.45
       Totem::Any.new(yaml).as_a.first.as_f?.should eq 123.45
+      Totem::Any.new(yaml).as_a.first.as_f32.should eq 123.45_f32
+      Totem::Any.new(yaml).as_a.first.as_f32?.should eq 123.45_f32
     end
 
     it "gets string" do

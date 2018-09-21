@@ -47,6 +47,14 @@ module Totem
       Popcorn.to_float(@raw)
     end
 
+    def as_f32?
+      Popcorn.to_float32?(@raw)
+    end
+
+    def as_f32
+      Popcorn.to_float32(@raw)
+    end
+
     def as_bool?
       Popcorn.to_bool?(@raw)
     end
@@ -61,15 +69,6 @@ module Totem
 
     def as_time(timezone : Time::Location? = nil)
       Popcorn.to_time(@raw, timezone)
-    end
-
-    def as_nil : Nil
-      case object = @raw
-      when JSON::Any, YAML::Any
-        object.as_nil
-      else
-        object.as(Nil)
-      end
     end
 
     def as_h? : Hash(String, Any)?
@@ -125,6 +124,15 @@ module Totem
         object.as_s?
       when String
         object.as(String)
+      end
+    end
+
+    def as_nil : Nil
+      case object = @raw
+      when JSON::Any, YAML::Any
+        object.as_nil
+      else
+        object.as(Nil)
       end
     end
 
