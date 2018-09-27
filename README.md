@@ -18,6 +18,7 @@ Totem has following features:
 - Provide a mechanism to set default values for your different configuration options.
 - Provide an alias system to easily rename parameters without breaking existing code.
 - Write configuration to file with JSON, YAML formats.
+- Convert config to struct with builder.
 
 And we keep it minimize and require what you want with adapter and remote provider! **No more dependenices what you do not need**.
 Only JSON and YAML adapters were auto requires.
