@@ -545,6 +545,44 @@ totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
 <h2>Advanced Usage</h2>
 
+<h3>Use config builder</h3>
+
+<p>You can generate a configuration with Totem builder with any <strong>Object</strong>.</p>
+
+<pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Configuration</span>
+  <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
+
+  build <span class="k">do</span>
+    config_type <span class="s">&quot;json&quot;</span>
+    config_paths [<span class="s">&quot;/etc/totem&quot;</span>, <span class="s">&quot;~/.config/totem&quot;</span>, <span class="s">&quot;config/&quot;</span>]
+  <span class="k">end</span>
+<span class="k">end</span>
+
+config <span class="o">=</span> <span class="t">Configuration</span>.configure <span class="k">do</span> <span class="o">|</span>c<span class="o">|</span>
+  c.set_default <span class="s">&quot;name&quot;</span>, <span class="s">&quot;foobar&quot;</span>
+<span class="k">end</span>
+
+config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;foobar&quot;</span></code></pre>
+
+<p>The builder also could mapping config to struct.</p>
+
+<pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Profile</span>
+  <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
+
+  property name : <span class="t">String</span>
+  property hobbies : <span class="t">Array</span>(<span class="t">String</span>)
+  property age : <span class="t">Int32</span>
+  property eyes : <span class="t">String</span>
+
+  build <span class="k">do</span>
+    config_type <span class="s">&quot;yaml&quot;</span>
+    config_paths [<span class="s">&quot;/etc/totem&quot;</span>, <span class="s">&quot;~/.config/totem&quot;</span>, <span class="s">&quot;config/&quot;</span>]
+  <span class="k">end</span>
+<span class="k">end</span>
+
+profile <span class="o">=</span> <span class="t">Profile</span>.configure
+profile.name <span class="c"># =&gt; &quot;steve&quot;</span></code></pre>
+
 <h3>Write a config adapter</h3>
 
 <p>Creating the custom adapter by integration <code><a href="Totem/ConfigTypes/Adapter.html">Totem::ConfigTypes::Adapter</a></code> abstract class. Here has two methods must be implement:
