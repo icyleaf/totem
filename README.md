@@ -461,7 +461,8 @@ struct Profile
 end
 
 profile = Profile.configure
-profile.name # => "steve"
+profile.name          # => "steve"
+profile["nested.key"] # => "foo"
 ```
 
 ### Write a config adapter
