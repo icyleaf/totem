@@ -421,6 +421,48 @@ totem.store!("profile.json")
 
 ## Advanced Usage
 
+### Use config builder
+
+You can generate a configuration with Totem builder with any **Object**.
+
+```crystal
+struct Configuration
+  include Totem::ConfigBuilder
+
+  build do
+    config_type "json"
+    config_paths ["/etc/totem", "~/.config/totem", "config/"]
+  end
+end
+
+config = Configuration.configure do |c|
+  c.set_default "name", "foobar"
+end
+
+config["name"] # => "foobar"
+```
+
+The builder also could mapping config to struct.
+
+```crystal
+struct Profile
+  include Totem::ConfigBuilder
+
+  property name : String
+  property hobbies : Array(String)
+  property age : Int32
+  property eyes : String
+
+  build do
+    config_type "yaml"
+    config_paths ["/etc/totem", "~/.config/totem", "config/"]
+  end
+end
+
+profile = Profile.configure
+profile.name # => "steve"
+```
+
 ### Write a config adapter
 
 Creating the custom adapter by integration `Totem::ConfigTypes::Adapter` abstract class. Here has two methods must be implement:

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.0] (2018-09-27)
+
 ### Changed
 
 - Separate `#fetch` method to two methods with different behavior. (see [#8](https://github.com/icyleaf/totem/issues/8))
@@ -62,7 +64,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 :star2:First beta version:star2:
 
-[Unreleased]: https://github.com/icyleaf/totem/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/icyleaf/totem/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/icyleaf/totem/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/icyleaf/totem/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/icyleaf/totem/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/icyleaf/totem/compare/v0.2.0...v0.2.1
