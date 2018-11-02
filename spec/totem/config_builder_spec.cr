@@ -1,6 +1,15 @@
 require "../spec_helper"
 
 module ConfigBuilderSpec
+  struct Config
+    include Totem::ConfigBuilder
+
+    build do
+      config_type "yaml"
+      config_paths ["/etc/totem", "~/.totem", "spec/fixtures"]
+    end
+  end
+
   struct Clothes
     include JSON::Serializable
 
@@ -13,15 +22,6 @@ module ConfigBuilderSpec
     property name : String
     property hobbies : Array(String)
     property clothing : Clothes
-
-    build do
-      config_type "yaml"
-      config_paths ["/etc/totem", "~/.totem", "spec/fixtures"]
-    end
-  end
-
-  struct Config
-    include Totem::ConfigBuilder
 
     build do
       config_type "yaml"
@@ -59,6 +59,16 @@ describe Totem::ConfigBuilder do
         config["hobbies"].size.should eq 3
         config["hobbies"].as_a.last.should eq "go"
         config["clothing"].as_h["jacket"].should eq "leather"
+      end
+
+      it "should works with given file and block" do
+        config = ConfigBuilderSpec::Config.configure("spec/fixtures/config.json") do |c|
+          c.set("name", "tavares")
+        end
+
+        config["name"].should eq "tavares"
+        config["batters"].size.should eq 1
+        config["batters"].as_h["batter"].as_a.first.as_h["type"].should eq "Regular"
       end
     end
 
