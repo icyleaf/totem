@@ -51,12 +51,12 @@ module Totem
       include JSON::Serializable
 
       def self.configure(file : String)
-        load_wit_file(file)
+        load_with_file(file)
         configure
       end
 
-      def self.configure(file : String, &block)
-        load_wit_file(file)
+      def self.configure(file : String, &block : Totem::Config -> _)
+        load_with_file(file)
         configure(&block)
       end
 
@@ -71,7 +71,7 @@ module Totem
         @@config.mapping(self)
       end
 
-      private def self.load_wit_file(file)
+      private def self.load_with_file(file)
         config_path = File.dirname(file)
         config_name = File.basename(file, File.extname(file))
         config_type = config_type(file)
