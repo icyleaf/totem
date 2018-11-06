@@ -4,20 +4,20 @@ version: 0.5.0
 authors:
   - icyleaf <icyleaf.cn@gmail.com>
 
-crystal: 0.26.1
+crystal: 0.27.0
 
 dependencies:
   popcorn:
     github: icyleaf/popcorn
-    version: ~> 0.2.0
+    version: ~> 0.2.1
 
 development_dependencies:
   poncho:
     github: icyleaf/poncho
-    version: ~> 0.1.0
+    version: ~> 0.3.0
   redis:
     github: stefanwille/crystal-redis
-    version: ~> 2.0.0
+    version: ~> 2.1.1
   etcd:
     github: icyleaf/etcd-crystal
     version: ~> 0.2.1
