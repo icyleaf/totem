@@ -1,5 +1,4 @@
 require "spec"
-require "tempfile"
 require "file_utils"
 require "../src/totem"
 require "../src/totem/config_types/*"
@@ -52,7 +51,7 @@ def env_spec_group(t)
   t.get("mysql_password").should eq "$wrwYAH3gQ"
 end
 
-SPEC_TEMPFILE_PATH = File.join(Tempfile.dirname, "totem-spec-#{Random.new.hex(8)}")
+SPEC_TEMPFILE_PATH = File.join(Dir.tempdir, "totem-spec-#{Random.new.hex(8)}")
 
 def with_tempfile(*paths, file = __FILE__)
   calling_spec = File.basename(file).rchop("_spec.cr")
