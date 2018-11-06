@@ -684,7 +684,7 @@ describe Totem::Config do
   end
 
   describe "remote providers" do
-    describe "with reds" do
+    describe "with redis" do
       it "should gets use key" do
         with_redis do |endpoint|
           t = Totem::Config.new
