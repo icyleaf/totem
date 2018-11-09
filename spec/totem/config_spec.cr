@@ -479,6 +479,47 @@ describe Totem::Config do
       end
     end
 
+    describe "#load!" do
+      it "should load config" do
+        t = Totem::Config.new(config_paths: [fixture_path])
+        t.load!
+
+        t.config_name.should eq "config"
+        t.config_type.should eq "json"
+        t.config_paths.should eq([fixture_path])
+        t.config_env.should be_nil
+        t.config_file.should eq File.join(fixture_path, "config.json")
+
+        t.get("name").should eq "Cake"
+      end
+
+      it "should load config with env" do
+        t = Totem::Config.new(config_paths: [File.join(fixture_path, "envs")], config_env: "development")
+        t.load!
+
+        t.config_name.should eq "config"
+        t.config_type.should eq "yaml"
+        t.config_env.should eq "development"
+        t.config_paths.should eq([File.join(fixture_path, "envs")])
+        t.config_file.should eq File.join(fixture_path, "envs", "config.development.yaml")
+
+        t.get("host").should eq "localhost"
+      end
+
+      it "throws an exception if not found config file" do
+        expect_raises Totem::NotFoundConfigFileError do
+          Totem::Config.new.load!
+        end
+      end
+
+      it "throws an exception if not found config file with env" do
+        t = Totem::Config.new(config_paths: [fixture_path], config_env: "test")
+        expect_raises Totem::NotFoundConfigFileError do
+          t.load!
+        end
+      end
+    end
+
     describe "#mapping" do
       it "should works with JSON::Serializable" do
         t = Totem::Config.parse yaml_raw, "yaml"

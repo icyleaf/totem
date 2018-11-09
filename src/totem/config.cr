@@ -9,7 +9,7 @@ module Totem
   #
   # - yaml/yml
   # - json
-  # - env
+  # - env (depend on [poncho](https://github.com/icyleaf/poncho))
   class Config
     include Totem::Utils::EnvHelper
     include Totem::Utils::FileHelper
@@ -45,20 +45,26 @@ module Totem
     end
 
     CONFIG_NAME = "config"
+    CONFIG_ENVS = %w(development test production)
     KEY_DELIMITER = "."
 
     getter config_file : String?
     property config_paths
     property config_name
     property config_type
+    property config_env
+    property config_envs
     property key_delimiter
     getter env_prefix : String?
 
     @remote_provider : RemoteProviders::Adapter?
 
     def initialize(@config_name = CONFIG_NAME, @config_type : String? = nil,
-                   @config_paths : Array(String) = [] of String, @key_delimiter = KEY_DELIMITER)
-      @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
+                   @config_paths : Array(String) = [] of String,
+                   @config_env : String? = nil, @config_envs = CONFIG_ENVS,
+                   @key_delimiter = KEY_DELIMITER)
+
+      @logger = Logger.new(STDOUT, Logger::ERROR, formatter: default_logger_formatter)
       @debugging = false
       @automatic_env = false
 
@@ -410,6 +416,8 @@ module Totem
       @config_name = CONFIG_NAME
       @config_type = nil
       @config_paths = [] of String
+      @config_env = nil
+      @config_envs = CONFIG_ENVS
       @key_delimiter = KEY_DELIMITER
 
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
@@ -670,7 +678,8 @@ module Totem
         end
       end
 
-      raise NotFoundConfigFileError.new("Not found config file #{@config_name} in #{@config_paths}")
+      env_message = @config_env ? " use `#{@config_env}` env" : ""
+      raise NotFoundConfigFileError.new("Not found config file `#{@config_name}`#{env_message} in `#{@config_paths}`")
     end
 
     private def search_config(path : String)
@@ -679,7 +688,7 @@ module Totem
         return
       end
 
-      @logger.debug("Searching for config in #{path}")
+      @logger.debug("Searching for config in `#{path}`")
       if (config_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
@@ -692,16 +701,34 @@ module Totem
     end
 
     private def config_file(path, extname)
-      file = File.join(path, "#{@config_name}.#{extname}")
       # Converts to an absolute path
-      file = file.sub("$HOME", "~/") if file.starts_with?("$HOME")
-      file = File.expand_path(file)
+      path = path.sub("$HOME", "~/") if path.starts_with?("$HOME")
+      path = File.expand_path(path)
+
+      if file = find_file(path, extname)
+        return file
+      end
+
+      # Do not search in config envs if config_env was given a value
+      return if @config_env
+
+      @logger.debug "Searching for config file in #{@config_envs}"
+      @config_envs.each do |env_name|
+        if file = find_file(path, extname, env_name)
+          return file
+        end
+      end
+    end
+
+    private def find_file(path, extname, env_name : String? = @config_env)
+      filename = @config_name
+      filename = "#{filename}.#{env_name}" if env_name
+      file = File.join(path, "#{filename}.#{extname}")
       @logger.debug("Checking for #{file}")
 
-      if File.exists?(file) && File.readable?(file)
-        @logger.debug("Found: #{file}")
-        file
-      end
+      return unless File.exists?(file) && File.readable?(file)
+      @logger.debug("Found: #{file}")
+      file
     end
 
     private def real_key(key : String) : String
@@ -732,6 +759,8 @@ module Totem
         io << " @config_paths=" << @config_paths << "," << newline
         io << " @config_name=\"" << @config_name << "\"" << "," << newline
         io << " @config_type=\"" << @config_type << "\"" << "," << newline
+        io << " @config_envs=\"" << @config_envs << "\"" << "," << newline
+        io << " @config_env=\"" << @config_env << "\"" << "," << newline
         io << " @key_delimiter=\"" << @key_delimiter << "\"" << "," << newline
         io << " @automatic_env=" << @automatic_env << "," << newline
         io << " @env_prefix=" << (@env_prefix.nil? ? "nil" : %Q{"#{@env_prefix}"}) << "," << newline
