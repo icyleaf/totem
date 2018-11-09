@@ -665,7 +665,7 @@ module Totem
     private def find_config
       @logger.debug("Searching for config in #{@config_paths}")
       @config_paths.each do |path|
-        if (file = search_config(path))
+        if file = search_config(path)
           return file
         end
       end
@@ -673,7 +673,12 @@ module Totem
       raise NotFoundConfigFileError.new("Not found config file #{@config_name} in #{@config_paths}")
     end
 
-    private def search_config(path : String) : String?
+    private def search_config(path : String)
+      unless Dir.exists?(path)
+        @logger.debug("Skip: config path is not exists in `#{path}`")
+        return
+      end
+
       @logger.debug("Searching for config in #{path}")
       if (config_type = @config_type) && (file = config_file(path, config_type))
         return file
