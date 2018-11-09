@@ -13,8 +13,8 @@ module Totem
     Config.from_file(file, paths, environment, key_delimiter)
   end
 
-  def self.parse(raw : String, type : String, key_delimiter : String = Config::KEY_DELIMITER)
-    Config.parse(raw, type, key_delimiter)
+  def self.parse(raw : String, config_type : String, key_delimiter : String = Config::KEY_DELIMITER)
+    Config.parse(raw, config_type, key_delimiter)
   end
 
   def self.from_json(raw : String, key_delimiter : String = Config::KEY_DELIMITER)
