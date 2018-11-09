@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 > TODO
 
+### Added
+
+- Add environment support. (see [#13](https://github.com/icyleaf/totem/issues/13))
+- Add config path position in `Totem::Configbuilder`. (see [#12](https://github.com/icyleaf/totem/issues/12))
+
+### Changed
+
+- Optimize search config performance.
+- Formatted sevrity in logger.
+
 ## [0.5.1] (2018-11-06)
 
 ### Fixed
