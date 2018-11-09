@@ -88,21 +88,21 @@ describe Totem::ConfigBuilder do
       end
 
       it "should works with env" do
-        config = ConfigBuilderSpec::Database.configure(enviroment: "production")
+        config = ConfigBuilderSpec::Database.configure(environment: "production")
         config.host.should eq "db.example.com"
       end
 
       it "should works with given file and env" do
         config = ConfigBuilderSpec::Database.configure(
           file: File.join(fixture_path, "env", "config.yaml"),
-          enviroment: "development"
+          environment: "development"
         )
 
         config.host.should eq "localhost"
       end
 
       it "should works with env and block" do
-        config = ConfigBuilderSpec::Database.configure(enviroment: "production") do |c|
+        config = ConfigBuilderSpec::Database.configure(environment: "production") do |c|
           c.set("env", "production")
         end
 
@@ -118,7 +118,7 @@ describe Totem::ConfigBuilder do
 
       it "throws an exception with unkown env" do
         expect_raises Totem::NotFoundConfigFileError do
-          ConfigBuilderSpec::Database.configure(enviroment: "test")
+          ConfigBuilderSpec::Database.configure(environment: "test")
         end
       end
     end

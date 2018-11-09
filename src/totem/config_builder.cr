@@ -65,28 +65,28 @@ module Totem
     macro included
       include JSON::Serializable
 
-      def self.configure(file : String, position : Int = -1, enviroment : String? = nil)
-        load_with_file(file, position, enviroment)
-        configure(enviroment)
+      def self.configure(file : String, position : Int = -1, environment : String? = nil)
+        load_with_file(file, position, environment)
+        configure(environment)
       end
 
-      def self.configure(file : String, position : Int = -1, enviroment : String? = nil, &block : Totem::Config -> _)
-        load_with_file(file, position, enviroment)
-        configure(enviroment, &block)
+      def self.configure(file : String, position : Int = -1, environment : String? = nil, &block : Totem::Config -> _)
+        load_with_file(file, position, environment)
+        configure(environment, &block)
       end
 
-      def self.configure(enviroment : String? = nil)
-        load_with_env!(enviroment)
+      def self.configure(environment : String? = nil)
+        load_with_env!(environment)
         @@config.mapping(self)
       end
 
-      def self.configure(enviroment : String? = nil, &block : Totem::Config -> _)
-        load_with_env!(enviroment)
+      def self.configure(environment : String? = nil, &block : Totem::Config -> _)
+        load_with_env!(environment)
         yield @@config
         @@config.mapping(self)
       end
 
-      private def self.load_with_file(file, position, enviroment)
+      private def self.load_with_file(file, position, environment)
         config_path = File.dirname(file)
         config_name = File.basename(file, File.extname(file))
         config_type = Totem::Utils.config_type(file)
@@ -96,8 +96,8 @@ module Totem
         @@config.config_name = config_name
       end
 
-      private def self.load_with_env!(enviroment)
-        @@config.config_env = enviroment if enviroment
+      private def self.load_with_env!(environment)
+        @@config.config_env = environment if environment
         @@config.load!
       end
 
