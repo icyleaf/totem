@@ -1,0 +1,5 @@
+host: db.example.com
+port: 13306
+database: totem_production
+username: t0tem
+password: "!@#123abc"

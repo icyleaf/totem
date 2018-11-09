@@ -65,28 +65,28 @@ module Totem
     macro included
       include JSON::Serializable
 
-      def self.configure(file : String, position : Int = -1)
-        load_with_file(file, position)
-        configure
+      def self.configure(file : String, position : Int = -1, environment : String? = nil)
+        load_with_file(file, position, environment)
+        configure(environment)
       end
 
-      def self.configure(file : String, position : Int = -1, &block : Totem::Config -> _)
-        load_with_file(file, position)
-        configure(&block)
+      def self.configure(file : String, position : Int = -1, environment : String? = nil, &block : Totem::Config -> _)
+        load_with_file(file, position, environment)
+        configure(environment, &block)
       end
 
-      def self.configure
-        @@config.load!
+      def self.configure(environment : String? = nil)
+        load_with_env!(environment)
         @@config.mapping(self)
       end
 
-      def self.configure(&block)
-        @@config.load!
+      def self.configure(environment : String? = nil, &block : Totem::Config -> _)
+        load_with_env!(environment)
         yield @@config
         @@config.mapping(self)
       end
 
-      private def self.load_with_file(file, position)
+      private def self.load_with_file(file, position, environment)
         config_path = File.dirname(file)
         config_name = File.basename(file, File.extname(file))
         config_type = Totem::Utils.config_type(file)
@@ -96,45 +96,58 @@ module Totem
         @@config.config_name = config_name
       end
 
+      private def self.load_with_env!(environment)
+        @@config.config_env = environment if environment
+        @@config.load!
+      end
+
       forward_missing_to @@config
     end
 
     # Build block
     macro build
-      def self.config_paths(paths : Array(String))
-        @@config.config_paths = paths
+      def self.config_paths(value : Array(String))
+        @@config.config_paths = value
       end
 
-      def self.config_name(name : String)
-        @@config.config_name = name
+      def self.config_name(value : String)
+        @@config.config_name = value
       end
 
-      def self.config_type(type : String)
-        @@config.config_type = type
+      def self.config_type(value : String)
+        @@config.config_type = value
       end
 
-      def self.key_delimiter(delimiter : String)
-        @@config.key_delimiter = delimiter
+      def self.config_env(value : String)
+        @@config.config_env = value
       end
 
-      def self.env_prefix(prefix : String)
-        @@config.env_prefix = prefix
+      def self.config_envs(value : Array(String))
+        @@config.config_envs = value
       end
 
-      def self.env_prefix(prefix : String)
-        @@config.env_prefix = prefix
+      def self.key_delimiter(value : String)
+        @@config.key_delimiter = value
       end
 
-      def self.automatic_env(status : Bool)
-        @@config.automatic_env = status
+      def self.env_prefix(value : String)
+        @@config.env_prefix = value
       end
 
-      def self.automatic_env(env_prefix : String)
-        @@config.automatic_env(env_prefix)
+      def self.env_prefix(value : String)
+        @@config.env_prefix = value
       end
 
-      def self.debugging(status : Bool)
-        @@config.debugging = status
+      def self.automatic_env(value : Bool)
+        @@config.automatic_env = value
+      end
+
+      def self.automatic_env(value : String)
+        @@config.automatic_env(value)
+      end
+
+      def self.debugging(value : Bool)
+        @@config.debugging = value
       end
 
       {{ yield }}
