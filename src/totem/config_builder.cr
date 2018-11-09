@@ -4,7 +4,7 @@ require "./utils"
 module Totem
   # Builder of Configuration
   #
-  # #### Load config file
+  # #### Load config
   #
   # ```
   # struct Config
@@ -12,11 +12,27 @@ module Totem
   #
   #   build do
   #     config_type "yaml"
-  #     config_paths ["/etc", "~/.config/totem", "config/"]
+  #     config_paths ["/etc", "~/.config/totem", "config"]
   #   end
   # end
   #
   # config = Config.configure
+  # config["name"] # => "foo"
+  # ```
+  #
+  # #### Load config with custom file
+  #
+  # ```
+  # struct Config
+  #   include Totem::ConfigBuilder
+  #
+  #   build do
+  #     config_type "yaml"
+  #     config_paths ["/etc", "~/.config/totem", "config"]
+  #   end
+  # end
+  #
+  # config = Config.configure("/path/to/config/config.example.json")
   # config["name"] # => "foo"
   # ```
   #
@@ -47,16 +63,15 @@ module Totem
     @@config = Totem::Config.new
 
     macro included
-      include Totem::Utils::FileHelper
       include JSON::Serializable
 
-      def self.configure(file : String)
-        load_with_file(file)
+      def self.configure(file : String, position : Int = -1)
+        load_with_file(file, position)
         configure
       end
 
-      def self.configure(file : String, &block : Totem::Config -> _)
-        load_with_file(file)
+      def self.configure(file : String, position : Int = -1, &block : Totem::Config -> _)
+        load_with_file(file, position)
         configure(&block)
       end
 
@@ -71,12 +86,12 @@ module Totem
         @@config.mapping(self)
       end
 
-      private def self.load_with_file(file)
+      private def self.load_with_file(file, position)
         config_path = File.dirname(file)
         config_name = File.basename(file, File.extname(file))
-        config_type = config_type(file)
+        config_type = Totem::Utils.config_type(file)
 
-        @@config.config_paths << config_path if config_path && !@@config.config_paths.includes?(config_path)
+        @@config.config_paths.insert(position, config_path) if config_path && !@@config.config_paths.includes?(config_path)
         @@config.config_type = config_type if config_type
         @@config.config_name = config_name
       end
