@@ -44,6 +44,9 @@ module Totem
       instance
     end
 
+    CONFIG_NAME = "config"
+    KEY_DELIMITER = "."
+
     getter config_file : String?
     property config_paths
     property config_name
@@ -53,8 +56,8 @@ module Totem
 
     @remote_provider : RemoteProviders::Adapter?
 
-    def initialize(@config_name = "config", @config_type : String? = nil,
-                   @config_paths : Array(String) = [] of String, @key_delimiter = ".")
+    def initialize(@config_name = CONFIG_NAME, @config_type : String? = nil,
+                   @config_paths : Array(String) = [] of String, @key_delimiter = KEY_DELIMITER)
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @debugging = false
       @automatic_env = false
@@ -404,10 +407,10 @@ module Totem
     end
 
     def clear!
-      @config_name = "config"
+      @config_name = CONFIG_NAME
       @config_type = nil
       @config_paths = [] of String
-      @key_delimiter = "."
+      @key_delimiter = KEY_DELIMITER
 
       @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
       @debugging = false
