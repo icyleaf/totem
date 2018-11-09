@@ -43,7 +43,7 @@ describe Totem::ConfigBuilder do
       end
 
       it "should works with given file" do
-        config = ConfigBuilderSpec::Config.configure("spec/fixtures/config.json")
+        config = ConfigBuilderSpec::Config.configure("spec/fixtures/config.json", 0)
 
         config["name"].should eq "Cake"
         config["batters"].size.should eq 1
