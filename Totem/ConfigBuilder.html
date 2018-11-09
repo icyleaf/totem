@@ -212,18 +212,32 @@
 
   <p>Builder of Configuration</p>
 
-<h4>Load config file</h4>
+<h4>Load config</h4>
 
 <pre><code><span class="k">struct</span> <span class="t">Config</span>
   <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
 
   build <span class="k">do</span>
     config_type <span class="s">&quot;yaml&quot;</span>
-    config_paths [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;~/.config/totem&quot;</span>, <span class="s">&quot;config/&quot;</span>]
+    config_paths [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;~/.config/totem&quot;</span>, <span class="s">&quot;config&quot;</span>]
   <span class="k">end</span>
 <span class="k">end</span>
 
 config <span class="o">=</span> <span class="t">Config</span>.configure
+config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
+
+<h4>Load config with custom file</h4>
+
+<pre><code><span class="k">struct</span> <span class="t">Config</span>
+  <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
+
+  build <span class="k">do</span>
+    config_type <span class="s">&quot;yaml&quot;</span>
+    config_paths [<span class="s">&quot;/etc&quot;</span>, <span class="s">&quot;~/.config/totem&quot;</span>, <span class="s">&quot;config&quot;</span>]
+  <span class="k">end</span>
+<span class="k">end</span>
+
+config <span class="o">=</span> <span class="t">Config</span>.configure(<span class="s">&quot;/path/to/config/config.example.json&quot;</span>)
 config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
 
 <h4>Load config and mapping to struct</h4>
@@ -264,7 +278,7 @@ config[<span class="s">&quot;title&quot;</span>] <span class="c"># =&gt; &quot;b
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/d227a4cda1370dda88ff04fed9358c87f182ac49/src/totem/config_builder.cr#L46" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/81055c7a4bda7b5c5e265cadeea0fea0ed9cc612/src/totem/config_builder.cr#L62" target="_blank">
         totem/config_builder.cr
       </a>
     
@@ -321,7 +335,7 @@ config[<span class="s">&quot;title&quot;</span>] <span class="c"># =&gt; &quot;b
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/d227a4cda1370dda88ff04fed9358c87f182ac49/src/totem/config_builder.cr#L88" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/81055c7a4bda7b5c5e265cadeea0fea0ed9cc612/src/totem/config_builder.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
