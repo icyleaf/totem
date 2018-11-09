@@ -28,6 +28,22 @@ module ConfigBuilderSpec
       config_paths ["/etc/totem", "~/.totem", "spec/fixtures"]
     end
   end
+
+  struct Database
+    include Totem::ConfigBuilder
+
+    property host : String
+    property port : Int32
+    property database : String
+    property username : String
+    property password : String
+
+    build do
+      config_type "yaml"
+      config_paths ["spec/fixtures/envs"]
+      config_envs ["development", "production"]
+    end
+  end
 end
 
 describe Totem::ConfigBuilder do
@@ -69,6 +85,41 @@ describe Totem::ConfigBuilder do
         config["name"].should eq "tavares"
         config["batters"].size.should eq 1
         config["batters"].as_h["batter"].as_a.first.as_h["type"].should eq "Regular"
+      end
+
+      it "should works with env" do
+        config = ConfigBuilderSpec::Database.configure(enviroment: "production")
+        config.host.should eq "db.example.com"
+      end
+
+      it "should works with given file and env" do
+        config = ConfigBuilderSpec::Database.configure(
+          file: File.join(fixture_path, "env", "config.yaml"),
+          enviroment: "development"
+        )
+
+        config.host.should eq "localhost"
+      end
+
+      it "should works with env and block" do
+        config = ConfigBuilderSpec::Database.configure(enviroment: "production") do |c|
+          c.set("env", "production")
+        end
+
+        config.host.should eq "db.example.com"
+        config.get("env").should eq "production"
+      end
+
+      it "throws an exception with unkown file" do
+        expect_raises Totem::NotFoundConfigFileError do
+          ConfigBuilderSpec::Database.configure(file: "unkown-file")
+        end
+      end
+
+      it "throws an exception with unkown env" do
+        expect_raises Totem::NotFoundConfigFileError do
+          ConfigBuilderSpec::Database.configure(enviroment: "test")
+        end
       end
     end
 

@@ -65,28 +65,28 @@ module Totem
     macro included
       include JSON::Serializable
 
-      def self.configure(file : String, position : Int = -1)
-        load_with_file(file, position)
-        configure
+      def self.configure(file : String, position : Int = -1, enviroment : String? = nil)
+        load_with_file(file, position, enviroment)
+        configure(enviroment)
       end
 
-      def self.configure(file : String, position : Int = -1, &block : Totem::Config -> _)
-        load_with_file(file, position)
-        configure(&block)
+      def self.configure(file : String, position : Int = -1, enviroment : String? = nil, &block : Totem::Config -> _)
+        load_with_file(file, position, enviroment)
+        configure(enviroment, &block)
       end
 
-      def self.configure
-        @@config.load!
+      def self.configure(enviroment : String? = nil)
+        load_with_env!(enviroment)
         @@config.mapping(self)
       end
 
-      def self.configure(&block)
-        @@config.load!
+      def self.configure(enviroment : String? = nil, &block : Totem::Config -> _)
+        load_with_env!(enviroment)
         yield @@config
         @@config.mapping(self)
       end
 
-      private def self.load_with_file(file, position)
+      private def self.load_with_file(file, position, enviroment)
         config_path = File.dirname(file)
         config_name = File.basename(file, File.extname(file))
         config_type = Totem::Utils.config_type(file)
@@ -94,6 +94,11 @@ module Totem
         @@config.config_paths.insert(position, config_path) if config_path && !@@config.config_paths.includes?(config_path)
         @@config.config_type = config_type if config_type
         @@config.config_name = config_name
+      end
+
+      private def self.load_with_env!(enviroment)
+        @@config.config_env = enviroment if enviroment
+        @@config.load!
       end
 
       forward_missing_to @@config
