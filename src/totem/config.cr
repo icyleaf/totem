@@ -15,12 +15,17 @@ module Totem
     include Totem::Utils::FileHelper
     include Totem::Utils::HashHelper
 
+    CONFIG_NAME = "config"
+    CONFIG_ENVS = %w(development test production)
+    KEY_DELIMITER = "."
+
     # Load configuration from a file
     #
     # ```
     # Totem::Config.from_file("config.yaml", ["/etc/totem", "~/.totem", "./"])
     # ```
-    def self.from_file(file : String, paths : Array(String)? = nil, key_delimiter : String? = ".")
+    def self.from_file(file : String, paths : Array(String)? = nil,
+                       environment : String? = nil, key_delimiter : String? = KEY_DELIMITER)
       config_name = File.basename(file, File.extname(file))
       config_type = Utils.config_type(file)
       instance = new(config_name, config_type, key_delimiter: key_delimiter)
@@ -33,20 +38,17 @@ module Totem
         instance.config_paths << File.dirname(file)
       end
 
+      instance.config_env = environment
       instance.load!
       instance
     end
 
     # Parse configuration from a raw string.
-    def self.parse(raw : String, type : String, key_delimiter : String? = ".")
+    def self.parse(raw : String, type : String, key_delimiter : String? = KEY_DELIMITER)
       instance = new(config_type: type, key_delimiter: key_delimiter)
       instance.parse(raw)
       instance
     end
-
-    CONFIG_NAME = "config"
-    CONFIG_ENVS = %w(development test production)
-    KEY_DELIMITER = "."
 
     getter config_file : String?
     property config_paths

@@ -41,38 +41,47 @@ describe Totem do
 
   describe ".from_file" do
     describe "use json file" do
-      it "without paths" do
+      it "should works without paths" do
         t = Totem.from_file File.join(fixture_path, "config.json")
         json_spec_group t
       end
 
-      it "with paths" do
+      it "should works with paths" do
         t = Totem.from_file "config.json", [".", "~/", fixture_path]
         json_spec_group t
       end
     end
 
-    it "use yaml file" do
-      it "without paths" do
+    describe "use yaml file" do
+      it "should works without paths" do
         t = Totem.from_file File.join(fixture_path, "config.yaml")
         yaml_spec_group t
       end
 
-      it "with paths" do
+      it "should works with paths" do
         t = Totem.from_file "config.yaml", [".", fixture_path, "~/"]
         yaml_spec_group t
       end
     end
 
-    it "use env file" do
-      it "without paths" do
+    describe "use env file" do
+      it "should works without paths" do
         t = Totem.from_file File.join(fixture_path, "config.env")
         env_spec_group t
       end
 
-      it "with paths" do
+      it "should works with paths" do
         t = Totem.from_file "config.env", [".", fixture_path, "~/"]
         env_spec_group t
+      end
+    end
+
+    describe "use environment" do
+      it "should works" do
+        t = Totem.from_file "config.yaml", [File.join(fixture_path, "envs")], "development"
+        t.get("host").should eq "localhost"
+        t.get("port").should eq 3306
+        t.get("database").should eq "totem_development"
       end
     end
   end
