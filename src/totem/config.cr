@@ -715,7 +715,7 @@ module Totem
 
     private def default_logger_formatter
       Logger::Formatter.new do |severity, datetime, _, message, io|
-        io << severity << " " << datetime.to_s("%F %T") << " " << message
+        io << sprintf("%-6s", severity) << datetime.to_s("%F %T") << " " << message
       end
     end
 
