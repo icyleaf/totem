@@ -15,8 +15,8 @@ module Totem
     include Totem::Utils::FileHelper
     include Totem::Utils::HashHelper
 
-    CONFIG_NAME = "config"
-    CONFIG_ENVS = %w(development test production)
+    CONFIG_NAME   = "config"
+    CONFIG_ENVS   = %w(development test production)
     KEY_DELIMITER = "."
 
     # Load configuration from a file
@@ -65,7 +65,6 @@ module Totem
                    @config_paths : Array(String) = [] of String,
                    @config_env : String? = nil, @config_envs = CONFIG_ENVS,
                    @key_delimiter = KEY_DELIMITER)
-
       @logger = Logger.new(STDOUT, Logger::ERROR, formatter: default_logger_formatter)
       @debugging = false
       @automatic_env = false
