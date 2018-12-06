@@ -355,7 +355,9 @@ module Totem
       @config_file = file
       @config_type = config_type(file)
 
-      parse(File.open(file))
+      File.open(file) do |io|
+        parse(io)
+      end
     end
 
     # Store the current configuration to a file.
