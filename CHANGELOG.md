@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 > TODO
 
+## [0.5.2] (2018-12-07)
+
 ### Added
 
 - Add environment support. (see [#13](https://github.com/icyleaf/totem/issues/13))
@@ -18,6 +20,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Optimize search config performance.
 - Formatted sevrity in logger.
+
+### Fixed
+
+- Close IO after read the content.
 
 ## [0.5.1] (2018-11-06)
 
@@ -82,7 +88,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 :star2:First beta version:star2:
 
-[Unreleased]: https://github.com/icyleaf/totem/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/icyleaf/totem/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/icyleaf/totem/compare/v0.5.0...v0.5.2
 [0.5.1]: https://github.com/icyleaf/totem/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/icyleaf/totem/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/icyleaf/totem/compare/v0.3.0...v0.4.0
