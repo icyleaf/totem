@@ -60,8 +60,25 @@ module Totem
 
     # Adapter of config type
     abstract class Adapter
-      abstract def read(raw : String | IO) : Hash(String, Totem::Any::Type)
+      abstract def read(raw : String | IO) : Hash(String, Totem::Any)
       abstract def write(io : File, config : Config)
+
+      protected def cast_to_any_hash(hash : Hash(_, Totem::Any::Type))
+        hash.each_with_object(Hash(String, Totem::Any).new) do |(key, value), obj|
+          key = case key
+                when String
+                  key
+                when ::JSON::Any
+                  key.as_s
+                when ::YAML::Any
+                  key.as_s
+                else
+                  key.to_s
+                end
+
+          obj[key] = Totem::Any.new(value)
+        end
+      end
     end
   end
 end
