@@ -18,9 +18,13 @@ module Totem
     def initialize(raw : Hash(String, _))
       @raw = Hash(String, Any).new.tap do |obj|
         raw.each do |key, value|
-          obj[key] = Any.new(value)
+          obj[key] = value.is_a?(Any) ? value.as(Any) : Any.new(value)
         end
       end
+    end
+
+    def initialize(raw : Any)
+      @raw = raw.raw
     end
 
     def as_i?
