@@ -127,7 +127,7 @@ describe Totem::Config do
         end
       end
 
-      it "use yaml file" do
+      describe "use yaml file" do
         it "without paths" do
           t = Totem::Config.from_file File.join(fixture_path, "config.yaml")
           yaml_spec_group t
@@ -139,7 +139,7 @@ describe Totem::Config do
         end
       end
 
-      it "use env file" do
+      describe "use env file" do
         it "without paths" do
           t = Totem::Config.from_file File.join(fixture_path, "config.env")
           env_spec_group t
