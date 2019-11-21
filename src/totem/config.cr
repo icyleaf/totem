@@ -297,7 +297,7 @@ module Totem
     # totem.add_remote(endpoint: "redis://user:pass@localhost:6379/1", path: "config:production.json")
     # totem.get("user:id") # => "123"
     # ```
-    def add_remote(provider : String? = nil, **options)
+    def add_remote(*, provider : String? = nil, **options)
       raise RemoteProviderError.new("Missing the endpoint") unless endpoint = options[:endpoint]?
 
       provider = URI.parse(endpoint.not_nil!).scheme unless provider
