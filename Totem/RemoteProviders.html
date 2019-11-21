@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.27.0">
+<meta name="generator" content="Crystal Docs 0.30.1">
 
 
 <link href="../css/style.css" rel="stylesheet" type="text/css">
@@ -228,21 +228,21 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L3" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L3" target="_blank">
         totem/remote_providers.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers/etcd.cr#L4" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers/etcd.cr#L4" target="_blank">
         totem/remote_providers/etcd.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers/redis.cr#L4" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers/redis.cr#L4" target="_blank">
         totem/remote_providers/redis.cr
       </a>
     
@@ -259,21 +259,21 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#%5B%5D%28name%3AString%29-class-method" class="signature"><strong>.[]</strong>(name : String)</a>
+        <a href="#[](name:String)-class-method" class="signature"><strong>.[]</strong>(name : String)</a>
         
           <div class="summary"><p>Returns the value for the key given by <em>key</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method" class="signature"><strong>.connect</strong>(name : String, **options)</a>
+        <a href="#connect(name:String,**options)-class-method" class="signature"><strong>.connect</strong>(name : String, **options)</a>
         
           <div class="summary"><p>Connect remote provider with options</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#has_key%3F%28key%29-class-method" class="signature"><strong>.has_key?</strong>(key)</a>
+        <a href="#has_key?(key)-class-method" class="signature"><strong>.has_key?</strong>(key)</a>
         
           <div class="summary"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
         
@@ -287,7 +287,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#register_adapter%28name%3AString%2Cadapter%3AAdapter.class%29-class-method" class="signature"><strong>.register_adapter</strong>(name : String, adapter : Adapter.class)</a>
+        <a href="#register_adapter(name:String,adapter:Adapter.class)-class-method" class="signature"><strong>.register_adapter</strong>(name : String, adapter : <span class="t">Adapter</span>.<span class="k">class</span>)</a>
         
           <div class="summary"><p>Registe remote provider with name</p></div>
         
@@ -315,15 +315,18 @@
         
         def self.<strong>[]</strong>(name : String)
 
-        <a class="method-permalink" href="#%5B%5D%28name%3AString%29-class-method">#</a>
+        <a class="method-permalink" href="#[](name:String)-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the value for the key given by <em>key</em>.</p></div>
+        <div class="doc">
+          
+          <p>Returns the value for the key given by <em>key</em>.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -333,15 +336,18 @@
         
         def self.<strong>connect</strong>(name : String, **options)
 
-        <a class="method-permalink" href="#connect%28name%3AString%2C%2A%2Aoptions%29-class-method">#</a>
+        <a class="method-permalink" href="#connect(name:String,**options)-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Connect remote provider with options</p></div>
+        <div class="doc">
+          
+          <p>Connect remote provider with options</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -351,15 +357,18 @@
         
         def self.<strong>has_key?</strong>(key)
 
-        <a class="method-permalink" href="#has_key%3F%28key%29-class-method">#</a>
+        <a class="method-permalink" href="#has_key?(key)-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p></div>
+        <div class="doc">
+          
+          <p>Returns <code>true</code> when key given by <em>key</em> exists, otherwise <code>false</code>.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -372,12 +381,15 @@
         <a class="method-permalink" href="#keys-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code>Array</code> with all the keys.</p></div>
+        <div class="doc">
+          
+          <p>Returns a new <code>Array</code> with all the keys.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -385,19 +397,22 @@
     <div class="entry-detail" id="register_adapter(name:String,adapter:Adapter.class)-class-method">
       <div class="signature">
         
-        def self.<strong>register_adapter</strong>(name : String, adapter : Adapter.class)
+        def self.<strong>register_adapter</strong>(name : String, adapter : <span class="t">Adapter</span>.<span class="k">class</span>)
 
-        <a class="method-permalink" href="#register_adapter%28name%3AString%2Cadapter%3AAdapter.class%29-class-method">#</a>
+        <a class="method-permalink" href="#register_adapter(name:String,adapter:Adapter.class)-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Registe remote provider with name</p>
+        <div class="doc">
+          
+          <p>Registe remote provider with name</p>
 
-<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_adapter(<span class="s">&quot;redis&quot;</span>, <span class="t">Totem</span><span class="t">::</span><span class="t">RemoteProvider</span><span class="t">::</span><span class="t">Redis</span>)</code></pre></div>
+<pre><code><span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_adapter(<span class="s">&quot;redis&quot;</span>, <span class="t">Totem</span><span class="t">::</span><span class="t">RemoteProvider</span><span class="t">::</span><span class="t">Redis</span>)</code></pre>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/1cac54921714e245e300e4e061a5744c40647b5c/src/totem/remote_providers.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/d50ff3b5388c1de60dcdb934ba8f89635b0307d6/src/totem/remote_providers.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
