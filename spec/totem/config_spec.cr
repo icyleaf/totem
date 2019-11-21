@@ -127,7 +127,7 @@ describe Totem::Config do
         end
       end
 
-      it "use yaml file" do
+      describe "use yaml file" do
         it "without paths" do
           t = Totem::Config.from_file File.join(fixture_path, "config.yaml")
           yaml_spec_group t
@@ -139,7 +139,7 @@ describe Totem::Config do
         end
       end
 
-      it "use env file" do
+      describe "use env file" do
         it "without paths" do
           t = Totem::Config.from_file File.join(fixture_path, "config.env")
           env_spec_group t
@@ -218,9 +218,9 @@ describe Totem::Config do
         t["unkown"]?.should be_nil
 
         t.set("super.deep.nested.key", "value")
-        t.["super"]?.not_nil!.raw.should be_a Hash(String, Totem::Any)
-        t.["super.deep.nested.key"]?.not_nil!.raw.should eq "value"
-        t.["super.deep.nested.key.subkey"]?.should be_nil
+        t["super"]?.not_nil!.raw.should be_a Hash(String, Totem::Any)
+        t["super.deep.nested.key"]?.not_nil!.raw.should eq "value"
+        t["super.deep.nested.key.subkey"]?.should be_nil
       end
     end
 
@@ -763,6 +763,7 @@ describe Totem::Config do
       end
     end
 
+    # FIXME: remove or keep it insid
     describe "with etcd" do
       it "should gets use key" do
         with_etcd do |endpoint|

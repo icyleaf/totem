@@ -61,8 +61,6 @@ def with_tempfile(*paths, file = __FILE__)
   begin
     yield *paths
   ensure
-    paths.each do |path|
-      FileUtils.rm_r(path) if File.exists?(path)
-    end
+    paths.each { |path| FileUtils.rm_r(path) if File.exists?(path) }
   end
 end

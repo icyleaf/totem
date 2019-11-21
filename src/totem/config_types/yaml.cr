@@ -3,11 +3,8 @@ require "yaml"
 module Totem::ConfigTypes
   # Builtin YAML format config type
   class YAML < Adapter
-    def read(raw)
-      data = ::YAML.parse(raw).as_h
-      data.each_with_object(Hash(String, ::YAML::Any).new) do |(key, value), obj|
-        obj[key.to_s] = value
-      end
+    def read(raw) : Hash(String, Totem::Any)
+      cast_to_any_hash(::YAML.parse(raw).as_h)
     end
 
     def write(io, config)

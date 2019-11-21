@@ -18,9 +18,13 @@ module Totem
     def initialize(raw : Hash(String, _))
       @raw = Hash(String, Any).new.tap do |obj|
         raw.each do |key, value|
-          obj[key] = Any.new(value)
+          obj[key] = value.is_a?(Any) ? value.as(Any) : Any.new(value)
         end
       end
+    end
+
+    def initialize(raw : Any)
+      @raw = raw.raw
     end
 
     def as_i?
@@ -142,6 +146,13 @@ module Totem
       end
 
       raise Error.new("Expected Totem::Any for #[](index : Int), not #{@raw.class}")
+    end
+
+    def []=(key : String, value : _)
+      raise Error.new("Expected Totem::Any for Hash, not #{@raw.class}") unless as_h?
+
+      value = Any.new(value) unless value.is_a?(Any)
+      as_h[key] = value
     end
 
     def [](key : String) : Any
