@@ -5,8 +5,8 @@ module Totem::ConfigTypes
   #
   # **Note**: It dependency [poncho](https://github.com/icyleaf/poncho) shard. Install it before use.
   class Env < Adapter
-    def read(raw)
-      Poncho.parse(raw).to_h
+    def read(raw : String | IO) : Hash(String, Totem::Any)
+      cast_to_any_hash(Poncho.parse(raw).to_h)
     end
 
     def write(io, config)

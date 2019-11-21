@@ -18,11 +18,11 @@ describe Totem::ConfigTypes::JSON do
 EOF
 
     data["id"].should eq 123
-    data["user"].should be_a ::JSON::Any
-    data["user"].as_h.should be_a Hash(String, ::JSON::Any)
+    data["user"].should be_a Totem::Any
+    data["user"].as_h.should be_a Hash(String, Totem::Any)
     data["user"].as_h["name"].should eq "foo"
-    data["tags"].should be_a ::JSON::Any
-    data["tags"].as_a.should be_a Array(::JSON::Any)
+    data["tags"].should be_a Totem::Any
+    data["tags"].as_a.should be_a Array(Totem::Any)
     data["tags"].as_a.first.should eq "profile"
   end
 

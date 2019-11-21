@@ -319,7 +319,7 @@ totem.get("user:id").as_i   # => 123
 
 #### Use etcd
 
-It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard. Install it before use.
+It dependency [etcd-crystal](https://github.com/icyleaf/etcd-crystal) shard and ONLY works etcd API `v2`. Install it before use.
 
 ```crystal
 require "totem"
