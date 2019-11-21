@@ -26,20 +26,19 @@ EOF
     data["tags"].as_a.first.should eq "profile"
   end
 
-  # FIXME: depend on config parse
-  # it "should writes" do
-  #   totem = Totem.from_json json_raw
-  #   adapter = Totem::ConfigTypes::JSON.new
+  it "should writes" do
+    totem = Totem.from_json json_raw
+    adapter = Totem::ConfigTypes::JSON.new
 
-  #   with_tempfile("config.json") do |path|
-  #     File.open(path, "w") do |file|
-  #       adapter.write(file, totem)
-  #     end
+    with_tempfile("config.json") do |path|
+      File.open(path, "w") do |file|
+        adapter.write(file, totem)
+      end
 
-  #     data = ::JSON.parse(File.read(path)).as_h
-  #     data.each do |key, value|
-  #       totem[key].should eq value.raw
-  #     end
-  #   end
-  # end
+      data = ::JSON.parse(File.read(path)).as_h
+      data.each do |key, value|
+        totem[key].should eq value.raw
+      end
+    end
+  end
 end

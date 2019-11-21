@@ -23,20 +23,19 @@ EOF
     data["tags"].as_a.first.should eq "profile"
   end
 
-  # FIXME: depend on config parse
-  # it "should writes" do
-  #   totem = Totem.from_yaml yaml_raw
-  #   adapter = Totem::ConfigTypes::YAML.new
+  it "should writes" do
+    totem = Totem.from_yaml yaml_raw
+    adapter = Totem::ConfigTypes::YAML.new
 
-  #   with_tempfile("config.yaml") do |path|
-  #     File.open(path, "w") do |file|
-  #       adapter.write(file, totem)
-  #     end
+    with_tempfile("config.yaml") do |path|
+      File.open(path, "w") do |file|
+        adapter.write(file, totem)
+      end
 
-  #     data = ::YAML.parse(File.read(path)).as_h
-  #     data.each do |key, value|
-  #       totem[key.to_s].should eq value.raw
-  #     end
-  #   end
-  # end
+      data = ::YAML.parse(File.read(path)).as_h
+      data.each do |key, value|
+        totem[key.to_s].should eq value.raw
+      end
+    end
+  end
 end

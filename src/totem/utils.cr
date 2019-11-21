@@ -31,13 +31,12 @@ module Totem
         end
       end
 
-      def deep_search(source : Hash(String, String | Any), paths : Array(String)) : Hash(String, Any)
+      def deep_search(source : Hash(String, String | Any), paths : Array(String)) : Any | Hash(String, Any)
         paths.each do |path|
           subtree = source[path]?
-
           unless subtree
-            hash = Hash(String, Any).new
-            source[path] = Any.new(hash)
+            hash = Totem::Any.new(Hash(String, Any).new)
+            source[path] = hash
             source = hash
             next
           end

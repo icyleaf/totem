@@ -218,9 +218,9 @@ describe Totem::Config do
         t["unkown"]?.should be_nil
 
         t.set("super.deep.nested.key", "value")
-        t.["super"]?.not_nil!.raw.should be_a Hash(String, Totem::Any)
-        t.["super.deep.nested.key"]?.not_nil!.raw.should eq "value"
-        t.["super.deep.nested.key.subkey"]?.should be_nil
+        t["super"]?.not_nil!.raw.should be_a Hash(String, Totem::Any)
+        t["super.deep.nested.key"]?.not_nil!.raw.should eq "value"
+        t["super.deep.nested.key.subkey"]?.should be_nil
       end
     end
 
@@ -763,44 +763,45 @@ describe Totem::Config do
       end
     end
 
-    describe "with etcd" do
-      it "should gets use key" do
-        with_etcd do |endpoint|
-          t = Totem::Config.new
-          t.add_remote provider: "etcd", endpoint: endpoint
-          t.get("/name").should eq "foo"
-          t.get("name").should eq "foo"
-          t.get("config/development.json").should eq json_raw
-          t.get("config/development").should eq json_raw
-        end
-      end
+    # FIXME: remove or keep it insid
+    # describe "with etcd" do
+    #   it "should gets use key" do
+    #     with_etcd do |endpoint|
+    #       t = Totem::Config.new
+    #       t.add_remote provider: "etcd", endpoint: endpoint
+    #       t.get("/name").should eq "foo"
+    #       t.get("name").should eq "foo"
+    #       t.get("config/development.json").should eq json_raw
+    #       t.get("config/development").should eq json_raw
+    #     end
+    #   end
 
-      it "should gets use path with extname" do
-        with_etcd do |endpoint|
-          t = Totem::Config.new
-          t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development.json"
-          json_spec_group t
-        end
-      end
+    #   it "should gets use path with extname" do
+    #     with_etcd do |endpoint|
+    #       t = Totem::Config.new
+    #       t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development.json"
+    #       json_spec_group t
+    #     end
+    #   end
 
-      it "should gets use path without extname" do
-        with_etcd do |endpoint|
-          t = Totem::Config.new
-          t.config_type = "json"
-          t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
-          json_spec_group t
-        end
-      end
+    #   it "should gets use path without extname" do
+    #     with_etcd do |endpoint|
+    #       t = Totem::Config.new
+    #       t.config_type = "json"
+    #       t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
+    #       json_spec_group t
+    #     end
+    #   end
 
-      it "throws an exception use path without extname and config_type" do
-        with_etcd do |endpoint|
-          t = Totem::Config.new
-          expect_raises Totem::RemoteProviderError do
-            t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
-          end
-        end
-      end
-    end
+    #   it "throws an exception use path without extname and config_type" do
+    #     with_etcd do |endpoint|
+    #       t = Totem::Config.new
+    #       expect_raises Totem::RemoteProviderError do
+    #         t.add_remote provider: "etcd", endpoint: endpoint, path: "/config/development"
+    #       end
+    #     end
+    #   end
+    # end
 
     it "throws an exception when unmatched provider name" do
       t = Totem::Config.new

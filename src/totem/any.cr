@@ -148,6 +148,13 @@ module Totem
       raise Error.new("Expected Totem::Any for #[](index : Int), not #{@raw.class}")
     end
 
+    def []=(key : String, value : _)
+      raise Error.new("Expected Totem::Any for Hash, not #{@raw.class}") unless as_h?
+
+      value = Any.new(value) unless value.is_a?(Any)
+      as_h[key] = value
+    end
+
     def [](key : String) : Any
       if value = self.[key]?
         return value

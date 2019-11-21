@@ -70,11 +70,11 @@ module Totem
       @automatic_env = false
 
       @aliases = Hash(String, String).new
-      @overrides = Hash(String, Any).new
-      @config = Hash(String, Any).new
+      @overrides = Hash(String, Totem::Any).new
+      @config = Hash(String, Totem::Any).new
       @env = Hash(String, String).new
-      @kvstores = Hash(String, Any).new
-      @defaults = Hash(String, Any).new
+      @kvstores = Hash(String, Totem::Any).new
+      @defaults = Hash(String, Totem::Any).new
     end
 
     # Sets the default values with `Hash` data
@@ -547,9 +547,9 @@ module Totem
         next unless value = find(key)
 
         paths = key.split(@key_delimiter)
-        last_key = paths.last.downcase
+        last_key = paths.pop.downcase
 
-        hash = deep_search(obj, paths[0..-2])
+        hash = deep_search(obj, paths)
         hash[last_key] = value
       end
     end
@@ -563,9 +563,8 @@ module Totem
       key = real_key(key.downcase)
 
       paths = key.split(@key_delimiter)
-      last_key = paths.last.downcase
-
-      deep_hash = deep_search(source, paths[0..-2])
+      last_key = paths.pop.downcase
+      deep_hash = deep_search(source, paths)
       deep_hash[last_key] = Any.new(value)
     end
 
