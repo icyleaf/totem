@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.30.1">
+<meta name="generator" content="Crystal Docs 0.31.1">
 
-
-<link href="css/style.css" rel="stylesheet" type="text/css">
-
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/doc.js"></script>
-<script type="text/javascript">
-  CrystalDoc.base_path = "";
-</script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 
   <meta id="repository-name" content="github.com/icyleaf/totem">
   <title>README - github.com/icyleaf/totem</title>
+  <script type="text/javascript">
+  CrystalDoc.base_path = "";
+  </script>
 </head>
 <body>
 
@@ -200,7 +204,11 @@
 <div class="main-content">
 <p><img src="https://github.com/icyleaf/totem/raw/master/logo-small.png" alt="totem-logo"/></p>
 
-<h1>Totem</h1>
+<h1><a id="totem" class="anchor" href="#totem">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Totem</h1>
 
 <p><a href="https://github.com/crystal-lang/crystal" target="_blank"><img src="https://img.shields.io/badge/language-crystal-776791.svg" alt="Language"/></a>
 <a href="https://github.com/icyleaf/totem/blob/master/CHANGELOG.md" target="_blank"><img src="https://img.shields.io/github/tag/icyleaf/totem.svg" alt="Tag"/></a>
@@ -229,7 +237,11 @@ Only JSON and YAML adapters were auto requires.</p>
 
 <p>&lt;!-- /TOC --></p>
 
-<h2>Installation</h2>
+<h2><a id="installation" class="anchor" href="#installation">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Installation</h2>
 
 <p>Add this to your application's <code>shard.yml</code>:</p>
 
@@ -237,11 +249,19 @@ Only JSON and YAML adapters were auto requires.</p>
   totem:
     github: icyleaf/totem</code></pre>
 
-<h2>Quick Start</h2>
+<h2><a id="quick-start" class="anchor" href="#quick-start">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Quick Start</h2>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span></code></pre>
 
-<h3>Operating configuration</h3>
+<h3><a id="operating-configuration" class="anchor" href="#operating-configuration">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Operating configuration</h3>
 
 <pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>
 totem.set_default(<span class="s">&quot;name&quot;</span>, <span class="s">&quot;foo&quot;</span>)
@@ -262,11 +282,19 @@ totem.<span class="k">alias</span>(alias_key: <span class="s">&quot;key&quot;</s
 totem.get(<span class="s">&quot;name&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span>
 totem.get(<span class="s">&quot;key&quot;</span>).as_s <span class="c"># =&gt; &quot;bar&quot;</span></code></pre>
 
-<h3>Loading configuration</h3>
+<h3><a id="loading-configuration" class="anchor" href="#loading-configuration">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Loading configuration</h3>
 
 <p>Support <code>JSON</code>, <code>YAML</code> and dotenv data from raw string and file.</p>
 
-<h4>From raw string</h4>
+<h4><a id="from-raw-string" class="anchor" href="#from-raw-string">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>From raw string</h4>
 
 <p>Load yaml string</p>
 
@@ -344,7 +372,11 @@ totem.get(<span class="s">&quot;str_with_comments&quot;</span>)      <span class
 totem.get(<span class="s">&quot;str_with_hash_symbol&quot;</span>)   <span class="c"># =&gt; &quot;abc#123&quot;</span>
 totem.get(<span class="s">&quot;int&quot;</span>)                    <span class="c"># =&gt; &quot;33&quot;</span></code></pre>
 
-<h4>From file</h4>
+<h4><a id="from-file" class="anchor" href="#from-file">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>From file</h4>
 
 <blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter if you need load dotenv file.</blockquote>
 
@@ -357,9 +389,17 @@ totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span clas
 <span class="c"># Load dotenv file</span>
 totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;config.env&quot;</span></code></pre>
 
-<h2>Usage</h2>
+<h2><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h2>
 
-<h3>Load configuration with multiple paths</h3>
+<h3><a id="load-configuration-with-multiple-paths" class="anchor" href="#load-configuration-with-multiple-paths">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Load configuration with multiple paths</h3>
 
 <p>Totem can search multiple paths, but currently a single Totem instance only supports a single
 configuration file.</p>
@@ -373,7 +413,11 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;./confi
   puts <span class="s">&quot;Fatal error config file: </span><span class="i">#{</span>e.message<span class="i">}</span><span class="s">&quot;</span>
 <span class="k">end</span></code></pre>
 
-<h3>Set Alias and using alias</h3>
+<h3><a id="set-alias-and-using-alias" class="anchor" href="#set-alias-and-using-alias">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Set Alias and using alias</h3>
 
 <p>Aliases permit a single value to be referenced by multiple keys</p>
 
@@ -385,7 +429,11 @@ totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;bar
 totem.get(<span class="s">&quot;name&quot;</span>)       <span class="c"># =&gt; &quot;foo&quot;</span>
 totem.get(<span class="s">&quot;nickname&quot;</span>)   <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
 
-<h3>Working with nested key</h3>
+<h3><a id="working-with-nested-key" class="anchor" href="#working-with-nested-key">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Working with nested key</h3>
 
 <p>All accessor methods accept nested key:</p>
 
@@ -395,7 +443,11 @@ totem.<span class="k">alias</span>(<span class="s">&quot;username&quot;</span>, 
 totem.bind_env(<span class="s">&quot;profile.user.nickname&quot;</span>, <span class="s">&quot;PROFILE_USER_NICKNAME&quot;</span>)
 totem.get(<span class="s">&quot;profile.user.age&quot;</span>)</code></pre>
 
-<h3>Working with envoriment variables</h3>
+<h3><a id="working-with-envoriment-variables" class="anchor" href="#working-with-envoriment-variables">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Working with envoriment variables</h3>
 
 <p>Totem has full support for environment variables, example:</p>
 
@@ -425,12 +477,20 @@ totem.get(<span class="s">&quot;id&quot;</span>).as_i    <span class="c"># =&gt;
 totem.get(<span class="s">&quot;food&quot;</span>).as_s  <span class="c"># =&gt; &quot;Pinapple&quot;</span>
 totem.get(<span class="s">&quot;name&quot;</span>).as_s  <span class="c"># =&gt; &quot;Polly&quot;</span></code></pre>
 
-<h3>Working with remote providers</h3>
+<h3><a id="working-with-remote-providers" class="anchor" href="#working-with-remote-providers">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Working with remote providers</h3>
 
 <p>Totem retrieve configuration from Key-Value store, which means that you can get your configuration values on the air.
 Avaliable providers is <code>redis</code> and <code>etcd</code>.</p>
 
-<h4>Use redis</h4>
+<h4><a id="use-redis" class="anchor" href="#use-redis">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Use redis</h4>
 
 <p>It dependency <a href="https://github.com/stefanwille/crystal-redis" target="_blank">crystal-redis</a> shard. Install it before use.</p>
 
@@ -451,7 +511,11 @@ totem.add_remote(provider: <span class="s">&quot;redis&quot;</span>, endpoint: <
 totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
 totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
 
-<h4>Use etcd</h4>
+<h4><a id="use-etcd" class="anchor" href="#use-etcd">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Use etcd</h4>
 
 <p>It dependency <a href="https://github.com/icyleaf/etcd-crystal" target="_blank">etcd-crystal</a> shard and ONLY works etcd <code>v2</code> API. Install it before use.</p>
 
@@ -472,7 +536,11 @@ totem.add_remote(provider: <span class="s">&quot;etcd&quot;</span>, endpoint: <s
 totem.get(<span class="s">&quot;user:name&quot;</span>)      <span class="c"># =&gt; &quot;foo&quot;</span>
 totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =&gt; 123</span></code></pre>
 
-<h3>Iterating configuration</h3>
+<h3><a id="iterating-configuration" class="anchor" href="#iterating-configuration">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Iterating configuration</h3>
 
 <p>Iterate in Totem is very easy, you can get <code>#keys</code>, <code>#flat_keys</code>, <code>#settings</code> (a.k.a <code>#to_h</code>) even iterating it directly with <code>#each</code>:</p>
 
@@ -484,7 +552,11 @@ totem.each <span class="k">do</span> <span class="o">|</span>key, value<span cla
   <span class="c"># do something</span>
 <span class="k">end</span></code></pre>
 
-<h3>Serialization</h3>
+<h3><a id="serialization" class="anchor" href="#serialization">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Serialization</h3>
 
 <p>Serialize configuration to <code>Struct</code>, at current stage you can pass a <code>JSON::Serializable</code>/<code>YAML::Serializable</code> struct to mapping.</p>
 
@@ -518,7 +590,11 @@ totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span clas
 clothes <span class="o">=</span> profile.mapping(<span class="t">Clothes</span>, <span class="s">&quot;clothing&quot;</span>)
 <span class="c"># =&gt; Clothes(@jacket=&quot;leather&quot;, @pants={&quot;size&quot; =&gt; &quot;large&quot;}, @trousers=&quot;denim&quot;)</span></code></pre>
 
-<h3>Storing configuration to file</h3>
+<h3><a id="storing-configuration-to-file" class="anchor" href="#storing-configuration-to-file">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Storing configuration to file</h3>
 
 <p>Simple to use <code>#store!</code> method.</p>
 
@@ -543,9 +619,17 @@ totem.set(<span class="s">&quot;nickname&quot;</span>, <span class="s">&quot;Fre
 totem.set(<span class="s">&quot;eyes&quot;</span>, <span class="s">&quot;blue&quot;</span>)
 totem.store!(<span class="s">&quot;profile.json&quot;</span>)</code></pre>
 
-<h2>Advanced Usage</h2>
+<h2><a id="advanced-usage" class="anchor" href="#advanced-usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Advanced Usage</h2>
 
-<h3>Use config builder</h3>
+<h3><a id="use-config-builder" class="anchor" href="#use-config-builder">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Use config builder</h3>
 
 <p>You can generate a configuration with Totem builder with any <strong>Object</strong>.</p>
 
@@ -584,7 +668,11 @@ profile <span class="o">=</span> <span class="t">Profile</span>.configure
 profile.name          <span class="c"># =&gt; &quot;steve&quot;</span>
 profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
 
-<h3>Write a config adapter</h3>
+<h3><a id="write-a-config-adapter" class="anchor" href="#write-a-config-adapter">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Write a config adapter</h3>
 
 <p>Creating the custom adapter by integration <code><a href="Totem/ConfigTypes/Adapter.html">Totem::ConfigTypes::Adapter</a></code> abstract class. Here has two methods must be implement:
 <code>read</code> and <code>write</code>. For example, let us write a INI adapter:</p>
@@ -614,14 +702,26 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 
 <p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types" target="_blank">built-in adapters</a>.</p>
 
-<h3>Write a remote provider</h3>
+<h3><a id="write-a-remote-provider" class="anchor" href="#write-a-remote-provider">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Write a remote provider</h3>
 
 <p>Creating the custom remote provider by integration <code><a href="Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></code> abstract class. Here has two methods must be implement:
 <code>read</code> and <code>get</code>, please reivew the <a href="https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers" target="_blank">built-in remote providers</a>.</p>
 
-<h2>Q & A</h2>
+<h2><a id="q-a" class="anchor" href="#q-a">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Q & A</h2>
 
-<h3>How to debug?</h3>
+<h3><a id="how-to-debug" class="anchor" href="#how-to-debug">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>How to debug?</h3>
 
 <p>You can use Crystal built-in <code>#pp</code> or <code>#pp!</code> method to prints a series of instance variables:</p>
 
@@ -638,7 +738,11 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
  @env<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;TOTEM_NAME&quot;</span>},
  @defaults<span class="o">=</span>{<span class="s">&quot;name&quot;</span> => <span class="s">&quot;alana&quot;</span>}<span class="o">&gt;</span></code></pre>
 
-<h2>Help and Discussion</h2>
+<h2><a id="help-and-discussion" class="anchor" href="#help-and-discussion">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Help and Discussion</h2>
 
 <p>You can browse the API documents:</p>
 
@@ -652,7 +756,11 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 
 <p>https://github.com/icyleaf/totem/issues/new</p>
 
-<h2>Donate</h2>
+<h2><a id="donate" class="anchor" href="#donate">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Donate</h2>
 
 <p>Totem is a open source, collaboratively funded project. If you run a business and are using Totem in a revenue-generating product,
 it would make business sense to sponsor Totem development. Individual users are also welcome to make a one time donation
@@ -660,17 +768,29 @@ if Totem has helped you in your work or personal projects.</p>
 
 <p>You can donate via <a href="https://www.paypal.me/icyleaf/5" target="_blank">Paypal</a>.</p>
 
-<h2>How to Contribute</h2>
+<h2><a id="how-to-contribute" class="anchor" href="#how-to-contribute">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>How to Contribute</h2>
 
 <p>Your contributions are always welcome! Please submit a pull request or create an issue to add a new question, bug or feature to the list.</p>
 
 <p>All <a href="https://github.com/icyleaf/totem/graphs/contributors" target="_blank">Contributors</a> are on the wall.</p>
 
-<h2>You may also like</h2>
+<h2><a id="you-may-also-like" class="anchor" href="#you-may-also-like">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>You may also like</h2>
 
 <ul><li><a href="https://github.com/icyleaf/halite" target="_blank">halite</a> - HTTP Requests Client with a chainable REST API, built-in sessions and middlewares.</li><li><a href="https://github.com/icyleaf/markd" target="_blank">markd</a> - Yet another markdown parser built for speed, Compliant to CommonMark specification.</li><li><a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> - A .env parser/loader improved for performance.</li><li><a href="https://github.com/icyleaf/popcorn" target="_blank">popcorn</a> - Easy and Safe casting from one type to another.</li><li><a href="https://github.com/icyleaf/fast-crystal" target="_blank">fast-crystal</a> - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.</li></ul>
 
-<h2>License</h2>
+<h2><a id="license" class="anchor" href="#license">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>License</h2>
 
 <p><a href="https://github.com/icyleaf/totem/blob/master/LICENSE" target="_blank">MIT License</a> © icyleaf</p>
 </div>
