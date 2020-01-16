@@ -253,7 +253,7 @@ totem.bind_env("profile.user.nickname", "PROFILE_USER_NICKNAME")
 totem.get("profile.user.age")
 ```
 
-### Working with envoriment variables
+### Working with environment variables
 
 Totem has full support for environment variables, example:
 
