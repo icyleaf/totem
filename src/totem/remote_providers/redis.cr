@@ -46,9 +46,9 @@ module Totem::RemoteProviders
 
     def get_hash(key : String)
       Hash(String, Any).new.tap do |obj|
-        @client.hgetall(key).each_slice(2) do |key_value|
-          key, value = key_value
-          obj[key.to_s] = handle_value(value)
+        @client.hgetall(key).each_slice(2) do |result|
+          name, value = result
+          obj[name.to_s] = handle_value(value)
         end
       end
     rescue ::Redis::Error
@@ -66,9 +66,9 @@ module Totem::RemoteProviders
 
     def get_zset(key : String)
       Hash(String, Any).new.tap do |obj|
-        @client.zrange(key, 0, -1, true).each_slice(2) do |key_value|
-          value, key = key_value
-          obj[key.to_s] = handle_value(value)
+        @client.zrange(key, 0, -1, true).each_slice(2) do |result|
+          value, name = result
+          obj[name.to_s] = handle_value(value)
         end
       end
     rescue ::Redis::Error

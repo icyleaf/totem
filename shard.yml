@@ -17,7 +17,7 @@ development_dependencies:
     version: ~> 0.3.0
   redis:
     github: stefanwille/crystal-redis
-    version: ~> 2.3.0
+    version: ~> 2.6.0
   etcd:
     github: icyleaf/etcd-crystal
     version: ~> 0.2.2
