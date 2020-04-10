@@ -128,6 +128,8 @@ module Totem
         object.as_s?
       when String
         object.as(String)
+      else
+        nil
       end
     end
 
