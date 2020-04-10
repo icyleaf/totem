@@ -1,4 +1,4 @@
-require "logger"
+require "log"
 require "uri"
 require "./utils"
 
@@ -59,13 +59,14 @@ module Totem
     property key_delimiter
     getter env_prefix : String?
 
+    @logger : Log
     @remote_provider : RemoteProviders::Adapter?
 
     def initialize(@config_name = CONFIG_NAME, @config_type : String? = nil,
                    @config_paths : Array(String) = [] of String,
                    @config_env : String? = nil, @config_envs = CONFIG_ENVS,
                    @key_delimiter = KEY_DELIMITER)
-      @logger = Logger.new(STDOUT, Logger::ERROR, formatter: default_logger_formatter)
+      @logger = default_logger
       @debugging = false
       @automatic_env = false
 
@@ -302,7 +303,7 @@ module Totem
 
       provider = URI.parse(endpoint.not_nil!).scheme unless provider
       if (name = provider) && RemoteProviders.has_key?(name)
-        @logger.info("Adding #{name}:#{endpoint} to remote config list")
+        @logger.info { "Adding #{name}:#{endpoint} to remote config list" }
         @remote_provider = RemoteProviders.connect(name, **options)
         kvstores = RemoteProviders[name].read(@config_type)
         if kvstores.nil? && (path = options[:path]?)
@@ -350,8 +351,8 @@ module Totem
     # end
     # ```
     def load_file!(file : String)
-      @logger.info("Attempting to read in config file")
-      @logger.debug("Reading file: #{file}")
+      @logger.info { "Attempting to read in config file" }
+      @logger.debug { "Reading file: #{file}" }
       @config_file = file
       @config_type = config_type(file)
 
@@ -395,7 +396,7 @@ module Totem
     # end
     # ```
     def store_file!(file : String, force : Bool = false)
-      @logger.info("Attempting to write configuration to file: #{file}")
+      @logger.info { "Attempting to write configuration to file: #{file}" }
 
       unless extname = config_type(file)
         raise "Requires vaild extension name with file: #{file}"
@@ -423,7 +424,7 @@ module Totem
       @config_envs = CONFIG_ENVS
       @key_delimiter = KEY_DELIMITER
 
-      @logger = Logger.new STDOUT, Logger::ERROR, formatter: default_logger_formatter
+      @logger = default_logger
       @debugging = false
       @automatic_env = false
 
@@ -437,7 +438,7 @@ module Totem
 
     # Debugging switch
     def debugging=(value : Bool)
-      @logger.level = value ? Logger::DEBUG : Logger::ERROR
+      @logger.level = value ? :debug : :error
       @debugging = value
     end
 
@@ -673,7 +674,7 @@ module Totem
     end
 
     private def find_config
-      @logger.debug("Searching for config in #{@config_paths}")
+      @logger.debug { "Searching for config in #{@config_paths}" }
       @config_paths.each do |path|
         if file = search_config(path)
           return file
@@ -686,11 +687,11 @@ module Totem
 
     private def search_config(path : String)
       unless Dir.exists?(path)
-        @logger.debug("Skip: config path is not exists in `#{path}`")
+        @logger.debug { "Skip: config path is not exists in `#{path}`" }
         return
       end
 
-      @logger.debug("Searching for config in `#{path}`")
+      @logger.debug { "Searching for config in `#{path}`" }
       if (config_type = @config_type) && (file = config_file(path, config_type))
         return file
       else
@@ -714,7 +715,7 @@ module Totem
       # Do not search in config envs if config_env was given a value
       return if @config_env
 
-      @logger.debug "Searching for config file in #{@config_envs}"
+      @logger.debug { "Searching for config file in #{@config_envs}" }
       @config_envs.each do |env_name|
         if file = find_file(path, extname, env_name)
           return file
@@ -726,10 +727,10 @@ module Totem
       filename = @config_name
       filename = "#{filename}.#{env_name}" if env_name
       file = File.join(path, "#{filename}.#{extname}")
-      @logger.debug("Checking for #{file}")
+      @logger.debug { "Checking for #{file}" }
 
       return unless File.exists?(file) && File.readable?(file)
-      @logger.debug("Found: #{file}")
+      @logger.debug { "Found: #{file}" }
       file
     end
 
@@ -737,7 +738,7 @@ module Totem
       key = key.downcase
       if @aliases.has_key?(key)
         new_key = @aliases[key]
-        @logger.debug("Alias #{key} to #{new_key}")
+        @logger.debug { "Alias #{key} to #{new_key}" }
         return new_key
       end
       key
@@ -747,10 +748,13 @@ module Totem
       ENV[env_key(key, @env_prefix)]?
     end
 
-    private def default_logger_formatter
-      Logger::Formatter.new do |severity, datetime, _, message, io|
-        io << sprintf("%-6s", severity) << datetime.to_s("%F %T") << " " << message
+    private def default_logger
+      backend = Log::IOBackend.new(STDOUT)
+      backend.formatter = Log::Formatter.new do |entry, io|
+        io << sprintf("%-6s", entry.severity) << entry.timestamp.to_s("%F %T") << " " << entry.message
       end
+
+      Log.new("totem", backend, :error)
     end
 
     # :nodoc:
