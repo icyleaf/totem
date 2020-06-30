@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 > TODO
 
+## [0.6.1] (2020-04-10)
+
+### Fixed
+
+- Compatibility with Crystal 0.34
+
+### Changed
+
+- Use `Log` instead of legacy `Logger` from Crystal 0.34 [#84](https://github.com/icyleaf/totem/pull/84)
+
 ## [0.6.0] (2019-11-21)
 
 Long time no see 🙇‍♂️
@@ -97,9 +107,10 @@ Long time no see 🙇‍♂️
 
 :star2:First beta version:star2:
 
-[Unreleased]: https://github.com/icyleaf/totem/compare/v0.6.0...HEAD
-[0.5.2]: https://github.com/icyleaf/totem/compare/v0.5.0...v0.6.0
-[0.5.2]: https://github.com/icyleaf/totem/compare/v0.5.0...v0.5.2
+[Unreleased]: https://github.com/icyleaf/totem/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/icyleaf/totem/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/icyleaf/totem/compare/v0.5.2...v0.6.0
+[0.5.2]: https://github.com/icyleaf/totem/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/icyleaf/totem/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/icyleaf/totem/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/icyleaf/totem/compare/v0.3.0...v0.4.0
