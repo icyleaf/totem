@@ -10,7 +10,7 @@ module Totem::RemoteProviders
       @client = ::Redis.new(url: endpoint)
     end
 
-    def read(config_type : String? = nil)
+    def read(config_type : String? = nil) : Hash(String, Totem::Any)?
       if (path = @path) && (value = get_str(path))
         return if value.nil? || value.empty?
         config_type = Utils.config_type(path) unless config_type

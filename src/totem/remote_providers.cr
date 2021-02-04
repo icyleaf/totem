@@ -37,7 +37,7 @@ module Totem
 
     # Adapter of remote provider
     abstract class Adapter
-      abstract def read(config_type : String? = nil) : Hash(String, Totem::Any::Type)?
+      abstract def read(config_type : String? = nil) : Hash(String, Totem::Any)?
       abstract def get(key : String) : Any?
     end
   end

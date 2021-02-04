@@ -28,22 +28,13 @@ jobs:
           name: "Install dependencies"
           command: shards install
       - run:
+          name: "Run code format check"
+          command: |
+            if ! crystal tool format --check; then
+              crystal tool format
+              git diff
+              exit 1
+            fi
+      - run:
           name: "Specs"
           command: crystal spec
-      - run:
-          name: "Generate API documents"
-          command: |
-            crystal docs
-      - deploy:
-          name: "Upload to gh-page"
-          command: |
-            git config --global user.name "$GIT_USER"
-            git config --global user.email "$GIT_EMAIL"
-            cd "${DOCS_PATH}"
-            git init
-            git remote add origin $GIT_REPO
-            git fetch origin
-            git reset origin/gh-pages
-            git add -A .
-            git commit --allow-empty -m "Updating documents"
-            git push origin HEAD:gh-pages
