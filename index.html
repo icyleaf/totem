@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="crystal_docs.project_version" content="refs/heads/master">
 <meta name="crystal_docs.project_name" content="totem">
+
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/doc.js"></script>
 
-<svg class="hidden">
-  <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-  </symbol>
-</svg>
-
-  <meta id="repository-name" content="totem">
-  <title>totem master</title>
+  <meta name="repository-name" content="totem">
+  <title>totem refs/heads/master</title>
   <script type="text/javascript">
   CrystalDocs.base_path = "";
   </script>
 </head>
 <body>
 
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -39,12 +39,12 @@
       </h1>
 
       <span class="project-version">
-        master
+        refs/heads/master
       </span>
     </div>
   </div>
 
-  <div class="search-results" class="hidden">
+  <div class="search-results hidden">
     <ul class="search-list"></ul>
   </div>
 
@@ -221,11 +221,11 @@
   </svg>
 </a>Totem</h1>
 
-<p><a href="https://github.com/crystal-lang/crystal" target="_blank"><img src="https://img.shields.io/badge/language-crystal-776791.svg" alt="Language"/></a>
-<a href="https://github.com/icyleaf/totem/blob/master/CHANGELOG.md" target="_blank"><img src="https://img.shields.io/github/tag/icyleaf/totem.svg" alt="Tag"/></a>
-<a href="https://circleci.com/gh/icyleaf/totem" target="_blank"><img src="https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat" alt="Build Status"/></a></p>
+<p><a href="https://github.com/crystal-lang/crystal"><img src="https://img.shields.io/badge/language-crystal-776791.svg" alt="Language"/></a>
+<a href="https://github.com/icyleaf/totem/blob/master/CHANGELOG.md"><img src="https://img.shields.io/github/tag/icyleaf/totem.svg" alt="Tag"/></a>
+<a href="https://circleci.com/gh/icyleaf/totem"><img src="https://img.shields.io/circleci/project/github/icyleaf/totem/master.svg?style=flat" alt="Build Status"/></a></p>
 
-<p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper" target="_blank">viper</a>. Totem Icon by lastspark from <a href="https://thenounproject.com" target="_blank">Noun Project</a>.</p>
+<p>Crystal configuration with spirit. Inspired from Go's <a href="https://github.com/spf13/viper">viper</a>. Totem Icon by lastspark from <a href="https://thenounproject.com">Noun Project</a>.</p>
 
 <p>Configuration file formats is always the problem, you want to focus on building awesome things. Totem is here to help with that.</p>
 
@@ -244,7 +244,7 @@ Only JSON and YAML adapters were auto requires.</p>
 
 <p>&lt;!-- TOC --></p>
 
-<ul><li><a href="#installation" target="_blank">Installation</a></li><li><a href="#quick-start" target="_blank">Quick Start</a></li><ul><li><a href="#operating-configuration" target="_blank">Operating configuration</a></li><li><a href="#loading-configuration" target="_blank">Loading configuration</a></li><li><a href="#from-raw-string" target="_blank">From raw string</a></li><li><a href="#from-file" target="_blank">From file</a></li></ul><li><a href="#usage" target="_blank">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths" target="_blank">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias" target="_blank">Set Alias and using alias</a></li><li><a href="#working-with-nested-key" target="_blank">Working with nested key</a></li><li><a href="#working-with-environment-variables" target="_blank">Working with environment variables</a></li><li><a href="#working-with-remote-providers" target="_blank">Working with remote providers</a></li><li><a href="#use-redis" target="_blank">Use redis</a></li><li><a href="#use-etcd" target="_blank">Use etcd</a></li><li><a href="#iterating-configuration" target="_blank">Iterating configuration</a></li><li><a href="#serialization" target="_blank">Serialization</a></li><li><a href="#storing-configuration-to-file" target="_blank">Storing configuration to file</a></li></ul><li><a href="#advanced-usage" target="_blank">Advanced Usage</a></li><ul><li><a href="#use-config-builder" target="_blank">Use config builder</a></li><li><a href="#write-a-config-adapter" target="_blank">Write a config adapter</a></li><li><a href="#write-a-remote-provider" target="_blank">Write a remote provider</a></li></ul><li><a href="#q--a" target="_blank">Q & A</a></li><ul><li><a href="#how-to-debug" target="_blank">How to debug?</a></li></ul><li><a href="#help-and-discussion" target="_blank">Help and Discussion</a></li><li><a href="#donate" target="_blank">Donate</a></li><li><a href="#how-to-contribute" target="_blank">How to Contribute</a></li><li><a href="#you-may-also-like" target="_blank">You may also like</a></li><li><a href="#license" target="_blank">License</a></li></ul>
+<ul><li><a href="#installation">Installation</a></li><li><a href="#quick-start">Quick Start</a></li><ul><li><a href="#operating-configuration">Operating configuration</a></li><li><a href="#loading-configuration">Loading configuration</a></li><li><a href="#from-raw-string">From raw string</a></li><li><a href="#from-file">From file</a></li></ul><li><a href="#usage">Usage</a></li><ul><li><a href="#load-configuration-with-multiple-paths">Load configuration with multiple paths</a></li><li><a href="#set-alias-and-using-alias">Set Alias and using alias</a></li><li><a href="#working-with-nested-key">Working with nested key</a></li><li><a href="#working-with-environment-variables">Working with environment variables</a></li><li><a href="#working-with-remote-providers">Working with remote providers</a></li><li><a href="#use-redis">Use redis</a></li><li><a href="#use-etcd">Use etcd</a></li><li><a href="#iterating-configuration">Iterating configuration</a></li><li><a href="#serialization">Serialization</a></li><li><a href="#storing-configuration-to-file">Storing configuration to file</a></li></ul><li><a href="#advanced-usage">Advanced Usage</a></li><ul><li><a href="#use-config-builder">Use config builder</a></li><li><a href="#write-a-config-adapter">Write a config adapter</a></li><li><a href="#write-a-remote-provider">Write a remote provider</a></li></ul><li><a href="#q--a">Q & A</a></li><ul><li><a href="#how-to-debug">How to debug?</a></li></ul><li><a href="#help-and-discussion">Help and Discussion</a></li><li><a href="#donate">Donate</a></li><li><a href="#how-to-contribute">How to Contribute</a></li><li><a href="#you-may-also-like">You may also like</a></li><li><a href="#license">License</a></li></ul>
 
 <p>&lt;!-- /TOC --></p>
 
@@ -364,7 +364,7 @@ totem.get(<span class="s">&quot;batters&quot;</span>).as_h[<span class="s">&quot
 
 <p>Load dotenv string</p>
 
-<blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter.</blockquote>
+<blockquote>Add <a href="https://github.com/icyleaf/poncho">poncho</a> to <code>shards.yml</code> and require the adapter.</blockquote>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
 <span class="k">require</span> <span class="s">&quot;totem/config_types/env&quot;</span>    <span class="c"># Make sure you require</span>
@@ -389,7 +389,7 @@ totem.get(<span class="s">&quot;int&quot;</span>)                    <span class
   </svg>
 </a>From file</h4>
 
-<blockquote>Add <a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> to <code>shards.yml</code> and require the adapter if you need load dotenv file.</blockquote>
+<blockquote>Add <a href="https://github.com/icyleaf/poncho">poncho</a> to <code>shards.yml</code> and require the adapter if you need load dotenv file.</blockquote>
 
 <pre><code class="language-crystal"><span class="c"># Load yaml file from file with path</span>
 totem <span class="o">=</span> <span class="t">Totem</span>.from_file <span class="s">&quot;./spec/fixtures/config.yaml&quot;</span>
@@ -503,7 +503,7 @@ Avaliable providers is <code>redis</code> and <code>etcd</code>.</p>
   </svg>
 </a>Use redis</h4>
 
-<p>It dependency <a href="https://github.com/stefanwille/crystal-redis" target="_blank">crystal-redis</a> shard. Install it before use.</p>
+<p>It dependency <a href="https://github.com/stefanwille/crystal-redis">crystal-redis</a> shard. Install it before use.</p>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
 <span class="k">require</span> <span class="s">&quot;totem/remote_providers/redis&quot;</span>
@@ -528,7 +528,7 @@ totem.get(<span class="s">&quot;user:id&quot;</span>).as_i   <span class="c"># =
   </svg>
 </a>Use etcd</h4>
 
-<p>It dependency <a href="https://github.com/icyleaf/etcd-crystal" target="_blank">etcd-crystal</a> shard and ONLY works etcd <code>v2</code> API. Install it before use.</p>
+<p>It dependency <a href="https://github.com/icyleaf/etcd-crystal">etcd-crystal</a> shard and ONLY works etcd <code>v2</code> API. Install it before use.</p>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;totem&quot;</span>
 <span class="k">require</span> <span class="s">&quot;totem/remote_providers/etcd&quot;</span>
@@ -711,7 +711,7 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 <span class="c"># Also you can set aliases</span>
 <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigTypes</span>.register_alias(<span class="s">&quot;cnf&quot;</span>, <span class="s">&quot;ini&quot;</span>)</code></pre>
 
-<p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types" target="_blank">built-in adapters</a>.</p>
+<p>More examples to review <a href="https://github.com/icyleaf/totem/blob/master/src/totem/config_types">built-in adapters</a>.</p>
 
 <h3><a id="write-a-remote-provider" class="anchor" href="#write-a-remote-provider">
   <svg class="octicon-link" aria-hidden="true">
@@ -720,7 +720,7 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 </a>Write a remote provider</h3>
 
 <p>Creating the custom remote provider by integration <code><a href="Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></code> abstract class. Here has two methods must be implement:
-<code>read</code> and <code>get</code>, please reivew the <a href="https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers" target="_blank">built-in remote providers</a>.</p>
+<code>read</code> and <code>get</code>, please reivew the <a href="https://github.com/icyleaf/totem/blob/master/src/totem/remote_providers">built-in remote providers</a>.</p>
 
 <h2><a id="q-a" class="anchor" href="#q-a">
   <svg class="octicon-link" aria-hidden="true">
@@ -736,7 +736,7 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 
 <p>You can use Crystal built-in <code>#pp</code> or <code>#pp!</code> method to prints a series of instance variables:</p>
 
-<pre><code><span class="c">#&lt;Totem::Config</span>
+<pre><code class="language-crystal"><span class="c">#&lt;Totem::Config</span>
  @config_paths<span class="o">=</span>[<span class="s">&quot;/etc/totem&quot;</span>, <span class="s">&quot;~/.totem&quot;</span>],
  @config_name<span class="o">=</span><span class="s">&quot;config&quot;</span>,
  @config_type<span class="o">=</span><span class="s">&quot;json&quot;</span>,
@@ -777,7 +777,7 @@ profile[<span class="s">&quot;nested.key&quot;</span>] <span class="c"># =&gt; &
 it would make business sense to sponsor Totem development. Individual users are also welcome to make a one time donation
 if Totem has helped you in your work or personal projects.</p>
 
-<p>You can donate via <a href="https://www.paypal.me/icyleaf/5" target="_blank">Paypal</a>.</p>
+<p>You can donate via <a href="https://www.paypal.me/icyleaf/5">Paypal</a>.</p>
 
 <h2><a id="how-to-contribute" class="anchor" href="#how-to-contribute">
   <svg class="octicon-link" aria-hidden="true">
@@ -787,7 +787,7 @@ if Totem has helped you in your work or personal projects.</p>
 
 <p>Your contributions are always welcome! Please submit a pull request or create an issue to add a new question, bug or feature to the list.</p>
 
-<p>All <a href="https://github.com/icyleaf/totem/graphs/contributors" target="_blank">Contributors</a> are on the wall.</p>
+<p>All <a href="https://github.com/icyleaf/totem/graphs/contributors">Contributors</a> are on the wall.</p>
 
 <h2><a id="you-may-also-like" class="anchor" href="#you-may-also-like">
   <svg class="octicon-link" aria-hidden="true">
@@ -795,7 +795,7 @@ if Totem has helped you in your work or personal projects.</p>
   </svg>
 </a>You may also like</h2>
 
-<ul><li><a href="https://github.com/icyleaf/halite" target="_blank">halite</a> - HTTP Requests Client with a chainable REST API, built-in sessions and middlewares.</li><li><a href="https://github.com/icyleaf/markd" target="_blank">markd</a> - Yet another markdown parser built for speed, Compliant to CommonMark specification.</li><li><a href="https://github.com/icyleaf/poncho" target="_blank">poncho</a> - A .env parser/loader improved for performance.</li><li><a href="https://github.com/icyleaf/popcorn" target="_blank">popcorn</a> - Easy and Safe casting from one type to another.</li><li><a href="https://github.com/icyleaf/fast-crystal" target="_blank">fast-crystal</a> - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.</li></ul>
+<ul><li><a href="https://github.com/icyleaf/halite">halite</a> - HTTP Requests Client with a chainable REST API, built-in sessions and middlewares.</li><li><a href="https://github.com/icyleaf/markd">markd</a> - Yet another markdown parser built for speed, Compliant to CommonMark specification.</li><li><a href="https://github.com/icyleaf/poncho">poncho</a> - A .env parser/loader improved for performance.</li><li><a href="https://github.com/icyleaf/popcorn">popcorn</a> - Easy and Safe casting from one type to another.</li><li><a href="https://github.com/icyleaf/fast-crystal">fast-crystal</a> - 💨 Writing Fast Crystal 😍 -- Collect Common Crystal idioms.</li></ul>
 
 <h2><a id="license" class="anchor" href="#license">
   <svg class="octicon-link" aria-hidden="true">
@@ -803,7 +803,7 @@ if Totem has helped you in your work or personal projects.</p>
   </svg>
 </a>License</h2>
 
-<p><a href="https://github.com/icyleaf/totem/blob/master/LICENSE" target="_blank">MIT License</a> © icyleaf</p>
+<p><a href="https://github.com/icyleaf/totem/blob/master/LICENSE">MIT License</a> © icyleaf</p>
 </div>
 </body>
 </html>
