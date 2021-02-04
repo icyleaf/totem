@@ -46,7 +46,7 @@ Totem configuration keys are case insensitive.
   - [Load configuration with multiple paths](#load-configuration-with-multiple-paths)
   - [Set Alias and using alias](#set-alias-and-using-alias)
   - [Working with nested key](#working-with-nested-key)
-  - [Working with envoriment variables](#working-with-envoriment-variables)
+  - [Working with environment variables](#working-with-environment-variables)
   - [Working with remote providers](#working-with-remote-providers)
     - [Use redis](#use-redis)
     - [Use etcd](#use-etcd)
@@ -274,7 +274,7 @@ totem.automative_env
 totem.get("name").as_s      # => "Polly"
 ```
 
-Working with envoriment prefix:
+Working with environment prefix:
 
 ```crystal
 totem.automative_env(prefix: "totem")
