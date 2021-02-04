@@ -12,7 +12,7 @@ module Totem::RemoteProviders
       @client = ::Etcd.client(endpoint)
     end
 
-    def read(config_type : String? = nil)
+    def read(config_type : String? = nil) : Hash(String, Totem::Any)?
       if (path = @path) && (value = get?(path))
         return if value.nil?
         config_type = Utils.config_type(path) unless config_type
