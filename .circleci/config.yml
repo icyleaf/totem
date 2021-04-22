@@ -26,7 +26,7 @@ jobs:
           command: crystal version
       - run:
           name: "Install dependencies"
-          command: shards install --ignore-crystal-version
+          command: shards install
       - run:
           name: "Run code format check"
           command: |
