@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.36.1">
+<meta name="generator" content="Crystal Docs 1.2.2">
 <meta name="crystal_docs.project_version" content="refs/heads/master">
 <meta name="crystal_docs.project_name" content="totem">
 
@@ -233,13 +233,11 @@
   </h2>
 
   <p>Builder of Configuration</p>
-
 <h4><a id="load-config" class="anchor" href="#load-config">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Load config</h4>
-
 <pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Config</span>
   <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
 
@@ -251,13 +249,11 @@
 
 config <span class="o">=</span> <span class="t">Config</span>.configure
 config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
-
 <h4><a id="load-config-with-custom-file" class="anchor" href="#load-config-with-custom-file">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Load config with custom file</h4>
-
 <pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Config</span>
   <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
 
@@ -269,13 +265,11 @@ config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;fo
 
 config <span class="o">=</span> <span class="t">Config</span>.configure(<span class="s">&quot;/path/to/config/config.example.json&quot;</span>)
 config[<span class="s">&quot;name&quot;</span>] <span class="c"># =&gt; &quot;foo&quot;</span></code></pre>
-
 <h4><a id="load-config-and-mapping-to-struct" class="anchor" href="#load-config-and-mapping-to-struct">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Load config and mapping to struct</h4>
-
 <pre><code class="language-crystal"><span class="k">struct</span> <span class="t">Profile</span>
   <span class="k">include</span> <span class="t">Totem</span><span class="t">::</span><span class="t">ConfigBuilder</span>
 
@@ -319,7 +313,7 @@ config[<span class="s">&quot;title&quot;</span>] <span class="c"># =&gt; &quot;b
   </h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/d8c12f01885cb1f474d90af349c60740aa201939/src/totem/config_builder.cr#L62" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config_builder.cr#L62" target="_blank">
         totem/config_builder.cr
       </a>
     
@@ -393,7 +387,7 @@ config[<span class="s">&quot;title&quot;</span>] <span class="c"># =&gt; &quot;b
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/d8c12f01885cb1f474d90af349c60740aa201939/src/totem/config_builder.cr#L108" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config_builder.cr#L108" target="_blank">View source</a>]
         
       </div>
     </div>
