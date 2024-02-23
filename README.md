@@ -270,17 +270,17 @@ totem.get("id").as_i        # => 123
 totem.bind_env("f", "FOOD")
 totem.get("f").as_s         # => "Pinapple"
 
-totem.automative_env
+totem.automatic_env
 totem.get("name").as_s      # => "Polly"
 ```
 
 Working with environment prefix:
 
 ```crystal
-totem.automative_env(prefix: "totem")
+totem.automatic_env(prefix: "totem")
 # Same as
 # totem.env_prefix = "totem"
-# totem.automative_env = true
+# totem.automatic_env = true
 
 totem.get("id").as_i    # => 123
 totem.get("food").as_s  # => "Pinapple"
