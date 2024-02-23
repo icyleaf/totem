@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
 <meta name="crystal_docs.project_version" content="refs/heads/master">
 <meta name="crystal_docs.project_name" content="totem">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -215,7 +221,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Totem::Any
+  <span class="kind">struct</span> Totem::<wbr>Any
 
 </h1>
 
@@ -260,7 +266,7 @@ can be used for traversing dynamic or unkown types.</p>
   </h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L6" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L6" target="_blank">
         totem/any.cr
       </a>
     
@@ -307,6 +313,8 @@ can be used for traversing dynamic or unkown types.</p>
 
 
 
+
+
   <h2>
     <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -347,12 +355,12 @@ can be used for traversing dynamic or unkown types.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3F%28key%3AInt%29%3AAny%3F-instance-method" class="signature"><strong>#[]?</strong>(key : Int) : Any?</a>
+        <a href="#%5B%5D%3F%28key%3AInt%29%3AAny%7CNil-instance-method" class="signature"><strong>#[]?</strong>(key : Int) : Any | Nil</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3F%28key%3AString%29%3AAny%3F-instance-method" class="signature"><strong>#[]?</strong>(key : String) : Any?</a>
+        <a href="#%5B%5D%3F%28key%3AString%29%3AAny%7CNil-instance-method" class="signature"><strong>#[]?</strong>(key : String) : Any | Nil</a>
         
       </li>
     
@@ -362,7 +370,7 @@ can be used for traversing dynamic or unkown types.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#as_a%3F%3AArray%28Any%29%3F-instance-method" class="signature"><strong>#as_a?</strong> : Array(Any)?</a>
+        <a href="#as_a%3F%3AArray%28Any%29%7CNil-instance-method" class="signature"><strong>#as_a?</strong> : Array(Any) | Nil</a>
         
       </li>
     
@@ -402,7 +410,7 @@ can be used for traversing dynamic or unkown types.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#as_h%3F%3AHash%28String%2CAny%29%3F-instance-method" class="signature"><strong>#as_h?</strong> : Hash(String, Any)?</a>
+        <a href="#as_h%3F%3AHash%28String%2CAny%29%7CNil-instance-method" class="signature"><strong>#as_h?</strong> : Hash(String, Any) | Nil</a>
         
       </li>
     
@@ -442,12 +450,12 @@ can be used for traversing dynamic or unkown types.</p>
       </li>
     
       <li class="entry-summary">
-        <a href="#as_time%28timezone%3ATime%3A%3ALocation%3F%3Dnil%29-instance-method" class="signature"><strong>#as_time</strong>(timezone : Time::Location? = <span class="n">nil</span>)</a>
+        <a href="#as_time%28timezone%3ATime%3A%3ALocation%7CNil%3Dnil%29-instance-method" class="signature"><strong>#as_time</strong>(timezone : Time::Location | Nil = <span class="n">nil</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#as_time%3F%28timezone%3ATime%3A%3ALocation%3F%3Dnil%29-instance-method" class="signature"><strong>#as_time?</strong>(timezone : Time::Location? = <span class="n">nil</span>)</a>
+        <a href="#as_time%3F%28timezone%3ATime%3A%3ALocation%7CNil%3Dnil%29-instance-method" class="signature"><strong>#as_time?</strong>(timezone : Time::Location | Nil = <span class="n">nil</span>)</a>
         
       </li>
     
@@ -484,10 +492,11 @@ can be used for traversing dynamic or unkown types.</p>
 
 
 
-
-
 <div class="methods-inherited">
   
+    
+
+
     
 
 
@@ -516,6 +525,9 @@ can be used for traversing dynamic or unkown types.</p>
     
 
 
+    
+
+
   
     
 
@@ -527,6 +539,9 @@ can be used for traversing dynamic or unkown types.</p>
     ===</a>
     
   
+
+
+    
 
 
     
@@ -559,7 +574,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -575,7 +590,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -591,7 +606,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -607,11 +622,13 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
   
+
+
 
 
 
@@ -642,7 +659,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L215" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L215" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -663,7 +680,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L220" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L220" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -679,7 +696,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L145" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L145" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -695,7 +712,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L160" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L160" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -711,39 +728,39 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L153" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L153" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="[]?(key:Int):Any?-instance-method">
+    <div class="entry-detail" id="[]?(key:Int):Any|Nil-instance-method">
       <div class="signature">
         
-        def <strong>[]?</strong>(key : Int) : <a href="../Totem/Any.html">Any</a>?
+        def <strong>[]?</strong>(key : Int) : <a href="../Totem/Any.html">Any</a> | Nil
 
-        <a class="method-permalink" href="#%5B%5D%3F%28key%3AInt%29%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3F%28key%3AInt%29%3AAny%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L168" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L168" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="[]?(key:String):Any?-instance-method">
+    <div class="entry-detail" id="[]?(key:String):Any|Nil-instance-method">
       <div class="signature">
         
-        def <strong>[]?</strong>(key : String) : <a href="../Totem/Any.html">Any</a>?
+        def <strong>[]?</strong>(key : String) : <a href="../Totem/Any.html">Any</a> | Nil
 
-        <a class="method-permalink" href="#%5B%5D%3F%28key%3AString%29%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3F%28key%3AString%29%3AAny%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L179" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L179" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -759,23 +776,23 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_a?:Array(Any)?-instance-method">
+    <div class="entry-detail" id="as_a?:Array(Any)|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_a?</strong> : Array(<a href="../Totem/Any.html">Any</a>)?
+        def <strong>as_a?</strong> : Array(<a href="../Totem/Any.html">Any</a>) | Nil
 
-        <a class="method-permalink" href="#as_a%3F%3AArray%28Any%29%3F-instance-method">#</a>
+        <a class="method-permalink" href="#as_a%3F%3AArray%28Any%29%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -791,7 +808,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L66" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -807,7 +824,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L62" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -823,7 +840,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L50" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L50" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -839,7 +856,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -855,7 +872,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -871,7 +888,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -887,23 +904,23 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_h?:Hash(String,Any)?-instance-method">
+    <div class="entry-detail" id="as_h?:Hash(String,Any)|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_h?</strong> : Hash(String, <a href="../Totem/Any.html">Any</a>)?
+        def <strong>as_h?</strong> : Hash(String, <a href="../Totem/Any.html">Any</a>) | Nil
 
-        <a class="method-permalink" href="#as_h%3F%3AHash%28String%2CAny%29%3F-instance-method">#</a>
+        <a class="method-permalink" href="#as_h%3F%3AHash%28String%2CAny%29%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L78" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L78" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -919,7 +936,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -935,7 +952,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -951,7 +968,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -967,7 +984,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -983,7 +1000,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L136" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L136" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -999,7 +1016,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L116" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L116" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1015,39 +1032,39 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L125" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L125" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_time(timezone:Time::Location?=nil)-instance-method">
+    <div class="entry-detail" id="as_time(timezone:Time::Location|Nil=nil)-instance-method">
       <div class="signature">
         
-        def <strong>as_time</strong>(timezone : Time::Location? = <span class="n">nil</span>)
+        def <strong>as_time</strong>(timezone : Time::Location | Nil = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#as_time%28timezone%3ATime%3A%3ALocation%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#as_time%28timezone%3ATime%3A%3ALocation%7CNil%3Dnil%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L74" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L74" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_time?(timezone:Time::Location?=nil)-instance-method">
+    <div class="entry-detail" id="as_time?(timezone:Time::Location|Nil=nil)-instance-method">
       <div class="signature">
         
-        def <strong>as_time?</strong>(timezone : Time::Location? = <span class="n">nil</span>)
+        def <strong>as_time?</strong>(timezone : Time::Location | Nil = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#as_time%3F%28timezone%3ATime%3A%3ALocation%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#as_time%3F%28timezone%3ATime%3A%3ALocation%7CNil%3Dnil%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1063,7 +1080,7 @@ can be used for traversing dynamic or unkown types.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L202" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L202" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1091,7 +1108,7 @@ value types are passed by value.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L198" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L198" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1112,7 +1129,7 @@ value types are passed by value.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L207" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L207" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1128,7 +1145,7 @@ value types are passed by value.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1144,13 +1161,11 @@ value types are passed by value.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/any.cr#L190" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/any.cr#L190" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
-
 
 
 </div>

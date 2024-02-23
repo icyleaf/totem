@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
 <meta name="crystal_docs.project_version" content="refs/heads/master">
 <meta name="crystal_docs.project_name" content="totem">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -215,7 +221,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Totem::RemoteProviders::Etcd
+  <span class="kind">class</span> Totem::<wbr>RemoteProviders::<wbr>Etcd
 
 </h1>
 
@@ -260,7 +266,7 @@
   </h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/remote_providers/etcd.cr#L8" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/remote_providers/etcd.cr#L8" target="_blank">
         totem/remote_providers/etcd.cr
       </a>
     
@@ -282,11 +288,13 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28endpoint%3AString%2Cpath%3AString%3F%3Dnil%29-class-method" class="signature"><strong>.new</strong>(endpoint : String, path : String? = <span class="n">nil</span>)</a>
+        <a href="#new%28endpoint%3AString%2Cpath%3AString%7CNil%3Dnil%29-class-method" class="signature"><strong>.new</strong>(endpoint : String, path : String | Nil = <span class="n">nil</span>)</a>
         
       </li>
     
   </ul>
+
+
 
 
 
@@ -303,7 +311,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#get%28key%3AString%29%3AAny%3F-instance-method" class="signature"><strong>#get</strong>(key : String) : Any?</a>
+        <a href="#get%28key%3AString%29%3AAny%7CNil-instance-method" class="signature"><strong>#get</strong>(key : String) : Any | Nil</a>
         
       </li>
     
@@ -313,13 +321,11 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#read%28config_type%3AString%3F%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%3F-instance-method" class="signature"><strong>#read</strong>(config_type : String? = <span class="n">nil</span>) : Hash(String, Totem::Any)?</a>
+        <a href="#read%28config_type%3AString%7CNil%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%7CNil-instance-method" class="signature"><strong>#read</strong>(config_type : String | Nil = <span class="n">nil</span>) : Hash(String, Totem::Any) | Nil</a>
         
       </li>
     
   </ul>
-
-
 
 
 
@@ -330,16 +336,19 @@
   <h3>Instance methods inherited from class <code><a href="../../Totem/RemoteProviders/Adapter.html">Totem::RemoteProviders::Adapter</a></code></h3>
   
   
-    <a href="../../Totem/RemoteProviders/Adapter.html#get%28key%3AString%29%3AAny%3F-instance-method" class="tooltip">
-      <span>get(key : String) : Any?</span>
+    <a href="../../Totem/RemoteProviders/Adapter.html#get%28key%3AString%29%3AAny%7CNil-instance-method" class="tooltip">
+      <span>get(key : String) : Any | Nil</span>
     get</a>, 
     
   
-    <a href="../../Totem/RemoteProviders/Adapter.html#read%28config_type%3AString%3F%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%3F-instance-method" class="tooltip">
-      <span>read(config_type : String? = <span class="n">nil</span>) : Hash(String, Totem::Any)?</span>
+    <a href="../../Totem/RemoteProviders/Adapter.html#read%28config_type%3AString%7CNil%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%7CNil-instance-method" class="tooltip">
+      <span>read(config_type : String | Nil = <span class="n">nil</span>) : Hash(String, Totem::Any) | Nil</span>
     read</a>
     
   
+
+
+    
 
 
     
@@ -367,6 +376,9 @@
     
 
 
+    
+
+
   
     
 
@@ -378,6 +390,9 @@
     ===</a>
     
   
+
+
+    
 
 
     
@@ -399,22 +414,24 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(endpoint:String,path:String?=nil)-class-method">
+    <div class="entry-detail" id="new(endpoint:String,path:String|Nil=nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(endpoint : String, path : String? = <span class="n">nil</span>)
+        def self.<strong>new</strong>(endpoint : String, path : String | Nil = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#new%28endpoint%3AString%2Cpath%3AString%3F%3Dnil%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28endpoint%3AString%2Cpath%3AString%7CNil%3Dnil%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/remote_providers/etcd.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/remote_providers/etcd.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
   
+
+
 
 
 
@@ -429,18 +446,18 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="get(key:String):Any?-instance-method">
+    <div class="entry-detail" id="get(key:String):Any|Nil-instance-method">
       <div class="signature">
         
-        def <strong>get</strong>(key : String) : <a href="../../Totem/Any.html">Any</a>?
+        def <strong>get</strong>(key : String) : <a href="../../Totem/Any.html">Any</a> | Nil
 
-        <a class="method-permalink" href="#get%28key%3AString%29%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#get%28key%3AString%29%3AAny%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/remote_providers/etcd.cr#L25" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/remote_providers/etcd.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -456,29 +473,27 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/remote_providers/etcd.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/remote_providers/etcd.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="read(config_type:String?=nil):Hash(String,Totem::Any)?-instance-method">
+    <div class="entry-detail" id="read(config_type:String|Nil=nil):Hash(String,Totem::Any)|Nil-instance-method">
       <div class="signature">
         
-        def <strong>read</strong>(config_type : String? = <span class="n">nil</span>) : Hash(String, <a href="../../Totem/Any.html">Totem::Any</a>)?
+        def <strong>read</strong>(config_type : String | Nil = <span class="n">nil</span>) : Hash(String, <a href="../../Totem/Any.html">Totem::Any</a>) | Nil
 
-        <a class="method-permalink" href="#read%28config_type%3AString%3F%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%3F-instance-method">#</a>
+        <a class="method-permalink" href="#read%28config_type%3AString%7CNil%3Dnil%29%3AHash%28String%2CTotem%3A%3AAny%29%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/remote_providers/etcd.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/remote_providers/etcd.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
-
 
 
 </div>

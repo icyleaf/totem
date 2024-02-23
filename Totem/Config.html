@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
 <meta name="crystal_docs.project_version" content="refs/heads/master">
 <meta name="crystal_docs.project_name" content="totem">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -215,7 +221,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Totem::Config
+  <span class="kind">class</span> Totem::<wbr>Config
 
 </h1>
 
@@ -283,7 +289,7 @@
   </h2>
   
     
-      <a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L13" target="_blank">
+      <a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L13" target="_blank">
         totem/config.cr
       </a>
     
@@ -334,7 +340,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28config_name%3DCONFIG_NAME%2Cconfig_type%3AString%3F%3Dnil%2Cconfig_paths%3AArray%28String%29%3D%5B%5DofString%2Cconfig_env%3AString%3F%3Dnil%2Cconfig_envs%3DCONFIG_ENVS%2Ckey_delimiter%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.new</strong>(config_name = <span class="t">CONFIG_NAME</span>, config_type : String? = <span class="n">nil</span>, config_paths : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, config_env : String? = <span class="n">nil</span>, config_envs = <span class="t">CONFIG_ENVS</span>, key_delimiter = <span class="t">KEY_DELIMITER</span>)</a>
+        <a href="#new%28config_name%3AString%3DCONFIG_NAME%2Cconfig_type%3AString%7CNil%3Dnil%2Cconfig_paths%3AArray%28String%29%3D%5B%5DofString%2Cconfig_env%3AString%7CNil%3Dnil%2Cconfig_envs%3AArray%28String%29%3DCONFIG_ENVS%2Ckey_delimiter%3AString%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.new</strong>(config_name : String = <span class="t">CONFIG_NAME</span>, config_type : String | Nil = <span class="n">nil</span>, config_paths : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, config_env : String | Nil = <span class="n">nil</span>, config_envs : Array(String) = <span class="t">CONFIG_ENVS</span>, key_delimiter : String = <span class="t">KEY_DELIMITER</span>)</a>
         
       </li>
     
@@ -353,20 +359,22 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#from_file%28file%3AString%2Cpaths%3AArray%28String%29%3F%3Dnil%2Cenvironment%3AString%3F%3Dnil%2Ckey_delimiter%3AString%3F%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.from_file</strong>(file : String, paths : Array(String)? = <span class="n">nil</span>, environment : String? = <span class="n">nil</span>, key_delimiter : String? = <span class="t">KEY_DELIMITER</span>)</a>
+        <a href="#from_file%28file%3AString%2Cpaths%3AArray%28String%29%7CNil%3Dnil%2Cenvironment%3AString%7CNil%3Dnil%2Ckey_delimiter%3AString%7CNil%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.from_file</strong>(file : String, paths : Array(String) | Nil = <span class="n">nil</span>, environment : String | Nil = <span class="n">nil</span>, key_delimiter : String | Nil = <span class="t">KEY_DELIMITER</span>)</a>
         
           <div class="summary"><p>Load configuration from a file</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#parse%28raw%3AString%2Ctype%3AString%2Ckey_delimiter%3AString%3F%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.parse</strong>(raw : String, type : String, key_delimiter : String? = <span class="t">KEY_DELIMITER</span>)</a>
+        <a href="#parse%28raw%3AString%2Ctype%3AString%2Ckey_delimiter%3AString%7CNil%3DKEY_DELIMITER%29-class-method" class="signature"><strong>.parse</strong>(raw : String, type : String, key_delimiter : String | Nil = <span class="t">KEY_DELIMITER</span>)</a>
         
           <div class="summary"><p>Parse configuration from a raw string.</p></div>
         
       </li>
     
   </ul>
+
+
 
 
 
@@ -395,14 +403,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#%5B%5D%3F%28key%3AString%29%3AAny%3F-instance-method" class="signature"><strong>#[]?</strong>(key : String) : Any?</a>
+        <a href="#%5B%5D%3F%28key%3AString%29%3AAny%7CNil-instance-method" class="signature"><strong>#[]?</strong>(key : String) : Any | Nil</a>
         
           <div class="summary"><p>Alias to <code><a href="../Totem/Config.html#fetch%28key%3AString%2Cdefault_value%3AAny%7CAny%3A%3AType%29%3AAny-instance-method">#fetch</a></code> method but return <code>Nil</code> if not exists.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add_remote%28%2A%2Cprovider%3AString%3F%3Dnil%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#add_remote</strong>(*, provider : String? = <span class="n">nil</span>, **options)</a>
+        <a href="#add_remote%28%2A%2Cprovider%3AString%7CNil%3Dnil%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#add_remote</strong>(*, provider : String | Nil = <span class="n">nil</span>, **options)</a>
         
           <div class="summary"><p>Add a remote provider</p></div>
         
@@ -416,14 +424,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#automatic_env%28prefix%3AString%3F%3Dnil%29-instance-method" class="signature"><strong>#automatic_env</strong>(prefix : String? = <span class="n">nil</span>)</a>
+        <a href="#automatic_env%28prefix%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#automatic_env</strong>(prefix : String | Nil = <span class="n">nil</span>)</a>
         
           <div class="summary"><p>Enable and load ENV variables to Totem to search.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#bind_env%28key%3AString%2Creal_key%3AString%3F%3Dnil%29-instance-method" class="signature"><strong>#bind_env</strong>(key : String, real_key : String? = <span class="n">nil</span>)</a>
+        <a href="#bind_env%28key%3AString%2Creal_key%3AString%7CNil%3Dnil%29-instance-method" class="signature"><strong>#bind_env</strong>(key : String, real_key : String | Nil = <span class="n">nil</span>)</a>
         
           <div class="summary"><p>Bind a key to a ENV vairable</p></div>
         
@@ -440,7 +448,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#config_env%3D%28config_env%29-instance-method" class="signature"><strong>#config_env=</strong>(config_env)</a>
+        <a href="#config_env%3D%28config_env%3ANil%7CString%29-instance-method" class="signature"><strong>#config_env=</strong>(config_env : Nil | String)</a>
         
       </li>
     
@@ -450,12 +458,12 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#config_envs%3D%28config_envs%29-instance-method" class="signature"><strong>#config_envs=</strong>(config_envs)</a>
+        <a href="#config_envs%3D%28config_envs%3AArray%28String%29%29-instance-method" class="signature"><strong>#config_envs=</strong>(config_envs : Array(String))</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#config_file%3AString%3F-instance-method" class="signature"><strong>#config_file</strong> : String?</a>
+        <a href="#config_file%3AString%7CNil-instance-method" class="signature"><strong>#config_file</strong> : String | Nil</a>
         
       </li>
     
@@ -465,7 +473,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#config_name%3D%28config_name%29-instance-method" class="signature"><strong>#config_name=</strong>(config_name)</a>
+        <a href="#config_name%3D%28config_name%3AString%29-instance-method" class="signature"><strong>#config_name=</strong>(config_name : String)</a>
         
       </li>
     
@@ -475,7 +483,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#config_paths%3D%28config_paths%29-instance-method" class="signature"><strong>#config_paths=</strong>(config_paths)</a>
+        <a href="#config_paths%3D%28config_paths%3AArray%28String%29%29-instance-method" class="signature"><strong>#config_paths=</strong>(config_paths : Array(String))</a>
         
       </li>
     
@@ -485,7 +493,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#config_type%3D%28config_type%29-instance-method" class="signature"><strong>#config_type=</strong>(config_type)</a>
+        <a href="#config_type%3D%28config_type%3ANil%7CString%29-instance-method" class="signature"><strong>#config_type=</strong>(config_type : Nil | String)</a>
         
       </li>
     
@@ -504,7 +512,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#env_prefix%3AString%3F-instance-method" class="signature"><strong>#env_prefix</strong> : String?</a>
+        <a href="#env_prefix%3AString%7CNil-instance-method" class="signature"><strong>#env_prefix</strong> : String | Nil</a>
         
       </li>
     
@@ -523,7 +531,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#fetch%28key%3AString%29%3AAny%3F-instance-method" class="signature"><strong>#fetch</strong>(key : String) : Any?</a>
+        <a href="#fetch%28key%3AString%29%3AAny%7CNil-instance-method" class="signature"><strong>#fetch</strong>(key : String) : Any | Nil</a>
         
           <div class="summary"><p>Similar to <code><a href="../Totem/Config.html#get%28key%3AString%29%3AAny-instance-method">#get</a></code> method but returns <code>Nil</code> if key not exists.</p></div>
         
@@ -556,7 +564,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#key_delimiter%3D%28key_delimiter%29-instance-method" class="signature"><strong>#key_delimiter=</strong>(key_delimiter)</a>
+        <a href="#key_delimiter%3D%28key_delimiter%3AString%29-instance-method" class="signature"><strong>#key_delimiter=</strong>(key_delimiter : String)</a>
         
       </li>
     
@@ -582,7 +590,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#mapping%28converter%3AT.class%2Ckey%3AString%3F%3Dnil%29forallT-instance-method" class="signature"><strong>#mapping</strong>(converter : <span class="t">T</span>.<span class="k">class</span>, key : String? = <span class="n">nil</span>) forall T</a>
+        <a href="#mapping%28converter%3AT.class%2Ckey%3AString%7CNil%3Dnil%29forallT-instance-method" class="signature"><strong>#mapping</strong>(converter : <span class="t">T</span>.<span class="k">class</span>, key : String | Nil = <span class="n">nil</span>) forall T</a>
         
           <div class="summary"><p>Mapping JSON/YAML Serializable to Struct with key</p></div>
         
@@ -653,8 +661,6 @@
 
 
 
-
-
 <div class="methods-inherited">
   
     
@@ -667,11 +673,14 @@
     deep_search</a>, 
     
   
-    <a href="../Totem/Utils/HashHelper.html#has_value%3F%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AAny%3F-instance-method" class="tooltip">
-      <span>has_value?(source : Hash(String, String | Any), paths : Array(String)) : Any?</span>
+    <a href="../Totem/Utils/HashHelper.html#has_value%3F%28source%3AHash%28String%2CString%7CAny%29%2Cpaths%3AArray%28String%29%29%3AAny%7CNil-instance-method" class="tooltip">
+      <span>has_value?(source : Hash(String, String | Any), paths : Array(String)) : Any | Nil</span>
     has_value?</a>
     
   
+
+
+    
 
 
     
@@ -699,17 +708,23 @@
     
 
 
+    
+
+
   
     
 
   <h3>Instance methods inherited from module <code><a href="../Totem/Utils/EnvHelper.html">Totem::Utils::EnvHelper</a></code></h3>
   
   
-    <a href="../Totem/Utils/EnvHelper.html#env_key%28key%3AString%2Cenv_prefix%3AString%3F%3Dnil%29-instance-method" class="tooltip">
-      <span>env_key(key : String, env_prefix : String? = <span class="n">nil</span>)</span>
+    <a href="../Totem/Utils/EnvHelper.html#env_key%28key%3AString%2Cenv_prefix%3AString%7CNil%3Dnil%29-instance-method" class="tooltip">
+      <span>env_key(key : String, env_prefix : String | Nil = <span class="n">nil</span>)</span>
     env_key</a>
     
   
+
+
+    
 
 
     
@@ -737,6 +752,9 @@
     
 
 
+    
+
+
   
     
 
@@ -748,6 +766,9 @@
     ===</a>
     
   
+
+
+    
 
 
     
@@ -769,18 +790,18 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(config_name=CONFIG_NAME,config_type:String?=nil,config_paths:Array(String)=[]ofString,config_env:String?=nil,config_envs=CONFIG_ENVS,key_delimiter=KEY_DELIMITER)-class-method">
+    <div class="entry-detail" id="new(config_name:String=CONFIG_NAME,config_type:String|Nil=nil,config_paths:Array(String)=[]ofString,config_env:String|Nil=nil,config_envs:Array(String)=CONFIG_ENVS,key_delimiter:String=KEY_DELIMITER)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(config_name = <span class="t">CONFIG_NAME</span>, config_type : String? = <span class="n">nil</span>, config_paths : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, config_env : String? = <span class="n">nil</span>, config_envs = <span class="t">CONFIG_ENVS</span>, key_delimiter = <span class="t">KEY_DELIMITER</span>)
+        def self.<strong>new</strong>(config_name : String = <span class="t">CONFIG_NAME</span>, config_type : String | Nil = <span class="n">nil</span>, config_paths : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, config_env : String | Nil = <span class="n">nil</span>, config_envs : Array(String) = <span class="t">CONFIG_ENVS</span>, key_delimiter : String = <span class="t">KEY_DELIMITER</span>)
 
-        <a class="method-permalink" href="#new%28config_name%3DCONFIG_NAME%2Cconfig_type%3AString%3F%3Dnil%2Cconfig_paths%3AArray%28String%29%3D%5B%5DofString%2Cconfig_env%3AString%3F%3Dnil%2Cconfig_envs%3DCONFIG_ENVS%2Ckey_delimiter%3DKEY_DELIMITER%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28config_name%3AString%3DCONFIG_NAME%2Cconfig_type%3AString%7CNil%3Dnil%2Cconfig_paths%3AArray%28String%29%3D%5B%5DofString%2Cconfig_env%3AString%7CNil%3Dnil%2Cconfig_envs%3AArray%28String%29%3DCONFIG_ENVS%2Ckey_delimiter%3AString%3DKEY_DELIMITER%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -797,12 +818,12 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="from_file(file:String,paths:Array(String)?=nil,environment:String?=nil,key_delimiter:String?=KEY_DELIMITER)-class-method">
+    <div class="entry-detail" id="from_file(file:String,paths:Array(String)|Nil=nil,environment:String|Nil=nil,key_delimiter:String|Nil=KEY_DELIMITER)-class-method">
       <div class="signature">
         
-        def self.<strong>from_file</strong>(file : String, paths : Array(String)? = <span class="n">nil</span>, environment : String? = <span class="n">nil</span>, key_delimiter : String? = <span class="t">KEY_DELIMITER</span>)
+        def self.<strong>from_file</strong>(file : String, paths : Array(String) | Nil = <span class="n">nil</span>, environment : String | Nil = <span class="n">nil</span>, key_delimiter : String | Nil = <span class="t">KEY_DELIMITER</span>)
 
-        <a class="method-permalink" href="#from_file%28file%3AString%2Cpaths%3AArray%28String%29%3F%3Dnil%2Cenvironment%3AString%3F%3Dnil%2Ckey_delimiter%3AString%3F%3DKEY_DELIMITER%29-class-method">#</a>
+        <a class="method-permalink" href="#from_file%28file%3AString%2Cpaths%3AArray%28String%29%7CNil%3Dnil%2Cenvironment%3AString%7CNil%3Dnil%2Ckey_delimiter%3AString%7CNil%3DKEY_DELIMITER%29-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -814,17 +835,17 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="parse(raw:String,type:String,key_delimiter:String?=KEY_DELIMITER)-class-method">
+    <div class="entry-detail" id="parse(raw:String,type:String,key_delimiter:String|Nil=KEY_DELIMITER)-class-method">
       <div class="signature">
         
-        def self.<strong>parse</strong>(raw : String, type : String, key_delimiter : String? = <span class="t">KEY_DELIMITER</span>)
+        def self.<strong>parse</strong>(raw : String, type : String, key_delimiter : String | Nil = <span class="t">KEY_DELIMITER</span>)
 
-        <a class="method-permalink" href="#parse%28raw%3AString%2Ctype%3AString%2Ckey_delimiter%3AString%3F%3DKEY_DELIMITER%29-class-method">#</a>
+        <a class="method-permalink" href="#parse%28raw%3AString%2Ctype%3AString%2Ckey_delimiter%3AString%7CNil%3DKEY_DELIMITER%29-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -835,11 +856,13 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
   
+
+
 
 
 
@@ -870,7 +893,7 @@ totem[<span class="s">&quot;user.name&quot;</span>]</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L123" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L123" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -893,17 +916,17 @@ totem[<span class="s">&quot;user.name&quot;</span>] <span class="o">=</span> <sp
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L113" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L113" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="[]?(key:String):Any?-instance-method">
+    <div class="entry-detail" id="[]?(key:String):Any|Nil-instance-method">
       <div class="signature">
         
-        def <strong>[]?</strong>(key : String) : <a href="../Totem/Any.html">Any</a>?
+        def <strong>[]?</strong>(key : String) : <a href="../Totem/Any.html">Any</a> | Nil
 
-        <a class="method-permalink" href="#%5B%5D%3F%28key%3AString%29%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3F%28key%3AString%29%3AAny%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -916,17 +939,17 @@ totem[<span class="s">&quot;user.name&quot;</span>]?</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L133" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L133" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="add_remote(*,provider:String?=nil,**options)-instance-method">
+    <div class="entry-detail" id="add_remote(*,provider:String|Nil=nil,**options)-instance-method">
       <div class="signature">
         
-        def <strong>add_remote</strong>(*, provider : String? = <span class="n">nil</span>, **options)
+        def <strong>add_remote</strong>(*, provider : String | Nil = <span class="n">nil</span>, **options)
 
-        <a class="method-permalink" href="#add_remote%28%2A%2Cprovider%3AString%3F%3Dnil%2C%2A%2Aoptions%29-instance-method">#</a>
+        <a class="method-permalink" href="#add_remote%28%2A%2Cprovider%3AString%7CNil%3Dnil%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -956,7 +979,7 @@ totem.get(<span class="s">&quot;user:id&quot;</span>) <span class="c"># =&gt; &q
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L301" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L301" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -982,17 +1005,17 @@ totem.<span class="k">alias</span>(<span class="s">&quot;username&quot;</span>, 
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L219" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L219" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="automatic_env(prefix:String?=nil)-instance-method">
+    <div class="entry-detail" id="automatic_env(prefix:String|Nil=nil)-instance-method">
       <div class="signature">
         
-        def <strong>automatic_env</strong>(prefix : String? = <span class="n">nil</span>)
+        def <strong>automatic_env</strong>(prefix : String | Nil = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#automatic_env%28prefix%3AString%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#automatic_env%28prefix%3AString%7CNil%3Dnil%29-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1008,24 +1031,24 @@ totem.get(<span class="s">&quot;env&quot;</span>) <span class="c"># =&gt; &quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L271" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L271" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="bind_env(key:String,real_key:String?=nil)-instance-method">
+    <div class="entry-detail" id="bind_env(key:String,real_key:String|Nil=nil)-instance-method">
       <div class="signature">
         
-        def <strong>bind_env</strong>(key : String, real_key : String? = <span class="n">nil</span>)
+        def <strong>bind_env</strong>(key : String, real_key : String | Nil = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#bind_env%28key%3AString%2Creal_key%3AString%3F%3Dnil%29-instance-method">#</a>
+        <a class="method-permalink" href="#bind_env%28key%3AString%2Creal_key%3AString%7CNil%3Dnil%29-instance-method">#</a>
       </div>
       
         <div class="doc">
           
           <p>Bind a key to a ENV vairable</p>
 <p>If only a key is provided, it will use the <code>ENV</code> key matching the key, upcased.</p>
-<p>It will append env prefix when <code><a href="../Totem/Config.html#env_prefix%3AString%3F-instance-method">#env_prefix</a></code> is seted and the key is not provided.</p>
+<p>It will append env prefix when <code><a href="../Totem/Config.html#env_prefix%3AString%7CNil-instance-method">#env_prefix</a></code> is seted and the key is not provided.</p>
 <blockquote>
 <p>Case-sensitive for a key.</p>
 </blockquote>
@@ -1039,7 +1062,7 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L238" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L238" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1055,7 +1078,7 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L419" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L419" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1071,23 +1094,23 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_env=(config_env)-instance-method">
+    <div class="entry-detail" id="config_env=(config_env:Nil|String)-instance-method">
       <div class="signature">
         
-        def <strong>config_env=</strong>(config_env)
+        def <strong>config_env=</strong>(config_env : Nil | String)
 
-        <a class="method-permalink" href="#config_env%3D%28config_env%29-instance-method">#</a>
+        <a class="method-permalink" href="#config_env%3D%28config_env%3ANil%7CString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1103,39 +1126,39 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_envs=(config_envs)-instance-method">
+    <div class="entry-detail" id="config_envs=(config_envs:Array(String))-instance-method">
       <div class="signature">
         
-        def <strong>config_envs=</strong>(config_envs)
+        def <strong>config_envs=</strong>(config_envs : Array(String))
 
-        <a class="method-permalink" href="#config_envs%3D%28config_envs%29-instance-method">#</a>
+        <a class="method-permalink" href="#config_envs%3D%28config_envs%3AArray%28String%29%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_file:String?-instance-method">
+    <div class="entry-detail" id="config_file:String|Nil-instance-method">
       <div class="signature">
         
-        def <strong>config_file</strong> : String?
+        def <strong>config_file</strong> : String | Nil
 
-        <a class="method-permalink" href="#config_file%3AString%3F-instance-method">#</a>
+        <a class="method-permalink" href="#config_file%3AString%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1151,23 +1174,23 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_name=(config_name)-instance-method">
+    <div class="entry-detail" id="config_name=(config_name:String)-instance-method">
       <div class="signature">
         
-        def <strong>config_name=</strong>(config_name)
+        def <strong>config_name=</strong>(config_name : String)
 
-        <a class="method-permalink" href="#config_name%3D%28config_name%29-instance-method">#</a>
+        <a class="method-permalink" href="#config_name%3D%28config_name%3AString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1183,23 +1206,23 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_paths=(config_paths)-instance-method">
+    <div class="entry-detail" id="config_paths=(config_paths:Array(String))-instance-method">
       <div class="signature">
         
-        def <strong>config_paths=</strong>(config_paths)
+        def <strong>config_paths=</strong>(config_paths : Array(String))
 
-        <a class="method-permalink" href="#config_paths%3D%28config_paths%29-instance-method">#</a>
+        <a class="method-permalink" href="#config_paths%3D%28config_paths%3AArray%28String%29%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L54" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1215,23 +1238,23 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L56" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="config_type=(config_type)-instance-method">
+    <div class="entry-detail" id="config_type=(config_type:Nil|String)-instance-method">
       <div class="signature">
         
-        def <strong>config_type=</strong>(config_type)
+        def <strong>config_type=</strong>(config_type : Nil | String)
 
-        <a class="method-permalink" href="#config_type%3D%28config_type%29-instance-method">#</a>
+        <a class="method-permalink" href="#config_type%3D%28config_type%3ANil%7CString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L56" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1252,7 +1275,7 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L440" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L440" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1273,23 +1296,23 @@ totem.get(<span class="s">&quot;root_path&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L539" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L539" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="env_prefix:String?-instance-method">
+    <div class="entry-detail" id="env_prefix:String|Nil-instance-method">
       <div class="signature">
         
-        def <strong>env_prefix</strong> : String?
+        def <strong>env_prefix</strong> : String | Nil
 
-        <a class="method-permalink" href="#env_prefix%3AString%3F-instance-method">#</a>
+        <a class="method-permalink" href="#env_prefix%3AString%7CNil-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1319,7 +1342,7 @@ totem.get(<span class="s">&quot;env&quot;</span>) <span class="c"># =&gt; &quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L257" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L257" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1338,23 +1361,23 @@ totem.get(<span class="s">&quot;env&quot;</span>) <span class="c"># =&gt; &quot;
 <blockquote>
 <p>Case-insensitive for a key.</p>
 </blockquote>
-<pre><code class="language-crystal">totem.fetch(<span class="s">&quot;env&quot;</span>, <span class="s">&quot;development&quot;</span>) =&gt; <span class="s">&quot;development&quot;</span></code></pre>
+<pre><code class="language-crystal">totem.fetch(<span class="s">&quot;env&quot;</span>, <span class="s">&quot;development&quot;</span>) <span class="o">=&gt;</span> <span class="s">&quot;development&quot;</span></code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L202" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L202" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="fetch(key:String):Any?-instance-method">
+    <div class="entry-detail" id="fetch(key:String):Any|Nil-instance-method">
       <div class="signature">
         
-        def <strong>fetch</strong>(key : String) : <a href="../Totem/Any.html">Any</a>?
+        def <strong>fetch</strong>(key : String) : <a href="../Totem/Any.html">Any</a> | Nil
 
-        <a class="method-permalink" href="#fetch%28key%3AString%29%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#fetch%28key%3AString%29%3AAny%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1363,13 +1386,13 @@ totem.get(<span class="s">&quot;env&quot;</span>) <span class="c"># =&gt; &quot;
 <blockquote>
 <p>Case-insensitive for a key.</p>
 </blockquote>
-<pre><code class="language-crystal">totem.fetch(<span class="s">&quot;env&quot;</span>)  =&gt; <span class="s">&quot;development&quot;</span> or <span class="n">nil</span>.</code></pre>
+<pre><code class="language-crystal">totem.fetch(<span class="s">&quot;env&quot;</span>)  <span class="o">=&gt;</span> <span class="s">&quot;development&quot;</span> or <span class="n">nil</span>.</code></pre>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L189" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L189" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1391,7 +1414,7 @@ totem.get(<span class="s">&quot;env&quot;</span>) <span class="c"># =&gt; &quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L526" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L526" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1426,7 +1449,7 @@ totem.get(<span class="s">&quot;user.name&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L174" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L174" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1450,7 +1473,7 @@ totem.get(<span class="s">&quot;user.name&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L140" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L140" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1466,23 +1489,23 @@ totem.get(<span class="s">&quot;user.name&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="key_delimiter=(key_delimiter)-instance-method">
+    <div class="entry-detail" id="key_delimiter=(key_delimiter:String)-instance-method">
       <div class="signature">
         
-        def <strong>key_delimiter=</strong>(key_delimiter)
+        def <strong>key_delimiter=</strong>(key_delimiter : String)
 
-        <a class="method-permalink" href="#key_delimiter%3D%28key_delimiter%29-instance-method">#</a>
+        <a class="method-permalink" href="#key_delimiter%3D%28key_delimiter%3AString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1503,7 +1526,7 @@ totem.get(<span class="s">&quot;user.name&quot;</span>)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L534" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1519,7 +1542,7 @@ totem.get(<span class="s">&quot;user.name&quot;</span>)</code></pre>
         <div class="doc">
           
           <p>Load configuration file from disk, searching in the defined paths.</p>
-<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>(<span class="s">&quot;config&quot;</span>)
+<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.new(<span class="s">&quot;config&quot;</span>)
 totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/totem&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~/.totem&quot;</span>
 <span class="k">begin</span>
   totem.load!
@@ -1531,7 +1554,7 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L334" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L334" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1548,7 +1571,7 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
           
           <p>Load configuration file by given file name.</p>
 <p>It will ignore the values of <code><a href="../Totem/Config.html#config_name%3AString-instance-method">#config_name</a></code>, <code><a href="../Totem/Config.html#config_type%3AString%3F-instance-method">#config_type</a></code> and <code><a href="../Totem/Config.html#config_paths%3AArray%28String%29-instance-method">#config_paths</a></code>.</p>
-<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
+<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.new(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
 totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/totem&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~/.totem&quot;</span>
 
 <span class="k">begin</span>
@@ -1561,17 +1584,17 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L353" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L353" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="mapping(converter:T.class,key:String?=nil)forallT-instance-method">
+    <div class="entry-detail" id="mapping(converter:T.class,key:String|Nil=nil)forallT-instance-method">
       <div class="signature">
         
-        def <strong>mapping</strong>(converter : <span class="t">T</span>.<span class="k">class</span>, key : String? = <span class="n">nil</span>) forall T
+        def <strong>mapping</strong>(converter : <span class="t">T</span>.<span class="k">class</span>, key : String | Nil = <span class="n">nil</span>) forall T
 
-        <a class="method-permalink" href="#mapping%28converter%3AT.class%2Ckey%3AString%3F%3Dnil%29forallT-instance-method">#</a>
+        <a class="method-permalink" href="#mapping%28converter%3AT.class%2Ckey%3AString%7CNil%3Dnil%29forallT-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1594,7 +1617,7 @@ clothes.jacket <span class="c"># =&gt; &quot;leather&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L482" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L482" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1621,7 +1644,7 @@ clothes.jacket <span class="c"># =&gt; &quot;leather&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L511" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L511" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1648,7 +1671,7 @@ totem.set(<span class="s">&quot;user.name&quot;</span>, <span class="s">&quot;fo
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1671,7 +1694,7 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L103" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1688,9 +1711,9 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
           
           <p>Sets the default values with <code>Hash</code> data</p>
 <pre><code class="language-crystal">totem.set_defaults({
-  <span class="s">&quot;id&quot;</span>   =&gt; <span class="n">123</span>,
-  <span class="s">&quot;user&quot;</span> =&gt; {
-    <span class="s">&quot;name&quot;</span> =&gt; <span class="s">&quot;foobar&quot;</span>,
+  <span class="s">&quot;id&quot;</span>   <span class="o">=&gt;</span> <span class="n">123</span>,
+  <span class="s">&quot;user&quot;</span> <span class="o">=&gt;</span> {
+    <span class="s">&quot;name&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;foobar&quot;</span>,
   },
 })</code></pre>
         </div>
@@ -1698,7 +1721,7 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L91" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L91" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1714,7 +1737,7 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L563" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L563" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1735,7 +1758,7 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L546" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L546" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1751,7 +1774,7 @@ totem.set_default(<span class="s">&quot;user.name&quot;</span>, <span class="s">
         <div class="doc">
           
           <p>Store the current configuration to a file.</p>
-<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
+<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.new(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
 totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/totem&quot;</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;~/.totem&quot;</span>
 
 <span class="k">begin</span>
@@ -1764,7 +1787,7 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L376" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L376" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1781,7 +1804,7 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
           
           <p>Store current configuration to a given file.</p>
 <p>It will ignore the values of <code><a href="../Totem/Config.html#config_name%3AString-instance-method">#config_name</a></code>, <code><a href="../Totem/Config.html#config_type%3AString%3F-instance-method">#config_type</a></code> and <code><a href="../Totem/Config.html#config_paths%3AArray%28String%29-instance-method">#config_paths</a></code>.</p>
-<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.<span class="k">new</span>(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
+<pre><code class="language-crystal">totem <span class="o">=</span> <span class="t">Totem</span>.new(<span class="s">&quot;config&quot;</span>, <span class="s">&quot;json&quot;</span>)
 
 <span class="k">begin</span>
   totem.store_file!(<span class="s">&quot;~/config.yaml&quot;</span>, force: <span class="n">true</span>)
@@ -1793,7 +1816,7 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L398" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L398" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1814,13 +1837,11 @@ totem.config_paths <span class="o">&lt;&lt;</span> <span class="s">&quot;/etc/to
       <br/>
       <div>
         
-          [<a href="https://github.com/icyleaf/totem/blob/35723712e9fd449a09948862584f4c2efb2ce42e/src/totem/config.cr#L559" target="_blank">View source</a>]
+          [<a href="https://github.com/icyleaf/totem/blob/c68d0990144f2ae8e76102b361f95e515fb74b7d/src/totem/config.cr#L559" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
-
 
 
 </div>
